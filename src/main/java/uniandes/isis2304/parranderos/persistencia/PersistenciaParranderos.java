@@ -31,13 +31,14 @@ import org.apache.log4j.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import uniandes.isis2304.parranderos.negocio.Bar;
-import uniandes.isis2304.parranderos.negocio.Bebedor;
-import uniandes.isis2304.parranderos.negocio.Bebida;
-import uniandes.isis2304.parranderos.negocio.Gustan;
-import uniandes.isis2304.parranderos.negocio.Sirven;
-import uniandes.isis2304.parranderos.negocio.TipoBebida;
-import uniandes.isis2304.parranderos.negocio.Visitan;
+
+import uniandes.isis2304.alohandes.negocio.Bar;
+import uniandes.isis2304.alohandes.negocio.Bebedor;
+import uniandes.isis2304.alohandes.negocio.Bebida;
+import uniandes.isis2304.alohandes.negocio.Gustan;
+import uniandes.isis2304.alohandes.negocio.Sirven;
+import uniandes.isis2304.alohandes.negocio.TipoBebida;
+import uniandes.isis2304.alohandes.negocio.Visitan;
 
 /**
  * Clase para el manejador de persistencia del proyecto Parranderos

@@ -46,15 +46,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
+
+import uniandes.isis2304.alohandes.negocio.Parranderos;
+import uniandes.isis2304.alohandes.negocio.VOBar;
+import uniandes.isis2304.alohandes.negocio.VOBebedor;
+import uniandes.isis2304.alohandes.negocio.VOBebida;
+import uniandes.isis2304.alohandes.negocio.VOGustan;
+import uniandes.isis2304.alohandes.negocio.VOSirven;
+import uniandes.isis2304.alohandes.negocio.VOTipoBebida;
+import uniandes.isis2304.alohandes.negocio.VOVisitan;
 import uniandes.isis2304.parranderos.interfazApp.PanelDatos;
-import uniandes.isis2304.parranderos.negocio.Parranderos;
-import uniandes.isis2304.parranderos.negocio.VOBar;
-import uniandes.isis2304.parranderos.negocio.VOBebedor;
-import uniandes.isis2304.parranderos.negocio.VOBebida;
-import uniandes.isis2304.parranderos.negocio.VOGustan;
-import uniandes.isis2304.parranderos.negocio.VOSirven;
-import uniandes.isis2304.parranderos.negocio.VOTipoBebida;
-import uniandes.isis2304.parranderos.negocio.VOVisitan;
 
 /**
  * Clase principal de la interfaz
