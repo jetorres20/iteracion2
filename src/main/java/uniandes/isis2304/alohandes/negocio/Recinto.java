@@ -1,5 +1,7 @@
 package uniandes.isis2304.alohandes.negocio;
 
+import java.sql.Timestamp;
+
 /**
  * Clase para modelar el concepto RECINTO del negocio de AlohAndes
  *
@@ -19,6 +21,11 @@ public class Recinto implements VORecinto{
 	 */
 	private int capacidadTotal;
 	
+	/**
+	 * fecha en la que se retiro o se va a retirar el recinto de alohandes
+	 */
+	private Timestamp fechaRetiroOferta;
+	
 	/* ****************************************************************
 	 * 			Métodos 
 	 *****************************************************************/
@@ -27,7 +34,8 @@ public class Recinto implements VORecinto{
      */
 	public Recinto(){
 		this.id = 0;
-		this.capacidadTotal = 0;		
+		this.capacidadTotal = 0;
+		this.fechaRetiroOferta =  null;
 	}
 	
 	/**
@@ -38,6 +46,7 @@ public class Recinto implements VORecinto{
 	public Recinto(long id, int capacidadTotal){
 		this.id = id;
 		this.capacidadTotal = capacidadTotal;
+		this.fechaRetiroOferta = null;
 	}
 
 	/**
@@ -68,6 +77,20 @@ public class Recinto implements VORecinto{
 		this.capacidadTotal = capacidadTotal;
 	}
 	
+	/**
+	 * @return the fechaRetiroOferta
+	 */
+	public Timestamp getFechaRetiroOferta() {
+		return fechaRetiroOferta;
+	}
+
+	/**
+	 * @param fechaRetiroOferta the fechaRetiroOferta to set
+	 */
+	public void setFechaRetiroOferta(Timestamp fechaRetiroOferta) {
+		this.fechaRetiroOferta = fechaRetiroOferta;
+	}
+
 	@Override
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del recinto
