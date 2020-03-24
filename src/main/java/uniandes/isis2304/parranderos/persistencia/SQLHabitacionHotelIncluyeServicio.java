@@ -51,7 +51,7 @@ public class SQLHabitacionHotelIncluyeServicio {
 		 */
 		public long adicionarServicioahabitacion (PersistenceManager pm, long idRecinto,long idServicio) 
 		{
-	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHabHoteLIncluyeServicio() + "(idServicio,idRecinto values (?, ?)");
+	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHabHotelIncluyeServicio() + "(idServicio,idRecinto values (?, ?)");
 	        q.setParameters(idServicio,idRecinto);
 	        return (long) q.executeUnique();
 		}
@@ -64,7 +64,7 @@ public class SQLHabitacionHotelIncluyeServicio {
 		 */
 		public long eliminarServicioDeHabitacionPorId (PersistenceManager pm, long idRecinto ,long idServicio)
 		{
-	        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAptoOfreceServicios() + " WHERE idRecinto = ? AND idServicio=?");
+	        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabHotelIncluyeServicio() + " WHERE idRecinto = ? AND idServicio=?");
 	        q.setParameters(idRecinto,idServicio);
 	        return (long) q.executeUnique();
 		}
@@ -78,7 +78,7 @@ public class SQLHabitacionHotelIncluyeServicio {
 		 */
 		public List<HabitacionHotelIncluyeServicio> darHabitacionIncluyeServicios (PersistenceManager pm)
 		{
-			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAptoOfreceServicios());
+			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabHotelIncluyeServicio());
 			q.setResultClass(HabitacionHotelIncluyeServicio.class);
 			List<HabitacionHotelIncluyeServicio> resp = (List<HabitacionHotelIncluyeServicio>) q.execute();
 			return resp;
@@ -93,7 +93,7 @@ public class SQLHabitacionHotelIncluyeServicio {
 		 */
 		public List<HabitacionHotelIncluyeServicio> darServiciosDeUnaHabitacion (PersistenceManager pm, long idHabitacion)
 		{
-			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAptoOfreceServicios() + " WHERE idRecinto = ?");
+			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabHotelIncluyeServicio() + " WHERE idRecinto = ?");
 			q.setParameters(idHabitacion);
 			q.setResultClass(HabitacionHotelIncluyeServicio.class);
 			List<HabitacionHotelIncluyeServicio> resp = (List<HabitacionHotelIncluyeServicio>) q.execute();

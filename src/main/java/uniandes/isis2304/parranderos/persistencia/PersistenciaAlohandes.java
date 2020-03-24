@@ -241,58 +241,204 @@ public class PersistenciaAlohandes
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de TipoBebida de parranderos
 	 */
-	public String darTablaTipoBebida ()
+	public String darTablaAptoOfreceServicios ()
 	{
 		return tablas.get (1);
 	}
-
+	
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bebida de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de TipoBebida de parranderos
 	 */
-	public String darTablaBebida ()
+	public String darTablaApartamentos ()
 	{
 		return tablas.get (2);
 	}
 
+
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bar de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Bebida de parranderos
 	 */
-	public String darTablaBar ()
+	public String darTablaHabHotelIncluyeServicio ()
 	{
 		return tablas.get (3);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bebedor de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Bar de parranderos
 	 */
-	public String darTablaBebedor ()
+	public String darTablaHabitacionVisitanteIncluyeServicio ()
 	{
 		return tablas.get (4);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Gustan de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Bebedor de parranderos
 	 */
-	public String darTablaGustan ()
+	public String darTablaHabitacionresidenciaTieneMenajes ()
 	{
 		return tablas.get (5);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Sirven de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Gustan de parranderos
 	 */
-	public String darTablaSirven ()
+	public String darTablaHabitacionresidenciaIncluye ()
 	{
 		return tablas.get (6);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Sirven de parranderos
 	 */
-	public String darTablaVisitan ()
+	public String darTablahabitacionesHostal ()
 	{
 		return tablas.get (7);
 	}
+
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaHabitacionesHotel ()
+	{
+		return tablas.get (8);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaHabitacionesResidencia ()
+	{
+		return tablas.get (9);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaHabitacionesVisitante()
+	{
+		return tablas.get (10);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaHostales ()
+	{
+		return tablas.get (11);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaHotelOfreceServicios ()
+	{
+		return tablas.get (12);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaHoteles ()
+	{
+		return tablas.get (13);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaMenajes ()
+	{
+		return tablas.get (14);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaPersonas()
+	{
+		return tablas.get (15);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaRecintos ()
+	{
+		return tablas.get (16);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaReservas ()
+	{
+		return tablas.get (17);
+	}
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaResidenciaOfreceServicios ()
+	{
+		return tablas.get (18);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaResidencias ()
+	{
+		return tablas.get (19);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaServiciosResidencia ()
+	{
+		return tablas.get (20);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaServiciosHotel ()
+	{
+		return tablas.get (21);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaServiciosPrivados()
+	{
+		return tablas.get (22);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaViviendaTieneMenajes ()
+	{
+		return tablas.get (23);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaViviendas ()
+	{
+		return tablas.get (24);
+	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 */
+	public String darTablaOperarios ()
+	{
+		return tablas.get (25);
+	}
+
+	
 	
 	/**
 	 * Transacción para el generador de secuencia de Alohandes

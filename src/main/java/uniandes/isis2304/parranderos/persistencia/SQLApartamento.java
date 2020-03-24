@@ -58,7 +58,7 @@ import uniandes.isis2304.alohandes.negocio.Apartamento;
 		 */
 		public long adicionarApartamento (PersistenceManager pm, long idApto,long idOperario, int numHabitaciones, int precioMes, String direccion, int amoblado) 
 		{
-	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaApartamento () + "(idApartamento, idOperario, numeroHabitaciones, preciomes, direccion, amoblado) values (?, ?, ?, ?, ?,?)");
+	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaApartamentos () + "(idApartamento, idOperario, numeroHabitaciones, preciomes, direccion, amoblado) values (?, ?, ?, ?, ?,?)");
 	        q.setParameters(idApto,idOperario,numHabitaciones,precioMes,direccion,amoblado);
 	        return (long) q.executeUnique();
 		}
@@ -71,7 +71,7 @@ import uniandes.isis2304.alohandes.negocio.Apartamento;
 		 */
 		public long eliminarApartamentoPorId (PersistenceManager pm, long idApartamento)
 		{
-	        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaApartamento () + " WHERE id = ?");
+	        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaApartamentos () + " WHERE id = ?");
 	        q.setParameters(idApartamento);
 	        return (long) q.executeUnique();
 		}
@@ -85,7 +85,7 @@ import uniandes.isis2304.alohandes.negocio.Apartamento;
 		 */
 		public Apartamento darApartamentoPorId (PersistenceManager pm, long idApto) 
 		{
-			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaApartamento () + " WHERE idApartamento = ?");
+			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaApartamentos () + " WHERE idApartamento = ?");
 			q.setResultClass(Apartamento.class);
 			q.setParameters(idApto);
 			
@@ -101,7 +101,7 @@ import uniandes.isis2304.alohandes.negocio.Apartamento;
 		 */
 		public List<Apartamento> darApartamentos (PersistenceManager pm)
 		{
-			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaApartamento ());
+			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaApartamentos ());
 			q.setResultClass(Apartamento.class);
 			return (List<Apartamento>) q.executeList();
 		}
@@ -114,7 +114,7 @@ import uniandes.isis2304.alohandes.negocio.Apartamento;
 		 */
 		public List<Apartamento> darApartamentosConPresupuesto (PersistenceManager pm, int presupuesto)
 		{
-			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaApartamento () + "WHERE preciomes < ?");
+			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaApartamentos () + "WHERE preciomes < ?");
 			q.setParameters(presupuesto);
 			q.setResultClass(Apartamento.class);
 			return (List<Apartamento>) q.executeList();

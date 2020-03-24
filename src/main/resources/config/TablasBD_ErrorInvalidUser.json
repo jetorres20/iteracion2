@@ -1,6 +1,6 @@
 {
-	"title": "Nombres de las tablas de Parranderos Uniandes para pruebas de la aplicación cuando la base de datos no existe o está caida",
-	"unidadPersistencia": "ParranderosErrorUser",
+	"title": "Nombres de las tablas de Alohandes para pruebas de la aplicación cuando la base de datos no existe o está caida",
+	"unidadPersistencia": "AlohandesosErrorUser",
 	"tablas":
 	[
 		"Parranderos_sequence",
