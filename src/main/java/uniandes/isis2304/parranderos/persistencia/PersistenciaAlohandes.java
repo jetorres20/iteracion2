@@ -4,7 +4,7 @@
  * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
  * 		
  * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
+ * Proyecto: Alohandes Uniandes
  * @version 1.0
  * @author Germán Bravo
  * Julio de 2018
@@ -41,7 +41,7 @@ import uniandes.isis2304.alohandes.negocio.TipoBebida;
 import uniandes.isis2304.alohandes.negocio.Visitan;
 
 /**
- * Clase para el manejador de persistencia del proyecto Parranderos
+ * Clase para el manejador de persistencia del proyecto Alohandes
  * Traduce la información entre objetos Java y tuplas de la base de datos, en ambos sentidos
  * Sigue un patrón SINGLETON (Sólo puede haber UN objeto de esta clase) para comunicarse de manera correcta
  * con la base de datos
@@ -50,7 +50,7 @@ import uniandes.isis2304.alohandes.negocio.Visitan;
  * 
  * @author Germán Bravo
  */
-public class PersistenciaParranderos 
+public class PersistenciaAlohandes 
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -58,7 +58,7 @@ public class PersistenciaParranderos
 	/**
 	 * Logger para escribir la traza de la ejecución
 	 */
-	private static Logger log = Logger.getLogger(PersistenciaParranderos.class.getName());
+	private static Logger log = Logger.getLogger(PersistenciaAlohandes.class.getName());
 	
 	/**
 	 * Cadena para indicar el tipo de sentencias que se va a utilizar en una consulta
@@ -71,7 +71,7 @@ public class PersistenciaParranderos
 	/**
 	 * Atributo privado que es el único objeto de la clase - Patrón SINGLETON
 	 */
-	private static PersistenciaParranderos instance;
+	private static PersistenciaAlohandes instance;
 	
 	/**
 	 * Fábrica de Manejadores de persistencia, para el manejo correcto de las transacciones
@@ -85,7 +85,7 @@ public class PersistenciaParranderos
 	private List <String> tablas;
 	
 	/**
-	 * Atributo para el acceso a las sentencias SQL propias a PersistenciaParranderos
+	 * Atributo para el acceso a las sentencias SQL propias a PersistenciaAlohandes
 	 */
 	private SQLUtil sqlUtil;
 	
@@ -131,14 +131,14 @@ public class PersistenciaParranderos
 	/**
 	 * Constructor privado con valores por defecto - Patrón SINGLETON
 	 */
-	private PersistenciaParranderos ()
+	private PersistenciaAlohandes ()
 	{
-		pmf = JDOHelper.getPersistenceManagerFactory("Parranderos");		
+		pmf = JDOHelper.getPersistenceManagerFactory("Alohandes");		
 		crearClasesSQL ();
 		
 		// Define los nombres por defecto de las tablas de la base de datos
 		tablas = new LinkedList<String> ();
-		tablas.add ("Parranderos_sequence");
+		tablas.add ("Alohandes_sequence");
 		tablas.add ("TIPOBEBIDA");
 		tablas.add ("BEBIDA");
 		tablas.add ("BAR");
@@ -152,7 +152,7 @@ public class PersistenciaParranderos
 	 * Constructor privado, que recibe los nombres de las tablas en un objeto Json - Patrón SINGLETON
 	 * @param tableConfig - Objeto Json que contiene los nombres de las tablas y de la unidad de persistencia a manejar
 	 */
-	private PersistenciaParranderos (JsonObject tableConfig)
+	private PersistenciaAlohandes (JsonObject tableConfig)
 	{
 		crearClasesSQL ();
 		tablas = leerNombresTablas (tableConfig);
@@ -163,13 +163,13 @@ public class PersistenciaParranderos
 	}
 
 	/**
-	 * @return Retorna el único objeto PersistenciaParranderos existente - Patrón SINGLETON
+	 * @return Retorna el único objeto PersistenciaAlohandes existente - Patrón SINGLETON
 	 */
-	public static PersistenciaParranderos getInstance ()
+	public static PersistenciaAlohandes getInstance ()
 	{
 		if (instance == null)
 		{
-			instance = new PersistenciaParranderos ();
+			instance = new PersistenciaAlohandes ();
 		}
 		return instance;
 	}
@@ -177,13 +177,13 @@ public class PersistenciaParranderos
 	/**
 	 * Constructor que toma los nombres de las tablas de la base de datos del objeto tableConfig
 	 * @param tableConfig - El objeto JSON con los nombres de las tablas
-	 * @return Retorna el único objeto PersistenciaParranderos existente - Patrón SINGLETON
+	 * @return Retorna el único objeto PersistenciaAlohandes existente - Patrón SINGLETON
 	 */
-	public static PersistenciaParranderos getInstance (JsonObject tableConfig)
+	public static PersistenciaAlohandes getInstance (JsonObject tableConfig)
 	{
 		if (instance == null)
 		{
-			instance = new PersistenciaParranderos (tableConfig);
+			instance = new PersistenciaAlohandes (tableConfig);
 		}
 		return instance;
 	}
@@ -233,7 +233,7 @@ public class PersistenciaParranderos
 	/**
 	 * @return La cadena de caracteres con el nombre del secuenciador de parranderos
 	 */
-	public String darSeqParranderos ()
+	public String darSeqAlohandes ()
 	{
 		return tablas.get (0);
 	}
@@ -295,9 +295,9 @@ public class PersistenciaParranderos
 	}
 	
 	/**
-	 * Transacción para el generador de secuencia de Parranderos
+	 * Transacción para el generador de secuencia de Alohandes
 	 * Adiciona entradas al log de la aplicación
-	 * @return El siguiente número del secuenciador de Parranderos
+	 * @return El siguiente número del secuenciador de Alohandes
 	 */
 	private long nextval ()
 	{
@@ -588,7 +588,7 @@ public class PersistenciaParranderos
 	}
  
 	/**
-	 * Método que elimina, de manera transaccional, las bebidas que no son referenciadas en la tabla SIRVEN de Parranderos
+	 * Método que elimina, de manera transaccional, las bebidas que no son referenciadas en la tabla SIRVEN de Alohandes
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarBebidasNoServidas ()
@@ -1490,19 +1490,19 @@ public class PersistenciaParranderos
 	}	
 
 	/**
-	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
+	 * Elimina todas las tuplas de todas las tablas de la base de datos de Alohandes
 	 * Crea y ejecuta las sentencias SQL para cada tabla de la base de datos - EL ORDEN ES IMPORTANTE 
 	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
 	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
 	 */
-	public long [] limpiarParranderos ()
+	public long [] limpiarAlohandes ()
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long [] resp = sqlUtil.limpiarParranderos (pm);
+            long [] resp = sqlUtil.limpiarAlohandes (pm);
             tx.commit ();
             log.info ("Borrada la base de datos");
             return resp;
