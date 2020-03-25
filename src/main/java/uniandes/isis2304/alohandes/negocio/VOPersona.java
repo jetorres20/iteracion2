@@ -41,7 +41,7 @@ public interface VOPersona {
 	/**
 	 * @return el telefono de la persona
 	 */
-	public String getTelefono();
+	public int getTelefono();
 
 	
 

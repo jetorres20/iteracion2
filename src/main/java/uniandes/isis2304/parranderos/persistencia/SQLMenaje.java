@@ -15,7 +15,7 @@ import uniandes.isis2304.alohandes.negocio.Menaje;
  */
 class SQLMenaje {
 	/* ****************************************************************
-	 * 			Constantes // TODO cambiar PersistenciaAlohandes
+	 * 			Constantes 
 	 *****************************************************************/
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
@@ -43,7 +43,7 @@ class SQLMenaje {
 		this.pp = pp;
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
+	
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar un Menaje a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
@@ -52,13 +52,12 @@ class SQLMenaje {
 	 * @return EL número de tuplas insertadas
 	 */
 	public long adicionarMenaje(PersistenceManager pm, long id, String nombre){
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaSirven () + "(id, nombre) values (?, ?)");
-		// TODO cambiar dar tabla por Menaje 
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaMenajes() + "(id, nombre) values (?, ?)");
 		q.setParameters(id, nombre);
 		return (long)q.executeUnique();   
 	}	
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
+	
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar Menaje de la base de datos de Alohandes, por su nombre
 	 * @param pm - El manejador de persistencia
@@ -67,13 +66,12 @@ class SQLMenaje {
 	 */
 	public long eliminarMenajePorNombre (PersistenceManager pm, String nombre)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE nombre = ?");
-     // TODO cambiar dar tabla por Menaje 
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMenajes () + " WHERE nombre = ?");
         q.setParameters(nombre);
         return (long) q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
+	
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar Menaje de la base de datos de Alohandes, por su id
 	 * @param pm - El manejador de persistencia
@@ -82,14 +80,12 @@ class SQLMenaje {
 	 */
 	public long eliminarMenajePorId (PersistenceManager pm, long id)
 	{
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por Menaje 
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMenajes () + " WHERE id = ?");
 		q.setParameters(id);
 		return (long) q.executeUnique();
 	}
 	
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS Menajes de la 
 	 * base de datos de alohandes, por su nombre
@@ -99,15 +95,13 @@ class SQLMenaje {
 	 */
 	public List<Menaje> darMenajesPorNombre(PersistenceManager pm, String nombre)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE nombre = ?");
-		// TODO cambiar dar tabla por Menaje 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMenajes () + " WHERE nombre = ?");
 		q.setResultClass(Menaje.class);
 		q.setParameters(nombre);
 		return (List<Menaje>) q.executeList();		
 	}
 	
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de UN Menaje de la 
 	 * base de datos de Alohandes, por su identificador
@@ -116,15 +110,13 @@ class SQLMenaje {
 	 * @return el objeto Menaje que tiene el identificador dado
 	 */
 	public Menaje darMenajePorId(PersistenceManager pm, long id){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por Menaje 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMenajes () + " WHERE id = ?");
 		q.setResultClass(Menaje.class);
 		q.setParameters(id);
 		return (Menaje) q.executeUnique();
 	}
 	
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS MENAJES de la 
 	 * base de datos de Alohandes
@@ -132,8 +124,7 @@ class SQLMenaje {
 	 * @return todos los menajes en la tabla Menajes
 	 */
 	public List<Menaje> darMenajes(PersistenceManager pm){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar ());
-		// TODO cambiar dar tabla por Menaje 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMenajes ());
 		q.setResultClass(Menaje.class);
 		return (List<Menaje>) q.executeList();
 	}

@@ -34,7 +34,7 @@ public class Persona implements VOPersona{
 	 * +(areaCode)(numero)
 	 * 10-14 caracteres
 	 */
-	private String telefono;
+	private int telefono;
 	
 	/**
 	 * correo de la persona
@@ -66,7 +66,7 @@ public class Persona implements VOPersona{
 		this.cedula = 0;
 		this.nombre = "";
 		this.apellido = "";
-		this.telefono = "";
+		this.telefono = 0;
 		this.correo = "";
 		this.vinculo = -1;
 	}
@@ -81,7 +81,7 @@ public class Persona implements VOPersona{
 	 * @param correo de la persona
 	 * @param vinculo con uniandes
 	 */
-	public Persona(long idOperario, int cedula, String nombre, String apellido, String telefono, String correo, int vinculo){
+	public Persona(long idOperario, int cedula, String nombre, String apellido, int telefono, String correo, int vinculo){
 		this.idOperario = idOperario;
 		this.cedula = cedula;
 		this.nombre = nombre;
@@ -150,14 +150,14 @@ public class Persona implements VOPersona{
 	/**
 	 * @return el telefono de la persona
 	 */
-	public String getTelefono() {
+	public int getTelefono() {
 		return telefono;
 	}
 
 	/**
 	 * @param telefono de la persona
 	 */
-	public void setTelefono(String telefono) {
+	public void setTelefono(int telefono) {
 		this.telefono = telefono;
 	}
 

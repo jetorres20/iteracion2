@@ -17,7 +17,7 @@ import uniandes.isis2304.alohandes.negocio.Operario;
  */
 class SQLOperario {
 	/* ****************************************************************
-	 * 			Constantes // TODO cambiar PersistenciaAlohandes 
+	 * 			Constantes 
 	 *****************************************************************/
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
@@ -45,7 +45,7 @@ class SQLOperario {
 		this.pp = pp;
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
+	
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar un Operario a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
@@ -54,13 +54,13 @@ class SQLOperario {
 	 * @return EL número de tuplas insertadas
 	 */
 	public long adicionarOperario(PersistenceManager pm, long id, Timestamp fechaRegistro){
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaSirven () + "(id, fechaRegistro) values (?, ?)");
-		// TODO cambiar dar tabla por Operario 
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaOperarios () + "(id, fechaRegistro) values (?, ?)");
+		
 		q.setParameters(id, fechaRegistro);
 		return (long)q.executeUnique();   
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
+	
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar un operario de la base de datos de Alohandes, por su id
 	 * @param pm - El manejador de persistencia
@@ -69,13 +69,11 @@ class SQLOperario {
 	 */
 	public long eliminarOperarioPorId (PersistenceManager pm, long id)
 	{
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por Operario 
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOperarios () + " WHERE id = ?");
 		q.setParameters(id);
 		return (long) q.executeUnique();
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de UN Operario de la 
 	 * base de datos de Alohandes, por su identificador
@@ -84,8 +82,7 @@ class SQLOperario {
 	 * @return el objeto Operario que tiene el identificador dado
 	 */
 	public Operario darOperarioPorId(PersistenceManager pm, long id){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por Operario 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOperarios () + " WHERE id = ?");
 		q.setResultClass(Operario.class);
 		q.setParameters(id);
 		return (Operario) q.executeUnique();
@@ -93,7 +90,6 @@ class SQLOperario {
 	
 	
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS Operarios de la 
 	 * base de datos de Alohandes que fueron registrados en un fecha especifica
@@ -102,14 +98,12 @@ class SQLOperario {
 	 * @return lista de operarios registrados en la fecha pasada por parametro
 	 */
 	public List<Operario> darOperariosFechaRegistro(PersistenceManager pm, Timestamp fechaRegistro){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + "WHERE fechaRegistro = ?");
-		// TODO cambiar dar tabla por Operario 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOperarios () + "WHERE fechaRegistro = ?");
 		q.setResultClass(Operario.class);
 		q.setParameters(fechaRegistro);
 		return (List<Operario>) q.executeList();
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de todos LOS Operarios de la 
 	 * base de datos de Alohandes
@@ -117,8 +111,7 @@ class SQLOperario {
 	 * @return todos los Operarios de la tabla operarios 
 	 */
 	public List<Operario> darOperarios(PersistenceManager pm){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar ());
-		// TODO cambiar dar tabla por Operario 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOperarios ());
 		q.setResultClass(Operario.class);
 		return (List<Operario>) q.executeList();
 	}	
