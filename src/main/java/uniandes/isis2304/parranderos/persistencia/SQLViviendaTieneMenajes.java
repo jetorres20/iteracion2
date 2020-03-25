@@ -15,7 +15,7 @@ import uniandes.isis2304.alohandes.negocio.ViviendaTieneMenajes;
  */
 class SQLViviendaTieneMenajes {
 	/* ****************************************************************
-	 * 			Constantes // TODO cambiar PersistenciaAlohandes
+	 * 			Constantes 
 	 *****************************************************************/
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
@@ -43,7 +43,6 @@ class SQLViviendaTieneMenajes {
 		this.pp = pp;
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar una ViviendaTieneMenajes a la base de datos de Alohande
 	 * @param pm
@@ -54,13 +53,11 @@ class SQLViviendaTieneMenajes {
 	 * @return numero de tuplas insertadas
 	 */
 	public long adicionarViviendaTieneMenajes(PersistenceManager pm, long idVivienda, long idMenaje, int cantidad, double valorUnidad){
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaSirven () + "(idVivienda, idMenaje, cantidad,  valorUnidad) values (?, ?, ?, ?)");
-		// TODO cambiar dar tabla por ViviendaTieneMenajes 
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaViviendaTieneMenajes () + "(idVivienda, idMenaje, cantidad,  valorUnidad) values (?, ?, ?, ?)");
 		q.setParameters();
 		return (long)q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar un ViviendaTieneMenajes de la base de datos de Alohandes, por sus identificadores
 	 * @param idVivienda
@@ -68,13 +65,11 @@ class SQLViviendaTieneMenajes {
 	 * @return numero tuplas eliminadas
 	 */
 	public long eliminarViviendaTieneMenajes(PersistenceManager pm, long idVivienda, long idMenaje){
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaSirven () + " WHERE idVivienda = ? AND idMenaje = ?");
-		// TODO cambiar dar tabla sirven por ViviendaTieneMenajes 
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaViviendaTieneMenajes () + " WHERE idVivienda = ? AND idMenaje = ?");
 		q.setParameters(idVivienda, idMenaje);
 		return (long) q.executeUnique();   
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de los ViviendaTieneMenajes de la 
 	 * base de datos de Alohandes
@@ -82,8 +77,7 @@ class SQLViviendaTieneMenajes {
 	 * @return Una lista de objetos ViviendaTieneMenajes
 	 */
 	public List<ViviendaTieneMenajes> darViviendasTieneMenajes(PersistenceManager pm){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaSirven ());
-		// TODO cambiar dar tabla sirven por ViviendaTieneMenajes 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaViviendaTieneMenajes ());
 		q.setResultClass(ViviendaTieneMenajes.class);
 		return (List<ViviendaTieneMenajes>) q.execute();
 	}

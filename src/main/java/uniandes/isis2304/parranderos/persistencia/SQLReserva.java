@@ -16,7 +16,7 @@ import uniandes.isis2304.alohandes.negocio.Reserva;
  */
 class SQLReserva {
 	/* ****************************************************************
-	 * 			Constantes // TODO cambiar PersistenciaAlohandes 
+	 * 			Constantes 
 	 *****************************************************************/
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
@@ -45,7 +45,6 @@ class SQLReserva {
 	}
 	
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar una Reserva a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
@@ -63,13 +62,12 @@ class SQLReserva {
 	 * @return el numero de tuplas insertadas
 	 */
 	public long adicionarReserva(PersistenceManager pm, long id, long recintoId, long personaId, Timestamp fechaReserva, Timestamp fechaInicio, Timestamp fechaFin, int personas, double subTotal, Timestamp fechaCancelacion, double cobroAdicional, boolean activa){
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaSirven () + "(id, recintoId, personaId, fechaReserva, fechaInicio, fechaFin, personas, subTotal, fechaCancelacion, cobroAdicional, activa) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-		// TODO cambiar dar tabla por Reserva 
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReservas () + "(id, recintoId, personaId, fechaReserva, fechaInicio, fechaFin, personas, subTotal, fechaCancelacion, cobroAdicional, activa) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		q.setParameters( id,  recintoId,  personaId,  fechaReserva,  fechaInicio,  fechaFin,  personas,  subTotal,  fechaCancelacion,  cobroAdicional,  activa);
 		return (long)q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
+	
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar una reserva de la base de datos de Alohandes, por su id
 	 * @param pm - El manejador de persistencia
@@ -77,8 +75,7 @@ class SQLReserva {
 	 * @return numero de tuplas eliminadas
 	 */
 	public long eliminarReservaPorId(PersistenceManager pm, long id){
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por Reserva 
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReservas () + " WHERE id = ?");
 		q.setParameters(id);
 		return (long) q.executeUnique();
 	}
@@ -91,8 +88,7 @@ class SQLReserva {
 	 * @return objeto reserva con el id dado
 	 */
 	public Reserva darReservaPorId(PersistenceManager pm, long id){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por Reserva 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReservas () + " WHERE id = ?");
 		q.setResultClass(Reserva.class);
 		q.setParameters(id);
 		return (Reserva) q.executeUnique();
@@ -106,8 +102,7 @@ class SQLReserva {
 	 * @return lista de objetos reserva de la persona con el id dado
 	 */
 	public List<Reserva> darReservasPersona(PersistenceManager pm, long personaId){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + "WHERE personaId = ?");
-		// TODO cambiar dar tabla por Reserva 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReservas () + "WHERE personaId = ?");
 		q.setResultClass(Reserva.class);
 		q.setParameters(personaId);
 		return (List<Reserva>) q.executeList();
@@ -121,8 +116,7 @@ class SQLReserva {
 	 * @return lista de objetos reserva del recinto con el id dado
 	 */
 	public List<Reserva> darReservasRecinto(PersistenceManager pm, long recintoId){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + "WHERE recintoId = ?");
-		// TODO cambiar dar tabla por Reserva 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReservas () + "WHERE recintoId = ?");
 		q.setResultClass(Reserva.class);
 		q.setParameters(recintoId);
 		return (List<Reserva>) q.executeList();
@@ -136,8 +130,7 @@ class SQLReserva {
 	 * @return todas las reservas de la base de datos
 	 */
 	public List<Reserva> darReservas(PersistenceManager pm){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar ());
-		// TODO cambiar dar tabla por Reserva 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReservas ());
 		q.setResultClass(Reserva.class);
 		return (List<Reserva>) q.executeList();
 	}	

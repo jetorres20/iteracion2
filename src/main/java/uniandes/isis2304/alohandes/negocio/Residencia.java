@@ -34,7 +34,7 @@ public class Residencia implements VOResidencia {
 	 * +(areaCode)(numero)
 	 * 10-14 caracteres
 	 */
-	private String telefono;
+	private int telefono;
 	
 	/* ****************************************************************
 	 * 			Métodos 
@@ -47,7 +47,7 @@ public class Residencia implements VOResidencia {
 		this.nit = 0;
 		this.nombre = "";
 		this.direccion = "";
-		this.telefono = "";
+		this.telefono = 0;
 	}
 	
 	/** 
@@ -58,7 +58,7 @@ public class Residencia implements VOResidencia {
 	 * @param direccion de la residencia
 	 * @param telefono de la residencia
 	 */
-	public Residencia(long idOperario, int nit, String nombre, String direccion, String telefono) {
+	public Residencia(long idOperario, int nit, String nombre, String direccion, int telefono) {
 		this.idOperario = idOperario;
 		this.nit = nit;
 		this.nombre = nombre;
@@ -125,14 +125,14 @@ public class Residencia implements VOResidencia {
 	/**
 	 * @return telefono de la residencia
 	 */
-	public String getTelefono() {
+	public int getTelefono() {
 		return telefono;
 	}
 
 	/**
 	 * @param telefono de la residencia
 	 */
-	public void setTelefono(String telefono) {
+	public void setTelefono(int telefono) {
 		this.telefono = telefono;
 	}
 

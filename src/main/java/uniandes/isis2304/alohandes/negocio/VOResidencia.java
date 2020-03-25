@@ -40,7 +40,7 @@ public interface VOResidencia {
 	/**
 	 * @return telefono de la residencia
 	 */
-	public String getTelefono();
+	public int getTelefono();
 
 	
 

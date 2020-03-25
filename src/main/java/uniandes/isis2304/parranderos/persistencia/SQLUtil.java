@@ -75,25 +75,51 @@ class SQLUtil
 	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
 	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
 	 */
-	public long [] limpiarAlohandes (PersistenceManager pm)
+	public void limpiarAlohandes (PersistenceManager pm)
 	{
-        Query qGustan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaGustan ());          
-        Query qSirven = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaSirven ());
-        Query qVisitan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVisitan ());
-        Query qBebida = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBebida ());
-        Query qTipoBebida = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaTipoBebida ());
-        Query qBebedor = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBebedor ());
-        Query qBar = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar ());
+        Query qApartamentoOfreceServicio = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAptoOfreceServicios());          
+        Query qHabitacionHotelIncluyeServicio = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabHotelIncluyeServicio());
+        Query qHabitacionVisitanteOfreceServicio = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionVisitanteOfreceServicio());
+        Query qHabitacionResidenciaIncluyeServicio = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionresidenciaIncluye());
+        Query qHotelOfreceServicios = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHotelOfreceServicios() );
+        Query qHabitacionResidenciaTieneMenajes = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionresidenciaTieneMenajes());
+        Query qResidenciaOfreceServicios = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaResidenciaOfreceServicios());
+        Query qViviendaTieneMenajes = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaViviendaTieneMenajes());
+        
+        Query qApartamentos = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaApartamentos());
+        Query qHabitacionesHostal = pm.newQuery(SQL, "DELETE FROM " + pp.darTablahabitacionesHostal());
+        Query qHabitacionesHotel = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionesHotel());
+        Query qHabitacionesResidencia = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionesResidencia());
+        Query qHabitacionesVisitantes = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionesVisitante());
+        Query qViviendas = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaViviendas());
+        
+        Query qHostales = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHostales());
+        Query qHoteles = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHoteles());
+        Query qMenajes = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMenajes());
+        Query qResidencias = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaResidencias());
+        Query qServicioResidencia = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServiciosResidencia());
+        Query qServiciosHotel = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServiciosHotel());
+        Query qServicioPrivados = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServiciosPrivados());
+        
+        Query qPersonas = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaPersonas());
+        
+        Query qReservas = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReservas());
+        Query qRecintos = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaRecintos());
+        Query qOperario = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOperarios());   
+        
+        
+        
+        
 
-        long gustanEliminados = (long) qGustan.executeUnique ();
-        long sirvenEliminados = (long) qSirven.executeUnique ();
-        long visitanEliminadas = (long) qVisitan.executeUnique ();
-        long bebidasEliminadas = (long) qBebida.executeUnique ();
-        long tiposBebidaEliminados = (long) qTipoBebida.executeUnique ();
-        long bebedoresEliminados = (long) qBebedor.executeUnique ();
-        long baresEliminados = (long) qBar.executeUnique ();
-        return new long[] {gustanEliminados, sirvenEliminados, visitanEliminadas, bebidasEliminadas, 
-        		tiposBebidaEliminados, bebedoresEliminados, baresEliminados};
+//        long gustanEliminados = (long) qGustan.executeUnique ();
+//        long sirvenEliminados = (long) qSirven.executeUnique ();
+//        long visitanEliminadas = (long) qVisitan.executeUnique ();
+//        long bebidasEliminadas = (long) qBebida.executeUnique ();
+//        long tiposBebidaEliminados = (long) qTipoBebida.executeUnique ();
+//        long bebedoresEliminados = (long) qBebedor.executeUnique ();
+//        long baresEliminados = (long) qBar.executeUnique ();
+//        return new long[] {gustanEliminados, sirvenEliminados, visitanEliminadas, bebidasEliminadas, 
+//        		tiposBebidaEliminados, bebedoresEliminados, baresEliminados};
 	}
 
 }

@@ -16,7 +16,7 @@ import uniandes.isis2304.alohandes.negocio.ServicioResidencia;
 
 class SQLServicioResidencia {
 	/* ****************************************************************
-	 * 			Constantes // TODO cambiar PersistenciaAlohandes
+	 * 			Constantes 
 	 *****************************************************************/
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
@@ -44,7 +44,6 @@ class SQLServicioResidencia {
 		this.pp = pp;
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar un ServicioResidencia a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
@@ -53,14 +52,12 @@ class SQLServicioResidencia {
 	 * @return EL número de tuplas insertadas
 	 */
 	public long adicionarServicioResidencia(PersistenceManager pm, long id, String nombre, double costoExtraNoche , double costoExtraMes, double costoExtraSemestre){
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaSirven () + "(id, nombre, costoExtraNoche, costoExtraMes, costoExtraSemestre) values (?, ?, ?, ?, ?)");
-		// TODO cambiar dar tabla por ServicioResidencia 
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaServiciosResidencia () + "(id, nombre, costoExtraNoche, costoExtraMes, costoExtraSemestre) values (?, ?, ?, ?, ?)");
 		q.setParameters(id, nombre, costoExtraNoche , costoExtraMes, costoExtraSemestre);
 		return (long)q.executeUnique();   
 	}
 
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar un ServicioResidencia de la base de datos de Alohandes, por su nombre
 	 * @param pm - El manejador de persistencia
@@ -69,13 +66,11 @@ class SQLServicioResidencia {
 	 */
 	public long eliminarServicioResidenciaPorNombre (PersistenceManager pm, String nombre)
 	{
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE nombre = ?");
-		// TODO cambiar dar tabla por ServicioResidencia 
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServiciosResidencia () + " WHERE nombre = ?");
 		q.setParameters(nombre);
 		return (long) q.executeUnique();
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar un ServicioResidencia de la base de datos de Alohandes, por su id
 	 * @param pm - El manejador de persistencia
@@ -84,13 +79,11 @@ class SQLServicioResidencia {
 	 */
 	public long eliminarServicioResidenciaPorId (PersistenceManager pm, long id)
 	{
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por ServicioResidencia 
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServiciosResidencia () + " WHERE id = ?");
 		q.setParameters(id);
 		return (long) q.executeUnique();
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS ServicioResidencia de la 
 	 * base de datos de alohandes, por su nombre
@@ -100,14 +93,12 @@ class SQLServicioResidencia {
 	 */
 	public List<ServicioResidencia> darServicioResidenciaPorNombre(PersistenceManager pm, String nombre)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE nombre = ?");
-		// TODO cambiar dar tabla por ServicioResidencia 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosResidencia () + " WHERE nombre = ?");
 		q.setResultClass(ServicioResidencia.class);
 		q.setParameters(nombre);
 		return (List<ServicioResidencia>) q.executeList();		
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de UN ServicioResidencia de la 
 	 * base de datos de Alohandes, por su identificador
@@ -116,15 +107,13 @@ class SQLServicioResidencia {
 	 * @return el objeto ServicioResidencia que tiene el identificador dado
 	 */
 	public ServicioResidencia darServicioResidenciaPorId(PersistenceManager pm, long id){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por ServicioResidencia 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosResidencia () + " WHERE id = ?");
 		q.setResultClass(ServicioResidencia.class);
 		q.setParameters(id);
 		return (ServicioResidencia) q.executeUnique();
 	}
 
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS ServicioResidencia de la 
 	 * base de datos de Alohandes
@@ -132,8 +121,7 @@ class SQLServicioResidencia {
 	 * @return todos los ServicioResidencia en la base de datos
 	 */
 	public List<ServicioResidencia> darServiciosResidencias(PersistenceManager pm){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar ());
-		// TODO cambiar dar tabla por Menaje 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosResidencia ());
 		q.setResultClass(ServicioResidencia.class);
 		return (List<ServicioResidencia>) q.executeList();
 	}

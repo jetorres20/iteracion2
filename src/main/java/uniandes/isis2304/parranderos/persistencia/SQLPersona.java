@@ -44,7 +44,7 @@ class SQLPersona {
 		this.pp = pp;
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
+	
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar una persona a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
@@ -57,14 +57,13 @@ class SQLPersona {
 	 * @param vinculo . vinculo de la persona con uniandes
 	 * @return el numero de tuplas insertadas
 	 */
-	public long adicionarPersona(PersistenceManager pm, long idOperario, long cedula, String nombre, String apellido, String telefono, String correo, int vinculo){
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaSirven () + "(idOperario, cedula, nombre, apellido, telefono, correo, vinculo) values (?, ?, ?, ?, ?, ?, ?)");
-		// TODO cambiar dar tabla por Persona 
+	public long adicionarPersona(PersistenceManager pm, long idOperario, long cedula, String nombre, String apellido, int telefono, String correo, int vinculo){
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaPersonas () + "(idOperario, cedula, nombre, apellido, telefono, correo, vinculo) values (?, ?, ?, ?, ?, ?, ?)");
 		q.setParameters(idOperario, cedula, nombre, apellido, telefono, correo, vinculo);
 		return (long)q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
+	
 	/**
 	 *  Crea y ejecuta la sentencia SQL para eliminar una persona de la base de datos de Alohandes, por su id
 	 * @param pm - El manejador de persistencia
@@ -72,13 +71,12 @@ class SQLPersona {
 	 * @return el numero de tuplas eliminadas
 	 */
 	public long eliminarPersonaPorId(PersistenceManager pm, long idOperario){
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE idOperario = ?");
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaPersonas () + " WHERE idOperario = ?");
 		// TODO cambiar dar tabla por Persona 
 		q.setParameters(idOperario);
 		return (long) q.executeUnique();		
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de Una persona de la 
 	 * base de datos de Alohandes, por su identificador
@@ -87,14 +85,12 @@ class SQLPersona {
 	 * @return el objeto Persona que tiene el identificador dado
 	 */
 	public Persona darPersonaPorId(PersistenceManager pm, long idOperario){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por Persona 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaPersonas () + " WHERE id = ?");
 		q.setResultClass(Persona.class);
 		q.setParameters(idOperario);
 		return (Persona) q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de Una persona de la 
 	 * base de datos de Alohandes, por su identificador
@@ -103,14 +99,12 @@ class SQLPersona {
 	 * @return el objeto Persona que tiene la persona dado
 	 */
 	public Persona darPersonaPorCedula(PersistenceManager pm, long cedula){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE cedula = ?");
-		// TODO cambiar dar tabla por Persona 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaPersonas () + " WHERE cedula = ?");
 		q.setResultClass(Persona.class);
 		q.setParameters(cedula);
 		return (Persona) q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de todos Las personas de la 
 	 * base de datos de Alohandes
@@ -118,8 +112,7 @@ class SQLPersona {
 	 * @return todas las personas de la base de datos
 	 */
 	public List<Persona> darPersonas(PersistenceManager pm){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar ());
-		// TODO cambiar dar tabla por Persona 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaPersonas ());
 		q.setResultClass(Persona.class);
 		return (List<Persona>) q.executeList();		
 	}	

@@ -17,7 +17,7 @@ import uniandes.isis2304.alohandes.negocio.ServicioPrivado;
  */
 public class SQLServicioPrivado {
 	/* ****************************************************************
-	 * 			Constantes // TODO cambiar PersistenciaAlohandes
+	 * 			Constantes 
 	 *****************************************************************/
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
@@ -45,7 +45,6 @@ public class SQLServicioPrivado {
 		this.pp = pp;
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar un ServicioPrivado a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
@@ -54,13 +53,11 @@ public class SQLServicioPrivado {
 	 * @return EL número de tuplas insertadas
 	 */
 	public long adicionarServicioPrivado(PersistenceManager pm, long id, String nombre){
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaSirven () + "(id, nombre) values (?, ?)");
-		// TODO cambiar dar tabla por ServicioPrivado 
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaServiciosPrivados() + "(id, nombre) values (?, ?)");
 		q.setParameters(id, nombre);
 		return (long)q.executeUnique();   
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar ServicioPrivado de la base de datos de Alohandes, por su nombre
 	 * @param pm - El manejador de persistencia
@@ -69,13 +66,11 @@ public class SQLServicioPrivado {
 	 */
 	public long eliminarServicioPrivadoPorNombre (PersistenceManager pm, String nombre)
 	{
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE nombre = ?");
-		// TODO cambiar dar tabla por ServicioPrivado 
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServiciosPrivados () + " WHERE nombre = ?");
 		q.setParameters(nombre);
 		return (long) q.executeUnique();
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar ServicioPrivado de la base de datos de Alohandes, por su id
 	 * @param pm - El manejador de persistencia
@@ -84,13 +79,11 @@ public class SQLServicioPrivado {
 	 */
 	public long eliminarServicioPrivadoPorId (PersistenceManager pm, long id)
 	{
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por ServicioPrivado 
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServiciosPrivados () + " WHERE id = ?");
 		q.setParameters(id);
 		return (long) q.executeUnique();
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS ServicioPrivado de la 
 	 * base de datos de alohandes, por su nombre
@@ -100,14 +93,13 @@ public class SQLServicioPrivado {
 	 */
 	public List<ServicioPrivado> darServiciosPrivadoPorNombre(PersistenceManager pm, String nombre)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE nombre = ?");
-		// TODO cambiar dar tabla por ServicioPrivado 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosPrivados () + " WHERE nombre = ?");
 		q.setResultClass(ServicioPrivado.class);
 		q.setParameters(nombre);
 		return (List<ServicioPrivado>) q.executeList();		
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
+
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de Un ServicioPrivado de la 
 	 * base de datos de Alohandes, por su identificador
@@ -116,14 +108,12 @@ public class SQLServicioPrivado {
 	 * @return el objeto ServicioPrivado que tiene el identificador dado
 	 */
 	public ServicioPrivado darMenajePorId(PersistenceManager pm, long id){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por ServicioPrivado 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosPrivados () + " WHERE id = ?");
 		q.setResultClass(ServicioPrivado.class);
 		q.setParameters(id);
 		return (ServicioPrivado) q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS ServiciosPrivado de la 
 	 * base de datos de Alohandes
@@ -131,8 +121,7 @@ public class SQLServicioPrivado {
 	 * @return todos los Servicios Privados en la tabla Menajes
 	 */
 	public List<ServicioPrivado> darMenajes(PersistenceManager pm){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar ());
-		// TODO cambiar dar tabla por ServicioPrivado 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosPrivados ());
 		q.setResultClass(ServicioPrivado.class);
 		return (List<ServicioPrivado>) q.executeList();
 	}

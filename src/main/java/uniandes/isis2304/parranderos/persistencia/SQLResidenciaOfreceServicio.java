@@ -15,7 +15,7 @@ import uniandes.isis2304.alohandes.negocio.ResidenciaOfreceServicio;
  */
 class SQLResidenciaOfreceServicio {
 	/* ****************************************************************
-	 * 			Constantes // TODO cambiar PersistenciaAlohandes 
+	 * 			Constantes 
 	 *****************************************************************/
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
@@ -43,7 +43,6 @@ class SQLResidenciaOfreceServicio {
 		this.pp = pp;
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 *  Crea y ejecuta la sentencia SQL para adicionar una conexion entre una residencia y un servicio que ofrece
 	 * @param pm - El manejador de persistencia
@@ -52,13 +51,11 @@ class SQLResidenciaOfreceServicio {
 	 * @return numero de tuplas insertadas
 	 */
 	public long adicionarResidenciaOfreceServicio(PersistenceManager pm, long idResidencia, long idServicio){
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaGustan () + "(idResidencia, idServicio) values (?, ?)");
-		// TODO cambiar dar tabla por ResidenciaOfreceServicio 
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaResidenciaOfreceServicios() + "(idResidencia, idServicio) values (?, ?)");
 		q.setParameters(idResidencia, idServicio);
         return (long) q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar UN Residencia ofrece Servicio de la base de datos de alohandes, por su pk
 	 * @param pm - El manejador de persistencia
@@ -68,13 +65,11 @@ class SQLResidenciaOfreceServicio {
 	 */
 	public long eliminarResidenciaOfreceServicio (PersistenceManager pm, long idResidencia, long idServicio)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaGustan () + " WHERE idResidencia = ? AND idServicio = ?");
-     // TODO cambiar dar tabla por ResidenciaOfreceServicio 
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaResidenciaOfreceServicios () + " WHERE idResidencia = ? AND idServicio = ?");
         q.setParameters(idResidencia, idServicio);
         return (long) q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de todos LOS ResidenciaOfreceServicio de la 
 	 * base de datos de Alohandes
@@ -82,14 +77,12 @@ class SQLResidenciaOfreceServicio {
 	 * @return todos los ResidenciaOfreceServicio
 	 */
 	public List<ResidenciaOfreceServicio> darResidenciaOfreceServicio(PersistenceManager pm){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar ());
-		// TODO cambiar dar tabla por ResidenciaOfreceServicio 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaResidenciaOfreceServicios ());
 		q.setResultClass(ResidenciaOfreceServicio.class);
 		return (List<ResidenciaOfreceServicio>) q.executeList();
 	}
 	
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar el identificador y el número de servicio que ofrecen las residencias de la 
 	 * base de datos de alohandes
@@ -100,14 +93,12 @@ class SQLResidenciaOfreceServicio {
 	public List<Object []> darResidenciasYCantidadServicios (PersistenceManager pm)
 	{
 		String sql = "SELECT idResidencia, count (*) as numServicios";
-		sql += " FROM " + pp.darTablaSirven ();
-		// TODO cambiar dar tabla sirven por ResidenciaOfreceServicio 
+		sql += " FROM " + pp.darTablaResidenciaOfreceServicios ();
 		sql	+= " GROUP BY idResidencia";
 		Query q = pm.newQuery(SQL, sql);
 		return q.executeList();
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar el identificador y el número de residencias en los que se ofrece un servicio 
 	 * base de datos de alohandes
@@ -118,8 +109,7 @@ class SQLResidenciaOfreceServicio {
 	public List<Object []> darServiciosYCantidadHoteles (PersistenceManager pm)
 	{
 		String sql = "SELECT idServicio, count (*) as numResidencias";
-		sql += " FROM " + pp.darTablaSirven ();
-		// TODO cambiar dar tabla sirven por ResidenciaOfreceServicio 
+		sql += " FROM " + pp.darTablaResidenciaOfreceServicios ();
 		sql	+= " GROUP BY idServicio";
 		Query q = pm.newQuery(SQL, sql);
 		return q.executeList();

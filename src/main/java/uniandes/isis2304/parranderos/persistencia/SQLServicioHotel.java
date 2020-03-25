@@ -45,7 +45,6 @@ class SQLServicioHotel {
 		this.pp = pp;
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar un Servicio hotel a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
@@ -54,14 +53,12 @@ class SQLServicioHotel {
 	 * @return EL número de tuplas insertadas
 	 */
 	public long adicionarMenaje(PersistenceManager pm, long id, String nombre){
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaSirven () + "(id, nombre) values (?, ?, ?)");
-		// TODO cambiar dar tabla por ServicioHotel 
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaServiciosHotel () + "(id, nombre) values (?, ?)");
 		q.setParameters(id, nombre);
 		return (long)q.executeUnique();   
 	}
 
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar un Servicio de hotel de la base de datos de Alohandes, por su nombre
 	 * @param pm - El manejador de persistencia
@@ -70,13 +67,11 @@ class SQLServicioHotel {
 	 */
 	public long eliminarServicioPorNombre (PersistenceManager pm, String nombre)
 	{
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE nombre = ?");
-		// TODO cambiar dar tabla por ServicioHotel 
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServiciosHotel () + " WHERE nombre = ?");
 		q.setParameters(nombre);
 		return (long) q.executeUnique();
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar Servicio Hotel de la base de datos de Alohandes, por su id
 	 * @param pm - El manejador de persistencia
@@ -85,13 +80,11 @@ class SQLServicioHotel {
 	 */
 	public long eliminarServicioPorId (PersistenceManager pm, long id)
 	{
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por ServicioHotel 
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServiciosHotel () + " WHERE id = ?");
 		q.setParameters(id);
 		return (long) q.executeUnique();
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS Servicios de hotel de la 
 	 * base de datos de alohandes, por su nombre
@@ -101,15 +94,13 @@ class SQLServicioHotel {
 	 */
 	public List<ServicioHotel> darServiciosHotelPorNombre(PersistenceManager pm, String nombre)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE nombre = ?");
-		// TODO cambiar dar tabla por ServicioHotel 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosHotel () + " WHERE nombre = ?");
 		q.setResultClass(ServicioHotel.class);
 		q.setParameters(nombre);
 		return (List<ServicioHotel>) q.executeList();		
 	}
 
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de Un servicio de hotel de la 
 	 * base de datos de Alohandes, por su identificador
@@ -118,15 +109,13 @@ class SQLServicioHotel {
 	 * @return el objeto servicio que tiene el identificador dado
 	 */
 	public ServicioHotel darServicioHotelPorId(PersistenceManager pm, long id){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por ServicioHotel 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosHotel () + " WHERE id = ?");
 		q.setResultClass(ServicioHotel.class);
 		q.setParameters(id);
 		return (ServicioHotel) q.executeUnique();
 	}
 
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS Servicios de la 
 	 * base de datos de Alohandes
@@ -134,8 +123,7 @@ class SQLServicioHotel {
 	 * @return todos los servicios de hotel en la tabla Menajes
 	 */
 	public List<ServicioHotel> darMenajes(PersistenceManager pm){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar ());
-		// TODO cambiar dar tabla por ServicioHotel 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosHotel ());
 		q.setResultClass(ServicioHotel.class);
 		return (List<ServicioHotel>) q.executeList();
 	}

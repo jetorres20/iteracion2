@@ -44,7 +44,6 @@ class SQLRecinto {
 		this.pp = pp;
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar un Rwcinto a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
@@ -54,13 +53,11 @@ class SQLRecinto {
 	 * @return numero de tuplas insertadas
 	 */
 	public long adicionarRecinto(PersistenceManager pm, long id, int capacidadTotal, Timestamp fechaRetiroOferta){
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaSirven () + "(id, capacidadTotal, fechaRetiroOferta) values (?, ?, ?)");
-		// TODO cambiar dar tabla por Recintos 
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaRecintos () + "(id, capacidadTotal, fechaRetiroOferta) values (?, ?, ?)");
 		q.setParameters(id, capacidadTotal, fechaRetiroOferta);
 		return (long)q.executeUnique(); 
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar un recinto de la base de datos de Alohandes, por su id
 	 * @param pm - El manejador de persistencia
@@ -68,14 +65,12 @@ class SQLRecinto {
 	 * @return numero de tuplas eliminadas
 	 */
 	public long eliminarRecintoPorId(PersistenceManager pm, long id){
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por Recintos 
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaRecintos () + " WHERE id = ?");
 		q.setParameters(id);
 		return (long) q.executeUnique();
 		
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información parcial de UN Recinto de la 
 	 * base de datos de Alohandes, por su identificador
@@ -84,14 +79,12 @@ class SQLRecinto {
 	 * @return el objeto recinto que tiene el id dado
 	 */
 	public Recinto darRecintoPorId(PersistenceManager pm, long id){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE id = ?");
-		// TODO cambiar dar tabla por Recintos 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaRecintos () + " WHERE id = ?");
 		q.setResultClass(Recinto.class);
 		q.setParameters(id);
 		return (Recinto) q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de todos LOS Recintos de la 
 	 * base de datos de Alohandes
@@ -99,8 +92,7 @@ class SQLRecinto {
 	 * @return todos los recintos de la base de datos
 	 */
 	public List<Recinto> darRecintos(PersistenceManager pm){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar());
-		// TODO cambiar dar tabla por Recintos
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaRecintos());
 		q.setResultClass(Recinto.class);
 		return (List<Recinto>) q.executeList();
 	}	

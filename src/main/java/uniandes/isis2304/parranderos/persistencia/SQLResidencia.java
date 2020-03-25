@@ -43,7 +43,6 @@ class SQLResidencia {
 		this.pp = pp;
 	}
 
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar una Residencia a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
@@ -55,27 +54,23 @@ class SQLResidencia {
 	 * @return el numero de tuplas insertadas
 	 */
 	public long adicionarResidencia(PersistenceManager pm, long idOperario, int nit, String nombre, String direccion, String telefono ){
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaSirven () + "(idOperario, nit, nombre, direccion, telefono ) values (?, ?, ?, ?, ?)");
-		// TODO cambiar dar tabla por Residencias 
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaResidencias() + "(idOperario, nit, nombre, direccion, telefono ) values (?, ?, ?, ?, ?)");
 		q.setParameters( idOperario,  nit,  nombre,  direccion,  telefono );
 		return (long)q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar una Residencia de la base de datos de Alohandes, por su id de operario
 	 * @param pm - El manejador de persistencia
-	 * @param idOperario
+	 * @param idOperario 
 	 * @return numero de tuplas eliminadas
 	 */
 	public long eliminarResidenciaPorId(PersistenceManager pm, long idOperario){
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE idOperario = ?");
-		// TODO cambiar dar tabla por Residencia 
-		q.setParameters(idOperario);
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaResidencias () + " WHERE idOperario = ?");
+	q.setParameters(idOperario);
 		return (long) q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de Una residencia de la 
 	 * base de datos de Alohandes, por su identificador
@@ -84,14 +79,12 @@ class SQLResidencia {
 	 * @return un objeto residencia con el id dado
 	 */
 	public Residencia darResidenciaPorId(PersistenceManager pm, long idOperario){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE idOperario = ?");
-		// TODO cambiar dar tabla por Residencia 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaResidencias() + " WHERE idOperario = ?");
 		q.setResultClass(Residencia.class);
 		q.setParameters(idOperario);
 		return (Residencia) q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de Una residencia de la 
 	 * base de datos de Alohandes, por su nit
@@ -100,14 +93,12 @@ class SQLResidencia {
 	 * @return un objeto residencia con el id dado
 	 */
 	public Residencia darResidenciaPorNit(PersistenceManager pm, int nit){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE nit = ?");
-		// TODO cambiar dar tabla por Residencia 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaResidencias () + " WHERE nit = ?");
 		q.setResultClass(Residencia.class);
 		q.setParameters(nit);
 		return (Residencia) q.executeUnique();
 	}
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de Una residencia de la 
 	 * base de datos de Alohandes, por su nombre
@@ -116,15 +107,13 @@ class SQLResidencia {
 	 * @return un objeto residencia con el nombre dado
 	 */
 	public Residencia darResidenciaPorNombre(PersistenceManager pm, String nombre){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE nombre = ?");
-		// TODO cambiar dar tabla por Residencia 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaResidencias () + " WHERE nombre = ?");
 		q.setResultClass(Residencia.class);
 		q.setParameters(nombre);
 		return (Residencia) q.executeUnique();
 	}
 	
 	
-	// TODO revisar orden y nombre de parametros sentencia SQL
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de todos Las residencias de la 
 	 * base de datos de Alohandes
@@ -132,8 +121,7 @@ class SQLResidencia {
 	 * @return lista de Residencias de la base de datos
 	 */
 	public List<Residencia> darResidencias(PersistenceManager pm){
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar ());
-		// TODO cambiar dar tabla por Residencias 
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaResidencias ());
 		q.setResultClass(Residencia.class);
 		return (List<Residencia>) q.executeList();
 	}	
