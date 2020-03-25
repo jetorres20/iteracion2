@@ -6,6 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Apartamento;
+import uniandes.isis2304.alohandes.negocio.HabitacionResidencia;
 
 public class SQLHabitacionResidencia {
 	/* ****************************************************************
@@ -80,7 +81,7 @@ public class SQLHabitacionResidencia {
 	public Apartamento darHabitacionResidenciaPorId (PersistenceManager pm, long idHabitacion) 
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacionesResidencia() + " WHERE idRecinto = ?");
-		q.setResultClass(Apartamento.class);
+		q.setResultClass(HabitacionResidencia.class);
 		q.setParameters(idHabitacion);
 		
 		Apartamento creado =  (Apartamento) q.executeUnique();

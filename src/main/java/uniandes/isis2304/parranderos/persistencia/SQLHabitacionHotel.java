@@ -6,6 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Apartamento;
+import uniandes.isis2304.alohandes.negocio.HabitacionHotel;
 
 public class SQLHabitacionHotel {
 
@@ -80,7 +81,7 @@ public class SQLHabitacionHotel {
 	public Apartamento darHabitacionHotelPorId (PersistenceManager pm, long idHabitacion) 
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacionesHotel() + " WHERE idRecinto = ?");
-		q.setResultClass(Apartamento.class);
+		q.setResultClass(HabitacionHotel.class);
 		q.setParameters(idHabitacion);
 		
 		Apartamento creado =  (Apartamento) q.executeUnique();
@@ -96,7 +97,7 @@ public class SQLHabitacionHotel {
 	public List<Apartamento> darHabitacionesHotel (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacionesHotel ());
-		q.setResultClass(Apartamento.class);
+		q.setResultClass(HabitacionHotel.class);
 		return (List<Apartamento>) q.executeList();
 	}
 	

@@ -5,9 +5,11 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.alohandes.negocio.HabitacionHotelIncluyeServicio;
+import uniandes.isis2304.alohandes.negocio.ApartamentoOfreceServicio;
+import uniandes.isis2304.alohandes.negocio.HabitacionVisitanteOfreceServicio;
 
-public class SQLHabitacionHotelIncluyeServicio {
+public class SQLHabitacionVisitanteOfreceServicio {
+
 
 
 	 /* ****************************************************************
@@ -35,51 +37,52 @@ public class SQLHabitacionHotelIncluyeServicio {
 		 * Constructor
 		 * @param pp - El Manejador de persistencia de la aplicación
 		 */
-		public SQLHabitacionHotelIncluyeServicio(PersistenciaAlohandes pp)
+		public SQLHabitacionVisitanteOfreceServicio(PersistenciaAlohandes pp)
 		{
 			this.pp = pp;
 		}
 		
 		/**
 		 * Crea y ejecuta la sentencia SQL para adicionar un nuevo SERVICIO ofrecido por un 
-		 * HABITACION DE HOTEL a la base de datos de Alohandes
+		 * APARTAMENTO a la base de datos de Alohandes
 		 * @param pm - El manejador de persistencia
 		 * @param idApto - El identificador del recinto
 		 * @param idServicio - El identificador del servicio
 		 * @return El número de tuplas insertadas
 		 */
-		public long adicionarServicioahabitacion (PersistenceManager pm, long idRecinto,long idServicio) 
+		public long adicionarServicioaHabitacion (PersistenceManager pm, long idHabitacion,long idServicio, int precio, int incluido) 
 		{
-	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHabHotelIncluyeServicio() + "(idServicio,idRecinto values (?, ?)");
-	        q.setParameters(idServicio,idRecinto);
+	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHabitacionVisitanteOfreceServicio() + "(idHabitacion,idServicio,precio, incluido values (?, ?, ?, ?)");
+	        q.setParameters(idHabitacion,idServicio,precio, incluido);
 	        return (long) q.executeUnique();
 		}
 		
 		/**
-		 * Crea y ejecuta la sentencia SQL para eliminar UN SERVICIO DE UNA HABITACION de la base de datos de Alohandes, por su identificador
+		 * Crea y ejecuta la sentencia SQL para eliminar UN SERVICIO DE UN Habitacion de la base de datos de Alohandes, por su identificador
 		 * @param pm - El manejador de persistencia
-		 * @param idApartamento - El identificador de la habitacion
+		 * @param idHabitacion - El identificador del apartamento
 		 * @return EL número de tuplas eliminadas
 		 */
-		public long eliminarServicioDeHabitacionPorId (PersistenceManager pm, long idRecinto ,long idServicio)
+		public long eliminarServicioHabitacionPorId (PersistenceManager pm, long idHabitacion ,long idServicio)
 		{
-	        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabHotelIncluyeServicio() + " WHERE idRecinto = ? AND idServicio=?");
-	        q.setParameters(idRecinto,idServicio);
+	        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionVisitanteOfreceServicio() + " WHERE idHabitacion = ? AND idServicio=?");
+	        q.setParameters(idHabitacion,idServicio);
 	        return (long) q.executeUnique();
 		}
 		
 
 		/**
 		 * Crea y ejecuta la sentencia SQL para encontrar la información de los SERVICIOS de un
-		 * HABITACION de la base de datos de Alohandes
+		 * APARTAMENTO de la 
+		 * base de datos de Alohandes
 		 * @param pm - El manejador de persistencia
-		 * @return Una lista de objetos HABITACIONHOTELINCLUYEERVICIO
+		 * @return Una lista de objetos APARTAMENTOOFRECESERVICIO
 		 */
-		public List<HabitacionHotelIncluyeServicio> darHabitacionIncluyeServicios (PersistenceManager pm)
+		public List<ApartamentoOfreceServicio> darHabitacionVisitanteOfreceServicios (PersistenceManager pm)
 		{
-			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabHotelIncluyeServicio());
-			q.setResultClass(HabitacionHotelIncluyeServicio.class);
-			List<HabitacionHotelIncluyeServicio> resp = (List<HabitacionHotelIncluyeServicio>) q.execute();
+			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacionVisitanteOfreceServicio());
+			q.setResultClass(HabitacionVisitanteOfreceServicio.class);
+			List<ApartamentoOfreceServicio> resp = (List<ApartamentoOfreceServicio>) q.execute();
 			return resp;
 		}
 		
@@ -90,12 +93,12 @@ public class SQLHabitacionHotelIncluyeServicio {
 		 * @param pm - El manejador de persistencia
 		 * @return Una lista de objetos APARTAMENTOOFRECESERVICIO
 		 */
-		public List<HabitacionHotelIncluyeServicio> darServiciosDeUnaHabitacion (PersistenceManager pm, long idHabitacion)
+		public List<ApartamentoOfreceServicio> darServiciosDeUnApartamento (PersistenceManager pm, long idHabitacion)
 		{
-			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabHotelIncluyeServicio() + " WHERE idRecinto = ?");
+			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacionVisitanteOfreceServicio() + " WHERE idHabitacion = ?");
 			q.setParameters(idHabitacion);
-			q.setResultClass(HabitacionHotelIncluyeServicio.class);
-			List<HabitacionHotelIncluyeServicio> resp = (List<HabitacionHotelIncluyeServicio>) q.execute();
+			q.setResultClass(HabitacionVisitanteOfreceServicio.class);
+			List<ApartamentoOfreceServicio> resp = (List<ApartamentoOfreceServicio>) q.execute();
 			return resp;
 		}
 	

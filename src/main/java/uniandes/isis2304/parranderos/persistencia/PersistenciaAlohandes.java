@@ -266,7 +266,7 @@ public class PersistenciaAlohandes
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Bar de parranderos
 	 */
-	public String darTablaHabitacionVisitanteIncluyeServicio ()
+	public String darTablaHabitacionVisitanteOfreceServicio ()
 	{
 		return tablas.get (4);
 	}
