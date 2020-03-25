@@ -107,7 +107,7 @@ public class SQLServicioPrivado {
 	 * @param id - El id del ServicioPrivado
 	 * @return el objeto ServicioPrivado que tiene el identificador dado
 	 */
-	public ServicioPrivado darMenajePorId(PersistenceManager pm, long id){
+	public ServicioPrivado darServicioPorId(PersistenceManager pm, long id){
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosPrivados () + " WHERE id = ?");
 		q.setResultClass(ServicioPrivado.class);
 		q.setParameters(id);
@@ -120,7 +120,7 @@ public class SQLServicioPrivado {
 	 * @param pm - El manejador de persistencia
 	 * @return todos los Servicios Privados en la tabla Menajes
 	 */
-	public List<ServicioPrivado> darMenajes(PersistenceManager pm){
+	public List<ServicioPrivado> darServiciosPrivados(PersistenceManager pm){
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosPrivados ());
 		q.setResultClass(ServicioPrivado.class);
 		return (List<ServicioPrivado>) q.executeList();

@@ -57,7 +57,7 @@ class SQLPersona {
 	 * @param vinculo . vinculo de la persona con uniandes
 	 * @return el numero de tuplas insertadas
 	 */
-	public long adicionarPersona(PersistenceManager pm, long idOperario, long cedula, String nombre, String apellido, int telefono, String correo, int vinculo){
+	public long adicionarPersona(PersistenceManager pm, long idOperario, int cedula, String nombre, String apellido, int telefono, String correo, int vinculo){
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaPersonas () + "(idOperario, cedula, nombre, apellido, telefono, correo, vinculo) values (?, ?, ?, ?, ?, ?, ?)");
 		q.setParameters(idOperario, cedula, nombre, apellido, telefono, correo, vinculo);
 		return (long)q.executeUnique();

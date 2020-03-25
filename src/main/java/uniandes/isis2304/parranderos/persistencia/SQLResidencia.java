@@ -53,7 +53,7 @@ class SQLResidencia {
 	 * @param telefono
 	 * @return el numero de tuplas insertadas
 	 */
-	public long adicionarResidencia(PersistenceManager pm, long idOperario, int nit, String nombre, String direccion, String telefono ){
+	public long adicionarResidencia(PersistenceManager pm, long idOperario, int nit, String nombre, String direccion, int telefono ){
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaResidencias() + "(idOperario, nit, nombre, direccion, telefono ) values (?, ?, ?, ?, ?)");
 		q.setParameters( idOperario,  nit,  nombre,  direccion,  telefono );
 		return (long)q.executeUnique();

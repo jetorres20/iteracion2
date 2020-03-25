@@ -52,7 +52,7 @@ class SQLServicioHotel {
 	 * @param nombre - nombre del servicio
 	 * @return EL número de tuplas insertadas
 	 */
-	public long adicionarMenaje(PersistenceManager pm, long id, String nombre){
+	public long adicionarServicio(PersistenceManager pm, long id, String nombre){
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaServiciosHotel () + "(id, nombre) values (?, ?)");
 		q.setParameters(id, nombre);
 		return (long)q.executeUnique();   
@@ -122,7 +122,7 @@ class SQLServicioHotel {
 	 * @param pm - El manejador de persistencia
 	 * @return todos los servicios de hotel en la tabla Menajes
 	 */
-	public List<ServicioHotel> darMenajes(PersistenceManager pm){
+	public List<ServicioHotel> darServicios(PersistenceManager pm){
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServiciosHotel ());
 		q.setResultClass(ServicioHotel.class);
 		return (List<ServicioHotel>) q.executeList();
