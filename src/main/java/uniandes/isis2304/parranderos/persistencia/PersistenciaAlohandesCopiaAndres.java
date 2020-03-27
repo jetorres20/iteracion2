@@ -36,6 +36,9 @@ import uniandes.isis2304.alohandes.negocio.Bar;
 import uniandes.isis2304.alohandes.negocio.Bebedor;
 import uniandes.isis2304.alohandes.negocio.Bebida;
 import uniandes.isis2304.alohandes.negocio.Gustan;
+import uniandes.isis2304.alohandes.negocio.HabitacionHostal;
+import uniandes.isis2304.alohandes.negocio.HabitacionHotel;
+import uniandes.isis2304.alohandes.negocio.HabitacionResidencia;
 import uniandes.isis2304.alohandes.negocio.HotelOfreceServicio;
 import uniandes.isis2304.alohandes.negocio.Menaje;
 import uniandes.isis2304.alohandes.negocio.Operario;
@@ -703,15 +706,39 @@ public class PersistenciaAlohandesCopiaAndres
 	 * 			Métodos para manejar las Reservas
 	 *****************************************************************/
 
-	public Reserva adicionarReserva(long recintoId, long personaId, Timestamp fechaInicio, Timestamp fechaFin, int personas, double subTotal)
+	public Reserva adicionarReserva(long recintoId, long personaId, Timestamp fechaInicio, Timestamp fechaFin, int personas)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
+        
+        // calcular el valor de la reserva basado en el tipo de recinto y el numero de dias
+        long msFin = fechaFin.getTime();
+        long msIni = fechaInicio.getTime();
+        long numeroDias = Math.round(((msFin - msIni)*((double)(1.0/1000.0)*(1.0/3600.0)*(1.0/24.0) ) )); //  milliSeconds*(1 segundo/ 1000 ms)*(1 h/3600 seg)(1 dia/ 24 h)
+        long numeroMeses = 0;
+        long numeroSemestres = 0;
+        if(numeroDias >= 30){
+        	numeroMeses = numeroDias / 30;
+        	numeroDias = numeroDias % 30;
+        }
+        if(numeroMeses >= 6){
+        	numeroSemestres = numeroMeses/6;
+        	numeroMeses = numeroMeses%6;
+        }
+        
+        Recinto recintoObj = this.darRecintoPorId(recintoId);
+        HabitacionHotel habHotel.
+        HabitacionHostal habHostal
+        HabitacionResidencia habResidecia
+        
+        
         try
         {
             tx.begin();
             long id = nextval();
             //TODO buscar el recinto y segun la fecha calcular el subtotal
+            
+            
             long tuplasInsertadas = sqlReserva.adicionarReserva(pm, id, recintoId, personaId, new Timestamp(System.currentTimeMillis()), fechaInicio, fechaFin, personas, subTotal, new Timestamp(0), 0, true);
             tx.commit();
             
