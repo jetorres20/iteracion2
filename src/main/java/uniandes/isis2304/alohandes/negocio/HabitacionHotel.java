@@ -5,7 +5,7 @@ package uniandes.isis2304.alohandes.negocio;
  *
  * @author Grupo A-09
  */
-public class HabitacionHotel {
+public class HabitacionHotel implements VOHabitacionHotel{
 	
 	/* ****************************************************************
 	 * 			Atributos
