@@ -13,7 +13,7 @@ public class HabitacionVisitanteOfreceServicio implements VOHabitacionVisitanteO
 	/**
 	 * id del servicio ofrecido por una habitacion visitante
 	 */
-	private long idServicioPrivado;
+	private long idServicio;
 	
 	/**
 	 * id del recinto que es la habitacion visitante
@@ -37,7 +37,7 @@ public class HabitacionVisitanteOfreceServicio implements VOHabitacionVisitanteO
      * Constructor por defecto
      */
 	public HabitacionVisitanteOfreceServicio() {
-		this.idServicioPrivado = 0;
+		this.idServicio = 0;
 		this.idHabitacion = 0;
 		this.precio = 0;
 		this.incluido = false;
@@ -45,14 +45,14 @@ public class HabitacionVisitanteOfreceServicio implements VOHabitacionVisitanteO
 	
 	/**
 	 * Constructor con valores
-	 * @param idServicioPrivado
+	 * @param idServicio
 	 * @param idHabitacion
 	 * @param precio
 	 * @param incluido
 	 */
-	public HabitacionVisitanteOfreceServicio(long idServicioPrivado, long idHabitacion, double precio,
+	public HabitacionVisitanteOfreceServicio( long idHabitacion, long idServicio, double precio,
 			boolean incluido) {
-		this.idServicioPrivado = idServicioPrivado;
+		this.idServicio = idServicio;
 		this.idHabitacion = idHabitacion;
 		this.precio = precio;
 		this.incluido = incluido;
@@ -60,15 +60,15 @@ public class HabitacionVisitanteOfreceServicio implements VOHabitacionVisitanteO
 
 	@Override
 	public String toString() {
-		return "HabitacionVisitanteOfreceServicio [idServicioPrivado=" + idServicioPrivado + ", idHabitacion="
+		return "HabitacionVisitanteOfreceServicio [idServicio=" + idServicio + ", idHabitacion="
 				+ idHabitacion + ", precio=" + precio + ", incluido=" + incluido + "]";
 	}
 
 	/**
-	 * @return the idServicioPrivado
+	 * @return the idServicio
 	 */
-	public long getIdServicioPrivado() {
-		return idServicioPrivado;
+	public long getIdServicio() {
+		return idServicio;
 	}
 
 	/**
@@ -93,10 +93,10 @@ public class HabitacionVisitanteOfreceServicio implements VOHabitacionVisitanteO
 	}
 
 	/**
-	 * @param idServicioPrivado the idServicioPrivado to set
+	 * @param idServicio the idServicio to set
 	 */
-	public void setIdServicioPrivado(long idServicioPrivado) {
-		this.idServicioPrivado = idServicioPrivado;
+	public void setIdServicio(long idServicio) {
+		this.idServicio = idServicio;
 	}
 
 	/**

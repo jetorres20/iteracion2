@@ -7,7 +7,7 @@ import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.HabitacionResidenciaTieneMenajes;
 
-public class SQLHabitacionResidenciaTieneMenajes {
+ class SQLHabitacionResidenciaTieneMenajes {
 	
 	/* ****************************************************************
 	 * 			Constantes // TODO cambiar PersistenciaAlohandes

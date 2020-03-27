@@ -6,7 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import uniandes.isis2304.alohandes.negocio.Hotel;
 
-public class SQLHotel {
+ class SQLHotel {
 	
 	/* ****************************************************************
 	 * 			Constantes // 
@@ -75,6 +75,20 @@ public class SQLHotel {
 		return (long) q.executeUnique();
 	}
 	
+	/**
+	 * Crea y ejecuta la sentencia SQL para eliminar una Hotel de la base de datos de Alohandes, por su id
+	 * @param pm - El manejador de persistencia
+	 * @param id - El id de la Hotel
+	 * @return EL número de tuplas eliminadas
+	 */
+	public long eliminarHotelPorNit (PersistenceManager pm, int nit)
+	{
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHoteles() + " WHERE nit = ?");
+		
+		q.setParameters(nit);
+		return (long) q.executeUnique();
+	}
+	
 	
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNa Hotel de la 
@@ -88,6 +102,22 @@ public class SQLHotel {
 		
 		q.setResultClass(Hotel.class);
 		q.setParameters(id);
+		return (Hotel) q.executeUnique();
+	}
+	
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNa Hotel de la 
+	 * base de datos de Alohandes, por su identificador
+	 * @param pm - El manejador de persistencia
+	 * @param id - El id de la Hotel
+	 * @return el objeto Hotel que tiene el identificador dado
+	 */
+	public Hotel darHotelPorNit(PersistenceManager pm, int nit){
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHoteles () + " WHERE nit = ?");
+		
+		q.setResultClass(Hotel.class);
+		q.setParameters(nit);
 		return (Hotel) q.executeUnique();
 	}
 	

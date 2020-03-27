@@ -3,7 +3,7 @@
 	"unidadPersistencia": "Alohandes",
 	"tablas":
 	[
-		"Alohandes",
+		"Alohandes_sequence",
 		"APARTAMENTO_OFRECE_SERVICIO",
 		"APARTAMENTOS",
 		"HAB_HOTEL_INCLUYE_SERVICIO",

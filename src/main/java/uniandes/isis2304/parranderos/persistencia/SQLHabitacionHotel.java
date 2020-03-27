@@ -8,7 +8,7 @@ import javax.jdo.Query;
 import uniandes.isis2304.alohandes.negocio.Apartamento;
 import uniandes.isis2304.alohandes.negocio.HabitacionHotel;
 
-public class SQLHabitacionHotel {
+ class SQLHabitacionHotel {
 
 	/* ****************************************************************
 	 * 			Constantes
@@ -78,13 +78,13 @@ public class SQLHabitacionHotel {
 	 * @param idBar - El identificador de la habitacion
 	 * @return El objeto HABITACIONHotel que tiene el identificador dado
 	 */
-	public Apartamento darHabitacionHotelPorId (PersistenceManager pm, long idHabitacion) 
+	public HabitacionHotel darHabitacionHotelPorId (PersistenceManager pm, long idHabitacion) 
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacionesHotel() + " WHERE idRecinto = ?");
 		q.setResultClass(HabitacionHotel.class);
 		q.setParameters(idHabitacion);
 		
-		Apartamento creado =  (Apartamento) q.executeUnique();
+		HabitacionHotel creado =  (HabitacionHotel) q.executeUnique();
 		return creado;
 	}
 	
@@ -94,11 +94,11 @@ public class SQLHabitacionHotel {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos HABITACIONHotel
 	 */
-	public List<Apartamento> darHabitacionesHotel (PersistenceManager pm)
+	public List<HabitacionHotel> darHabitacionesHotel (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacionesHotel ());
 		q.setResultClass(HabitacionHotel.class);
-		return (List<Apartamento>) q.executeList();
+		return (List<HabitacionHotel>) q.executeList();
 	}
 	
 	

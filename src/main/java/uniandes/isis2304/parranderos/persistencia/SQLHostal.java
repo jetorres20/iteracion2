@@ -7,7 +7,7 @@ import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Hostal;
 
-public class SQLHostal {
+ class SQLHostal {
 	
 	/* ****************************************************************
 	 * 			Constantes // 
@@ -52,7 +52,7 @@ public class SQLHostal {
 	 * @param diasUtilizadaAñoActual
 	 * @return numero de tuplas insertadas
 	 */
-	public long adicionarHostal(PersistenceManager pm, long idHostal, long idOperario, int nit, String nombre, int horaAbre, int horaCierra,String direccion, int telefono){
+	public long adicionarHostal(PersistenceManager pm, long idOperario, int nit, String nombre, int horaAbre, int horaCierra,String direccion, int telefono){
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHostales () + "( idOperario, nit, nombre, horaAbre, horaCierra, direccion, telefono) values (?, ?, ?, ?, ?, ?, ?)");
 	
 		q.setParameters(idOperario, nit, nombre, horaAbre, horaCierra, direccion, telefono);
@@ -78,6 +78,21 @@ public class SQLHostal {
 	
 	
 	/**
+	 * Crea y ejecuta la sentencia SQL para eliminar una Hostal de la base de datos de Alohandes, por su id
+	 * @param pm - El manejador de persistencia
+	 * @param id - El id de la Hostal
+	 * @return EL número de tuplas eliminadas
+	 */
+	public long eliminarHostalPorNit (PersistenceManager pm, int nit)
+	{
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHostales() + " WHERE nit = ?");
+		
+		q.setParameters(nit);
+		return (long) q.executeUnique();
+	}
+	
+	
+	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNa Hostal de la 
 	 * base de datos de Alohandes, por su identificador
 	 * @param pm - El manejador de persistencia
@@ -89,6 +104,22 @@ public class SQLHostal {
 		
 		q.setResultClass(Hostal.class);
 		q.setParameters(id);
+		return (Hostal) q.executeUnique();
+	}
+	
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNa Hostal de la 
+	 * base de datos de Alohandes, por su identificador
+	 * @param pm - El manejador de persistencia
+	 * @param id - El id de la Hostal
+	 * @return el objeto Hostal que tiene el identificador dado
+	 */
+	public Hostal darHostalPorNit(PersistenceManager pm, int nit){
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHostales () + " WHERE nit = ?");
+		
+		q.setResultClass(Hostal.class);
+		q.setParameters(nit);
 		return (Hostal) q.executeUnique();
 	}
 	

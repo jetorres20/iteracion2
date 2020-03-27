@@ -13,7 +13,7 @@ import uniandes.isis2304.alohandes.negocio.ApartamentoOfreceServicio;
  * 
  * @author Juan Esteban Torres
  */
-public class SQLApartamentoOfreceServicio {
+ class SQLApartamentoOfreceServicio {
 	
 
 
@@ -55,10 +55,10 @@ public class SQLApartamentoOfreceServicio {
 		 * @param idServicio - El identificador del servicio
 		 * @return El número de tuplas insertadas
 		 */
-		public long adicionarServicioaApartamento (PersistenceManager pm, long idApto,long idServicio) 
+		public long adicionarServicioaApartamento (PersistenceManager pm, long idApto,long idServicio, int precio, int incluido) 
 		{
-	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAptoOfreceServicios() + "(idServicio,idApto values (?, ?)");
-	        q.setParameters(idServicio,idApto);
+	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAptoOfreceServicios() + "(idServicio,idApto,precio,incluido values (?, ?, ? , ?)");
+	        q.setParameters(idServicio,idApto,precio,incluido);
 	        return (long) q.executeUnique();
 		}
 		

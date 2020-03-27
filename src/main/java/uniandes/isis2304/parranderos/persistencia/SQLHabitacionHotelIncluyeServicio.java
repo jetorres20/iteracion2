@@ -7,7 +7,7 @@ import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.HabitacionHotelIncluyeServicio;
 
-public class SQLHabitacionHotelIncluyeServicio {
+ class SQLHabitacionHotelIncluyeServicio {
 
 
 	 /* ****************************************************************

@@ -50,7 +50,7 @@ public class ApartamentoOfreceServicio implements VOApartamentoOfreceServicio {
 	 * @param precio
 	 * @param incluido
 	 */
-	public ApartamentoOfreceServicio(long idServicioPrivado, long idApartamento, double precio, boolean incluido) {
+	public ApartamentoOfreceServicio( long idApartamento,long idServicioPrivado, double precio, boolean incluido) {
 		this.idServicioPrivado = idServicioPrivado;
 		this.idApartamento = idApartamento;
 		this.precio = precio;

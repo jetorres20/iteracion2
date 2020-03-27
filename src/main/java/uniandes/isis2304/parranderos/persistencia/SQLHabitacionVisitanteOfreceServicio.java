@@ -8,7 +8,7 @@ import javax.jdo.Query;
 import uniandes.isis2304.alohandes.negocio.ApartamentoOfreceServicio;
 import uniandes.isis2304.alohandes.negocio.HabitacionVisitanteOfreceServicio;
 
-public class SQLHabitacionVisitanteOfreceServicio {
+ class SQLHabitacionVisitanteOfreceServicio {
 
 
 
@@ -78,11 +78,11 @@ public class SQLHabitacionVisitanteOfreceServicio {
 		 * @param pm - El manejador de persistencia
 		 * @return Una lista de objetos APARTAMENTOOFRECESERVICIO
 		 */
-		public List<ApartamentoOfreceServicio> darHabitacionVisitanteOfreceServicios (PersistenceManager pm)
+		public List<HabitacionVisitanteOfreceServicio> darHabitacionVisitanteOfreceServicios (PersistenceManager pm)
 		{
 			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacionVisitanteOfreceServicio());
 			q.setResultClass(HabitacionVisitanteOfreceServicio.class);
-			List<ApartamentoOfreceServicio> resp = (List<ApartamentoOfreceServicio>) q.execute();
+			List<HabitacionVisitanteOfreceServicio> resp = (List<HabitacionVisitanteOfreceServicio>) q.execute();
 			return resp;
 		}
 		
@@ -93,12 +93,12 @@ public class SQLHabitacionVisitanteOfreceServicio {
 		 * @param pm - El manejador de persistencia
 		 * @return Una lista de objetos APARTAMENTOOFRECESERVICIO
 		 */
-		public List<ApartamentoOfreceServicio> darServiciosDeUnApartamento (PersistenceManager pm, long idHabitacion)
+		public List<HabitacionVisitanteOfreceServicio> darServiciosDeUnApartamento (PersistenceManager pm, long idHabitacion)
 		{
 			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacionVisitanteOfreceServicio() + " WHERE idHabitacion = ?");
 			q.setParameters(idHabitacion);
 			q.setResultClass(HabitacionVisitanteOfreceServicio.class);
-			List<ApartamentoOfreceServicio> resp = (List<ApartamentoOfreceServicio>) q.execute();
+			List<HabitacionVisitanteOfreceServicio> resp = (List<HabitacionVisitanteOfreceServicio>) q.execute();
 			return resp;
 		}
 	

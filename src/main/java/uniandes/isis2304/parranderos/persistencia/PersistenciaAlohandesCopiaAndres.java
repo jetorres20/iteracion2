@@ -92,8 +92,6 @@ public class PersistenciaAlohandesCopiaAndres
 	 */
 	private SQLUtil sqlUtil;
 	
-		
-	
 	private SQLHotelOfreceServicio sqlHotelOfreceServicio;
 	
 	private SQLMenaje sqlMenaje;
@@ -1401,7 +1399,7 @@ public class PersistenciaAlohandesCopiaAndres
 	}
 	
 	
-	List<ViviendaTieneMenajes> darViviendaTieneMenajes()
+	public List<ViviendaTieneMenajes> darViviendaTieneMenajes()
 	{
 		return sqlViviendaTieneMenajes.darViviendasTieneMenajes(pmf.getPersistenceManager());
 	}	

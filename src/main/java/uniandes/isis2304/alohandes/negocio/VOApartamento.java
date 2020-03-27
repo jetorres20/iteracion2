@@ -44,8 +44,5 @@ public interface VOApartamento {
 	 */
 	public boolean isAmoblado();
 
-	/**
-	 * @return the capacidadDisponible
-	 */
-	public int getCapacidadDisponible();	
+
 }

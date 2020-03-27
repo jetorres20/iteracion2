@@ -13,7 +13,7 @@ import uniandes.isis2304.alohandes.negocio.Apartamento;
  * @author Juan Esteban Torres
  */
 
-  public class SQLApartamento {
+   class SQLApartamento {
 
 	 /* ****************************************************************
 		 * 			Constantes

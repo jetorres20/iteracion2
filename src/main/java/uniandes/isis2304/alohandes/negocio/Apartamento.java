@@ -35,10 +35,7 @@ public class Apartamento implements VOApartamento {
 	 */
 	private boolean amoblado;
 	
-	/**
-	 * capacidad disponible para la renta 
-	 */
-	private int capacidadDisponible;
+
 
 	/* ****************************************************************
 	 * 			Métodos 
@@ -53,7 +50,6 @@ public class Apartamento implements VOApartamento {
 		this.precioMes = 0;
 		this.direccion = "";
 		this.amoblado = false;
-		this.capacidadDisponible = 0;
 	}
 	
 	/** Constructor con valores
@@ -66,21 +62,20 @@ public class Apartamento implements VOApartamento {
 	 * @param capacidadDisponible
 	 */
 	public Apartamento(long idApartamento, long idOperario, int numeroHabitaciones, double precioMes, String direccion,
-			boolean amoblado, int capacidadDisponible) {
+			boolean amoblado) {
 		this.idApartamento = idApartamento;
 		this.idOperario = idOperario;
 		this.numeroHabitaciones = numeroHabitaciones;
 		this.precioMes = precioMes;
 		this.direccion = direccion;
 		this.amoblado = amoblado;
-		this.capacidadDisponible = capacidadDisponible;
 	}
 	
 	@Override
 	public String toString() {
 		return "Apartamento [idApartamento=" + idApartamento + ", idOperario=" + idOperario + ", numeroHabitaciones="
 				+ numeroHabitaciones + ", precioMes=" + precioMes + ", direccion=" + direccion + ", amoblado="
-				+ amoblado + ", capacidadDisponible=" + capacidadDisponible + "]";
+				+ amoblado  + "]";
 	}
 
 	/**
@@ -126,13 +121,6 @@ public class Apartamento implements VOApartamento {
 	}
 
 	/**
-	 * @return the capacidadDisponible
-	 */
-	public int getCapacidadDisponible() {
-		return capacidadDisponible;
-	}
-
-	/**
 	 * @param idApartamento the idApartamento to set
 	 */
 	public void setIdApartamento(long idApartamento) {
@@ -174,10 +162,5 @@ public class Apartamento implements VOApartamento {
 		this.amoblado = amoblado;
 	}
 
-	/**
-	 * @param capacidadDisponible the capacidadDisponible to set
-	 */
-	public void setCapacidadDisponible(int capacidadDisponible) {
-		this.capacidadDisponible = capacidadDisponible;
-	}	
+
 }
