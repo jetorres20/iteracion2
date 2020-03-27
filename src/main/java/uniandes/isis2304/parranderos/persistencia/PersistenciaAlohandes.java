@@ -38,6 +38,7 @@ import uniandes.isis2304.alohandes.negocio.HabitacionHostal;
 import uniandes.isis2304.alohandes.negocio.HabitacionHotel;
 import uniandes.isis2304.alohandes.negocio.HabitacionHotelIncluyeServicio;
 import uniandes.isis2304.alohandes.negocio.HabitacionResidencia;
+import uniandes.isis2304.alohandes.negocio.HabitacionResidenciaTieneMenajes;
 import uniandes.isis2304.alohandes.negocio.HabitacionVisitante;
 import uniandes.isis2304.alohandes.negocio.HabitacionVisitanteOfreceServicio;
 import uniandes.isis2304.alohandes.negocio.Hostal;
@@ -1062,6 +1063,141 @@ public class PersistenciaAlohandes
 		PersistenceManager pm = pmf.getPersistenceManager();
 		
 		return sqlHabitacionHotelIncluyeServicio.darServiciosDeUnaHabitacion(pm, idHabitacion);
+	}
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar la relación HABITACION RESIDENCIA
+	 *****************************************************************/
+	
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla TipoBebida
+	 * Adiciona entradas al log de la aplicación
+	 * @param nombre - El nombre del tipo de bebida
+	 * @return El objeto TipoBebida adicionado. null si ocurre alguna Excepción
+	 */
+	public HabitacionResidencia adicionarHabitacionResidencia(long idResidencia, int compartido, int baniocompartido, int numero, int precioNoche, int precioMes, int precioSemestre, int capacidadDisponible, int capacidadTotal)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idRecinto = nextval ();
+            long tuplasInsertadasRecinto =sqlRecinto.adicionarRecinto(pm,idRecinto,capacidadTotal,null);
+            long tuplasInsertadasHabitacionhostal = sqlHabitacionResidencia.adicionarHabitacionResidencia(pm, idRecinto, idResidencia, compartido, baniocompartido, numero, precioNoche, precioMes, precioSemestre, capacidadDisponible);
+            tx.commit();
+            
+            boolean bCompartido= compartido==1;
+            boolean bBanio = baniocompartido==1;
+            log.trace ("Inserción de apartamento : " + idRecinto + ": " + tuplasInsertadasHabitacionhostal + " tuplas insertadas");
+            
+            return new HabitacionResidencia(idRecinto, idResidencia, bCompartido, bBanio, numero, precioNoche, precioMes, precioSemestre, capacidadDisponible);
+            	
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla BAR, dado el nombre del bar
+	 * Adiciona entradas al log de la aplicación
+	 * @param nombreBar - El nombre del bar
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarHabitacionResidenciaporId (long idHabitacion) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlHabitacionResidencia.eliminarHabitacionPorId(pm, idHabitacion);
+            sqlRecinto.eliminarRecintoPorId(pm,idHabitacion);
+            tx.commit();
+
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	
+	/**
+	 * Método que actualiza, de manera transaccional, la capacidad disponible
+	 * @param idBebedor - El identificador del bebedor
+	 * @param ciudad - La nueva ciudad del bebedor
+	 * @return El número de tuplas modificadas. -1 si ocurre alguna Excepción
+	 */
+	public long cambiarCapacidadDisponibleHabitacionResidencia (long idHabitacion, int capacidad)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlHabitacionResidencia.cambiarCapacidadDisponibleHabitacion(pm, idHabitacion, capacidad);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	/**
+	 * Método que consulta todas las tuplas en la tabla BEBEDOR que tienen el identificador dado
+	 * @param idBebedor - El identificador del bebedor
+	 * @return El objeto BEBEDOR, construido con base en la tuplas de la tabla BEBEDOR, que tiene el identificador dado
+	 */
+	public HabitacionResidencia darHabitacionResidenciaPorId (long idHabitacion) 
+	{
+		return (HabitacionResidencia) sqlHabitacionResidencia.darHabitacionResidenciaPorId(pmf.getPersistenceManager(), idHabitacion);
+	}
+	
+	/**
+	 * Método que consulta todas las tuplas en la tabla BAR
+	 * @return La lista de objetos BAR, construidos con base en las tuplas de la tabla BAR
+	 */
+	public List<HabitacionResidencia> darHabitacionesResidencia ()
+	{
+		return sqlHabitacionResidencia.darHabitacionesResidencia (pmf.getPersistenceManager());
 	}
 	
 	
@@ -2443,6 +2579,77 @@ public class PersistenciaAlohandes
 	}	
  
 
+	/* ****************************************************************
+	 * 			Métodos para manejar los HabResidenciaTieneMenajesOperar
+	 *****************************************************************/
+	
+	public HabitacionResidenciaTieneMenajes adicionarHabitacionResidenciaTieneMenajes(long idHabitacion, 
+			long idMenaje, int cantidad, double valorUnidad)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            
+            long tuplasInsertadas = sqlHabitacionResidenciaTieneMenajes.adicionarHabitacionResidenciaTieneMenajes(pm, idHabitacion, idMenaje, cantidad, valorUnidad);
+            tx.commit();
+            
+            log.trace ("Inserción de ViviendaTieneMenajes:  res" + idHabitacion + ", men" + idMenaje + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new HabitacionResidenciaTieneMenajes(idHabitacion, idMenaje, cantidad, valorUnidad);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	
+	public long eliminarHabitacionResidenciaTieneMenajes(long idHabitacion, long idMenaje) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlHabitacionResidenciaTieneMenajes.eliminarViviendaTieneMenajes(pm, idHabitacion, idMenaje);           
+            tx.commit();
+
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	
+	public List<HabitacionResidenciaTieneMenajes> darHabitacionResidenciaTieneMenajes()
+	{
+		return sqlHabitacionResidenciaTieneMenajes.darViviendasTieneMenajes(pmf.getPersistenceManager());
+	}	
+ 
 	
 	
 	

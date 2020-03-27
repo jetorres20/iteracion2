@@ -17,7 +17,7 @@ public interface VOHabitacionVisitanteOfreceServicio {
 	/**
 	 * @return the idServicioPrivado
 	 */
-	public long getIdServicioPrivado();
+	public long getIdServicio();
 
 	/**
 	 * @return the idHabitacion

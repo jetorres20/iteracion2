@@ -16,12 +16,14 @@
 package uniandes.isis2304.alohandes.negocio;
 
 import java.sql.Timestamp;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
-import uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos;
+
+import uniandes.isis2304.parranderos.persistencia.PersistenciaAlohandes;
 
 /**
  * Clase principal del negocio
@@ -29,7 +31,7 @@ import uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos;
  *
  * @author Germán Bravo
  */
-public class Parranderos 
+public class Alohandes 
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -37,7 +39,7 @@ public class Parranderos
 	/**
 	 * Logger para escribir la traza de la ejecución
 	 */
-	private static Logger log = Logger.getLogger(Parranderos.class.getName());
+	private static Logger log = Logger.getLogger(Alohandes.class.getName());
 	
 	/* ****************************************************************
 	 * 			Atributos
@@ -45,7 +47,7 @@ public class Parranderos
 	/**
 	 * El manejador de persistencia
 	 */
-	private PersistenciaParranderos pp;
+	private PersistenciaAlohandes pp;
 	
 	/* ****************************************************************
 	 * 			Métodos
@@ -53,18 +55,18 @@ public class Parranderos
 	/**
 	 * El constructor por defecto
 	 */
-	public Parranderos ()
+	public Alohandes ()
 	{
-		pp = PersistenciaParranderos.getInstance ();
+		pp = PersistenciaAlohandes.getInstance ();
 	}
 	
 	/**
 	 * El constructor qye recibe los nombres de las tablas en tableConfig
 	 * @param tableConfig - Objeto Json con los nombres de las tablas y de la unidad de persistencia
 	 */
-	public Parranderos (JsonObject tableConfig)
+	public Alohandes (JsonObject tableConfig)
 	{
-		pp = PersistenciaParranderos.getInstance (tableConfig);
+		pp = PersistenciaAlohandes.getInstance (tableConfig);
 	}
 	
 	/**
@@ -84,7 +86,7 @@ public class Parranderos
 	 * @param nombre - El nombre del tipo de bebida
 	 * @return El objeto TipoBebida adicionado. null si ocurre alguna Excepción
 	 */
-	public TipoBebida adicionarTipoBebida (String nombre)
+	public A adicionarTipoBebida (String nombre)
 	{
         log.info ("Adicionando Tipo de bebida: " + nombre);
         TipoBebida tipoBebida = pp.adicionarTipoBebida (nombre);		
@@ -121,7 +123,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los tipos de bebida en Parranderos
+	 * Encuentra todos los tipos de bebida en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos TipoBebida con todos los tipos de bebida que conoce la aplicación, llenos con su información básica
 	 */
@@ -134,7 +136,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los tipos de bebida en Parranderos y los devuelve como una lista de VOTipoBebida
+	 * Encuentra todos los tipos de bebida en Alohandes y los devuelve como una lista de VOTipoBebida
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOTipoBebida con todos los tipos de bebida que conoce la aplicación, llenos con su información básica
 	 */
@@ -151,7 +153,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra el tipos de bebida en Parranderos con el nombre solicitado
+	 * Encuentra el tipos de bebida en Alohandes con el nombre solicitado
 	 * Adiciona entradas al log de la aplicación
 	 * @param nombre - El nombre de la bebida
 	 * @return Un objeto TipoBebida con el tipos de bebida de ese nombre que conoce la aplicación, 
@@ -212,7 +214,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todas las bebida en Parranderos
+	 * Encuentra todas las bebida en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Bebida con todos las bebidas que conoce la aplicación, llenos con su información básica
 	 */
@@ -225,7 +227,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los tipos de bebida en Parranderos y los devuelve como una lista de VOTipoBebida
+	 * Encuentra todos los tipos de bebida en Alohandes y los devuelve como una lista de VOTipoBebida
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOBebida con todos las bebidas que conoce la aplicación, llenos con su información básica
 	 */
@@ -365,7 +367,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los bebedores en Parranderos
+	 * Encuentra todos los bebedores en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Bebedor con todos las bebedores que conoce la aplicación, llenos con su información básica
 	 */
@@ -378,7 +380,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los bebedores en Parranderos y los devuelve como VOBebedor
+	 * Encuentra todos los bebedores en Alohandes y los devuelve como VOBebedor
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOBebedor con todos las bebedores que conoce la aplicación, llenos con su información básica
 	 */
@@ -514,7 +516,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los bares en Parranderos
+	 * Encuentra todos los bares en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Bar con todos las bares que conoce la aplicación, llenos con su información básica
 	 */
@@ -527,7 +529,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los bares en Parranderos y los devuelce como VO
+	 * Encuentra todos los bares en Alohandes y los devuelce como VO
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Bar con todos las bares que conoce la aplicación, llenos con su información básica
 	 */
@@ -606,7 +608,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los gustan en Parranderos
+	 * Encuentra todos los gustan en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Gustan con todos los GUSTAN que conoce la aplicación, llenos con su información básica
 	 */
@@ -619,7 +621,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los gustan en Parranderos y los devuelve como VO
+	 * Encuentra todos los gustan en Alohandes y los devuelve como VO
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Gustan con todos los GUSTAN que conoce la aplicación, llenos con su información básica
 	 */
@@ -671,7 +673,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los SIRVEN en Parranderos
+	 * Encuentra todos los SIRVEN en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos SIRVEN con todos los GUSTAN que conoce la aplicación, llenos con su información básica
 	 */
@@ -684,7 +686,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los sirven en Parranderos y los devuelve como VO
+	 * Encuentra todos los sirven en Alohandes y los devuelve como VO
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos SIRVEN con todos los SIRVEN que conoce la aplicación, llenos con su información básica
 	 */
@@ -737,7 +739,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los VISITAN en Parranderos
+	 * Encuentra todos los VISITAN en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VISITAN con todos los GUSTAN que conoce la aplicación, llenos con su información básica
 	 */
@@ -750,7 +752,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los visitan en Parranderos y los devuelve como VO
+	 * Encuentra todos los visitan en Alohandes y los devuelve como VO
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Visitan con todos los Visitan que conoce la aplicación, llenos con su información básica
 	 */
@@ -771,15 +773,15 @@ public class Parranderos
 	 *****************************************************************/
 
 	/**
-	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
+	 * Elimina todas las tuplas de todas las tablas de la base de datos de Alohandes
 	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
 	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
 	 */
-	public long [] limpiarParranderos ()
+	public long [] limpiarAlohandes ()
 	{
-        log.info ("Limpiando la BD de Parranderos");
-        long [] borrrados = pp.limpiarParranderos();	
-        log.info ("Limpiando la BD de Parranderos: Listo!");
+        log.info ("Limpiando la BD de Alohandes");
+        long [] borrrados = pp.limpiarAlohandes();	
+        log.info ("Limpiando la BD de Alohandes: Listo!");
         return borrrados;
 	}
 }
