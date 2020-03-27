@@ -1861,6 +1861,7 @@ public class PersistenciaAlohandes
         long msFin = fechaFin.getTime();
         long msIni = fechaInicio.getTime();
         long numeroDias = Math.round(((msFin - msIni)*((double)(1.0/1000.0)*(1.0/3600.0)*(1.0/24.0) ) )); //  milliSeconds*(1 segundo/ 1000 ms)*(1 h/3600 seg)(1 dia/ 24 h)
+        long numeroDiasTotales = numeroDias; // copia del numero de dias que no cambia
         long numeroMeses = 0;
         long numeroSemestres = 0;
         if(numeroDias >= 30){
@@ -1875,23 +1876,59 @@ public class PersistenciaAlohandes
         Recinto recintoObj = this.darRecintoPorId(recintoId);
         HabitacionHotel habHotel = this.darHabitacionHotelPorId(recintoId);
         HabitacionHostal habHostal = this.darHabitacionHostalPorId(recintoId);
-        HabitacionResidencia habitacionResidencia = null; // TODO this.darHab
+        HabitacionResidencia habResidencia = this.darHabitacionResidenciaPorId(recintoId);
+        HabitacionVisitante habVisitante = this.darHabitacionVisitantePorId(recintoId);
+        Apartamento apto = this.darApartamentoPorId(recintoId);
+        Vivienda vivienda = this.darViviendaPorId(recintoId);
+        
+        int capacidadDisponible = recintoObj.getCapacidadTotal();
+        
+        if(habHotel != null){
+        	subTotal = numeroDiasTotales*habHotel.getPrecioNoche();
+        	
+        }
+        if(habHostal != null){
+        	subTotal = numeroDiasTotales*habHostal.getPrecioNoche();
+        	if(habHostal.isCompartida()){       	
+        		capacidadDisponible = habHostal.getCapacidadDisponible();
+        	}
+        }
+        if(habResidencia != null){
+        	subTotal = numeroDias*habResidencia.getPrecioNoche() + numeroMeses*habResidencia.getPrecioMes() + numeroSemestres*habResidencia.getPrecioSemestre();
+        	if(habResidencia.isCompartido()){
+        		capacidadDisponible = habResidencia.getCapacidadDisponible();
+        	}
+        }
+        if(habVisitante != null){
+        	subTotal = numeroMeses*habVisitante.getPrecioMes();
+        	if(habVisitante.isBanioCompartido()){
+        		capacidadDisponible = habVisitante.getCapacidadDisponible();
+        	}
+        }
+        if(apto != null){
+        	subTotal = numeroMeses*apto.getPrecioMes();        	
+        }
+        if(vivienda != null){
+        	subTotal = numeroDiasTotales*vivienda.getPrecioNoche() + vivienda.getPrecioSeguro();
+        }
         
         
         
         try
         {
-            tx.begin();
-            long id = nextval();
-            //TODO buscar el recinto y segun la fecha calcular el subtotal
-            
-            
-            long tuplasInsertadas = sqlReserva.adicionarReserva(pm, id, recintoId, personaId, new Timestamp(System.currentTimeMillis()), fechaInicio, fechaFin, personas, subTotal, new Timestamp(0), 0, true);
-            tx.commit();
-            
-            log.trace ("Inserción de Reserva: " + id + "," + personaId + ","  + recintoId + ": " + tuplasInsertadas + " tuplas insertadas");
-            
-            return new Reserva(id, recintoId, personaId, new Timestamp(System.currentTimeMillis()), fechaInicio, fechaFin, personas, subTotal, new Timestamp(0), 0, true);
+            if(capacidadDisponible >= personas ){
+            	tx.begin();
+                long id = nextval();
+              
+                long tuplasInsertadas = sqlReserva.adicionarReserva(pm, id, recintoId, personaId, new Timestamp(System.currentTimeMillis()), fechaInicio, fechaFin, personas, subTotal, new Timestamp(0), 0, 1);
+                // actualizar capacidad disponible 
+                tx.commit();
+                log.trace ("Inserción de Reserva: " + id + "," + personaId + ","  + recintoId + ": " + tuplasInsertadas + " tuplas insertadas");
+                
+                return new Reserva(id, recintoId, personaId, new Timestamp(System.currentTimeMillis()), fechaInicio, fechaFin, personas, subTotal, new Timestamp(0), 0, true);
+            }else{
+            	return null;
+            }
         }
         catch (Exception e)
         {
