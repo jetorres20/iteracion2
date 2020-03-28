@@ -1,6 +1,10 @@
 package uniandes.isis2304.parranderos.persistencia;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -134,4 +138,66 @@ class SQLReserva {
 		q.setResultClass(Reserva.class);
 		return (List<Reserva>) q.executeList();
 	}	
+	
+	
+
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS OPERARIOS Y SUS GANANCIAS de la 
+	 * base de datos de Alohandes. Incluye, con 0, los operarios que no han vendido nada.
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos del bebedor,
+	 * y del número de visitas realizadas:
+	 * 		(id, nombre, ciudad, presupuesto) del bebedor y numVisitas
+	 */
+	public List<Object> darOperariosYGanancias (PersistenceManager pm)
+	{
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) -1);
+		SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
+		String formatted = format1.format(cal.getTime());
+		System.out.println(formatted);
+		
+		Calendar cal1 = Calendar.getInstance();
+		cal1.set(Calendar.DAY_OF_YEAR, 1);
+		SimpleDateFormat format2 = new SimpleDateFormat("dd-MM-yyyy");
+		String formatted1 = format2.format(cal1.getTime());
+		System.out.println(formatted);
+		
+	    String sql = "SELECT id, (SELECT sum (subTotal + coalesce(cobroAdicional,0)) as GananciasAnio FROM ";
+	    sql += pp.darTablaReservas() + " r1 WHERE r1.ID = " + pp.darTablaReservas() + ".ID AND FECHAFIN > " + formatted1;
+	    sql += " ), (SELECT sum (subTotal + coalesce(cobroAdicional,0)) as GananciasAnioCorrido FROM ";
+	    sql += pp.darTablaReservas() + " r2 WHERE r2.ID = " + pp.darTablaReservas() + ".ID AND FECHAFIN > " + formatted;
+	    sql += ") FROM " + pp.darTablaReservas();
+	    sql	+= " GROUP BY id";
+		
+	    Query q = pm.newQuery(SQL, sql);
+		return q.executeList();
+	}
+	
+
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LAS OFERTAS MAS FAMOSAS de la 
+	 * base de datos de Alohandes. Incluye, con 0, los operarios que no han vendido nada.
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos del bebedor,
+	 * y del número de visitas realizadas:
+	 * 		(id, nombre, ciudad, presupuesto) del bebedor y numVisitas
+	 */
+	public List<Object> darMejoresRecintos (PersistenceManager pm)
+	{
+		
+		
+		
+	    String sql = "recintoId, cnt as reservas FROM   (SELECT   recintoid , COUNT(recintoId) AS cnt FROM ";
+	    sql += pp.darTablaReservas() + " GROUP BY recintoid";
+	    sql += " )  WHERE rownum <=20";
+		
+	    Query q = pm.newQuery(SQL, sql);
+		return q.executeList();
+	}
+	
+	
+	
 }

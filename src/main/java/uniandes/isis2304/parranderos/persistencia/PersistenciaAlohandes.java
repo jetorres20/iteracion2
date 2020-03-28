@@ -2686,7 +2686,64 @@ public class PersistenciaAlohandes
 	{
 		return sqlHabitacionResidenciaTieneMenajes.darViviendasTieneMenajes(pmf.getPersistenceManager());
 	}	
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los RC1 y RC2
+	 *****************************************************************/
  
+	/**
+	 * Método que consulta los operarios y el dinero que han recibido este año y el año corrido
+	 * @return La lista del id del operario junto con sus dos ganacias
+	 */
+	public List<Object []> darBebedoresYNumVisitasRealizadas ()
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlReserva.darOperariosYGanancias(pmf.getPersistenceManager());
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idOperario = ((BigDecimal) datos [0]).longValue ();
+			int gananciaAnio = ((BigDecimal) datos [1]).intValue ();
+			int gananciaAnioCorrido = ((BigDecimal) datos [2]).intValue ();
+			
+
+			Object [] resp = new Object [3];
+			resp [0] = idOperario;
+			resp [1] = gananciaAnio;	
+			resp [2] = gananciaAnioCorrido;	
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+	
+	/**
+	 * Método que consulta los operarios y el dinero que han recibido este año y el año corrido
+	 * @return La lista del id del operario junto con sus cantidad de veches que ha sido reservada
+	 */
+	public List<Object []> darOfertasMasPopulares ()
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlReserva.darMejoresRecintos(pmf.getPersistenceManager());
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idRecinto = ((BigDecimal) datos [0]).longValue ();
+			int reservas = ((BigDecimal) datos [1]).intValue ();
+			
+			
+
+			Object [] resp = new Object [2];
+			resp [0] = idRecinto;
+			resp [1] = reservas;	
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
 	
 	
 	

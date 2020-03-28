@@ -13,9 +13,10 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-package uniandes.isis2304.parranderos.test;
+package uniandes.isis2304.alohandes.test;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -30,7 +31,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.alohandes.negocio.Alohandes;
-import uniandes.isis2304.alohandes.negocio.VOTipoBebida;
+
+
 
 /**
  * Clase con métodos de prueba de conexión a la base de datos
@@ -78,7 +80,7 @@ public class ConexionTest
 	/**
 	 * La clase que se quiere probar
 	 */
-    private Alohandes parranderos;
+    private Alohandes alohandes;
 	
 	/* ****************************************************************
 	 * 			Métodos de prueba de acceso a la BD
@@ -92,11 +94,11 @@ public class ConexionTest
   	  	try
 		{
 			log.info ("Probando el acceso a la base de datos con datos válidos (BD, credenciales, esquema");
-			parranderos = new Alohandes (openConfig (CONFIG_TABLAS_A));
+			alohandes = new Alohandes (openConfig (CONFIG_TABLAS_A));
 			log.info ("Conexión realizada correstamente");
 			log.info ("Cerrando la conexión");
 			
-			parranderos.cerrarUnidadPersistencia ();
+			alohandes.cerrarUnidadPersistencia ();
 			log.info ("Conexión cerrada");
 		}
 		catch (Exception e)
@@ -106,7 +108,7 @@ public class ConexionTest
 			log.info ("La causa es: " + e.getCause ().toString ());
 
 			String msg = "Prueba de acceso normal a la base de datos falló !! Revise persistence.xml.\n";
-			msg += "Revise el log de parranderos y el de datanucleus para conocer el detalle de la excepción";
+			msg += "Revise el log de alohandes y el de datanucleus para conocer el detalle de la excepción";
 //			System.out.println (msg);
 			fail (msg);
 		}
@@ -123,7 +125,7 @@ public class ConexionTest
 		try
 		{
 	    	log.info ("Probando el acceso a la base de datos con una base de datos que no existe");
-			parranderos = new Alohandes (openConfig (CONFIG_TABLAS_ERR_DS));
+			alohandes = new Alohandes (openConfig (CONFIG_TABLAS_ERR_DS));
 			fail ("Debería fallar. La base de datos no existe !!");
 		}
 		catch (Exception e)
@@ -133,7 +135,7 @@ public class ConexionTest
 			log.info ("La causa es: " + e.getCause ().toString ());
 
 			String msg = "Prueba de base de datos inaccesible correcta.\n";
-			msg += "Revise el log de parranderos y el de datanucleus para conocer el detalle de la excepción";
+			msg += "Revise el log de alohandes y el de datanucleus para conocer el detalle de la excepción";
 			System.out.println (msg);
 		}
     }
@@ -148,7 +150,7 @@ public class ConexionTest
 		try
 		{
 	    	log.info ("Probando el acceso a la base de datos con datos de usuario incorrectos");
-			parranderos = new Alohandes (openConfig (CONFIG_TABLAS_ERR_USER));
+			alohandes = new Alohandes (openConfig (CONFIG_TABLAS_ERR_USER));
 			fail ("Debería fallar. Las credenciales del usuario no son válidas");
 		}
 		catch (Exception e)
@@ -158,7 +160,7 @@ public class ConexionTest
 			log.info ("La causa es: " + e.getCause ().toString ());
 
 			String msg = "Prueba de credenciales incorrectas correcta.\n";
-			msg += "Revise el log de parranderos y el de datanucleus para conocer el detalle de la excepción";
+			msg += "Revise el log de alohandes y el de datanucleus para conocer el detalle de la excepción";
 			System.out.println (msg);
 		}
     }
@@ -174,7 +176,7 @@ public class ConexionTest
 		try
 		{
 	    	log.info ("Probando el acceso a la base de datos con datos de usuario correctos, pero sin crear el esquema");
-			parranderos = new Alohandes (openConfig (CONFIG_TABLAS_B));
+			alohandes = new Alohandes (openConfig (CONFIG_TABLAS_B));
 		}
 		catch (Exception e)
 		{
@@ -183,7 +185,7 @@ public class ConexionTest
 			log.info ("La causa es: " + e.getCause ().toString ());
 
 			String msg = "Prueba de tabla inexistente incompleta. No se pudo conectar a la base de datos !!.\n";
-			msg += "Revise el log de parranderos y el de datanucleus para conocer el detalle de la excepción";
+			msg += "Revise el log de alohandes y el de datanucleus para conocer el detalle de la excepción";
 			System.out.println (msg);
 			fail (msg);
 		}
@@ -191,7 +193,7 @@ public class ConexionTest
 		// Ahora si se puede probar si la tabla existe o no...
 		try
 		{
-			parranderos.darTiposBebida ();
+			alohandes.darApartamentos();
 			fail ("Debería fallar. La tabla consultada no existe en la BD");
 		}
 		catch (Exception e)
@@ -201,13 +203,13 @@ public class ConexionTest
 			log.info ("La causa es: " + e.getCause ().toString ());
 
 			String msg = "Prueba de tabla inexistente correcta.\n";
-			msg += "Revise el log de parranderos y el de datanucleus para conocer el detalle de la excepción";
+			msg += "Revise el log de alohandes y el de datanucleus para conocer el detalle de la excepción";
 			System.out.println (msg);
 		}
 		finally
 		{
-			parranderos.limpiarParranderos ();
-    		parranderos.cerrarUnidadPersistencia ();    		
+			alohandes.limpiarAlohandes ();
+    		alohandes.cerrarUnidadPersistencia ();    		
 		}
     }
 
