@@ -86,7 +86,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     /**
      * Asociación a la clase principal del negocio.
      */
-    private Alohandes parranderos;
+    private Alohandes alohandes;
     
 	/* ****************************************************************
 	 * 			Atributos de interfaz
@@ -126,7 +126,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         }
         
         tableConfig = openConfig ("Tablas BD", CONFIG_TABLAS);
-        parranderos = new Alohandes (tableConfig);
+        alohandes = new Alohandes (tableConfig);
         
     	String path = guiConfig.get("bannerPath").getAsString();
         panelDatos = new PanelDatos ( );

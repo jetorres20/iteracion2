@@ -4,199 +4,13 @@
 	"frameW": 1400,
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
-	[
-		{ "menuTitle": "Persona",
-		  "options":
-			[
-				{
-					"label": "Adicionar",
-					"event": "adicionarPersona"
-				},
-				{
-					"label": "Listar",
-					"event": "listarPersonas"
-				},
-				{
-					"label": "Borrar por Id",
-					"event": "eliminarPersonaPorId"
-				},
-				{
-					"label": "Buscar por id",
-					"event": "buscarPersonaPorId"
-				}
-			]
-		},
-		{ "menuTitle": "Hotel",
-		  "options":
-			[
-				{
-					"label": "Adicionar",
-					"event": "adicionarHotel"
-				},
-				{
-					"label": "Listar",
-					"event": "listarHoteles"
-				}				
-			]
-		},
-		{ "menuTitle": "Habitaciones Hotel",
-		  "options":
-			[
-				{
-					"label": "Adicionar",
-					"event": "adicionarHabitacionHotel"
-				},
-				{
-					"label": "Listar",
-					"event": "listarHabitacionesHotel"
-				},
-				{
-					"label": "Borrar por Id",
-					"event": "eliminarHabitacionHotelPorId"
-				},
-				{
-					"label": "Buscar por id",
-					"event": "buscarHabitacionHotelPorId"
-				}				
-			]
-		},
-		{ "menuTitle": "Hostal",
-		  "options":
-			[
-				{
-					"label": "Adicionar",
-					"event": "adicionarHostal"
-				},
-				{
-					"label": "Listar",
-					"event": "listarHostales"
-				}
-			]
-		},
-		{ "menuTitle": "Habitaciones Hostal",
-		  "options":
-			[
-				{
-					"label": "Adicionar",
-					"event": "adicionarHabitacionHostal"
-				},
-				{
-					"label": "Listar",
-					"event": "listarHabitacionesHostal"
-				},
-				{
-					"label": "Borrar por Id",
-					"event": "eliminarHabitacionHostalPorId"
-				},
-				{
-					"label": "Buscar por id",
-					"event": "buscarHabitacionHostalPorId"
-				}				
-			]
-		},		
-		{ "menuTitle": "Residencias",
-		  "options":
-			[
-				{
-					"label": "Adicionar",
-					"event": "adicionarResidencia"
-				},
-				{
-					"label": "Listar",
-					"event": "listarResidencias"
-				}
-			]
-		},
-		{ "menuTitle": "Habitaciones Residencia",
-		  "options":
-			[
-				{
-					"label": "Adicionar",
-					"event": "adicionarHabitacionResidencia"
-				},
-				{
-					"label": "Listar",
-					"event": "listarHabitacionesResidencia"
-				},
-				{
-					"label": "Borrar por Id",
-					"event": "eliminarHabitacionResidenciaPorId"
-				},
-				{
-					"label": "Buscar por id",
-					"event": "buscarHabitacionResidenciaPorId"
-				}				
-			]
-		},		
-		{ "menuTitle": "Viviendas",
-		  "options":
-			[
-				{
-					"label": "Adicionar",
-					"event": "adicionarHotel"
-				},
-				{
-					"label": "Listar",
-					"event": "listarTipoBebida"
-				},
-				{
-					"label": "Borrar por Id",
-					"event": "eliminarViviendaPorId"
-				},
-				{
-					"label": "Buscar por id",
-					"event": "buscarViviendaPorId"
-				}
-			]
-		}
-		{ "menuTitle": "Habitaciones Invitado",
-		  "options":
-			[
-				{
-					"label": "Adicionar",
-					"event": "adicionarHabitacionInvitado"
-				},
-				{
-					"label": "Listar",
-					"event": "listarHabitacionesInvitado"
-				},
-				{
-					"label": "Borrar por Id",
-					"event": "eliminarHabitacionInvitadoPorId"
-				},
-				{
-					"label": "Buscar por id",
-					"event": "buscarHabitacionInvitadoPorId"
-				}
-			]
-		},
-		{ "menuTitle": "Apartamentos",
-		  "options":
-			[
-				{
-					"label": "Adicionar",
-					"event": "adicionaraApartamento"
-				},
-				{
-					"label": "Listar",
-					"event": "listarApartamentos"
-				},
-				{
-					"label": "Borrar por Id",
-					"event": "eliminarApartamentoPorId"
-				},
-				{
-					"label": "Buscar por id",
-					"event": "buscarApartamentoPorId"
-				}
-			]
-		},
+	[		
 		{ "menuTitle": "Reservas",
 		  "options":
 			[
 				{
 					"label": "Adicionar",
-					"event": "adicionarReserva"
+					"event": "adicionarHotel"
 				},
 				{
 					"label": "Listar",
@@ -204,11 +18,18 @@
 				},
 				{
 					"label": "CancelarReserva",
-					"event": "cancelarReserva"
+					"event": "listarReservas"
 				}
 			]
-		}				
-		
+		},
+		{ "menuTitle": "Ofertas",
+		  "options":
+			[
+				{
+					"label": "Eliminar Oferta Alohamiento",
+					"event": "eliminarOfertaAlohamiento"
+				}				
+			]
+		}		
 	]
 }
-	
