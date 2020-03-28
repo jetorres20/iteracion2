@@ -292,17 +292,13 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		}
     }
 
-    /**
-     * Consulta en la base de datos los tipos de bebida existentes y los muestra en el panel de datos de la aplicación
-     */
-    public void listarTipoBebida( )
-    {
+    public void listarReservas(){
     	try 
     	{
-			List <VOTipoBebida> lista = parranderos.darVOTiposBebida();
+			List <VOReserva> lista = alohandes.darVOReservas();
 
-			String resultado = "En listarTipoBebida";
-			resultado +=  "\n" + listarTiposBebida (lista);
+			String resultado = "En listar Reservas";
+			resultado +=  "\n" + mostrarReservas (lista);
 			panelDatos.actualizarInterfaz(resultado);
 			resultado += "\n Operación terminada";
 		} 
@@ -313,23 +309,68 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
+    
+    
+    
+    private String mostrarReservas(List<VOReserva> lista) 
+    {
+    	String resp = "Las reservas existentes son:\n";
+    	int i = 1;
+        for (VOReserva tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+	}
+    
+    
+    
+    
+    
+    public void cancelarReserva(){
+    	try 
+    	{
+    		String idTipoStr = JOptionPane.showInputDialog (this, "Id de la reserva?", "Cancelar una Reserva", JOptionPane.QUESTION_MESSAGE);
+    		if (idTipoStr != null)
+    		{
+    			long id = Long.valueOf (idTipoStr);
+    			alohandes.cancelarReserva(id);
 
+    			
+    			String resultado = "\n Se cancelo la reserva con id" + id;
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+
+    }
+    
+    
     /**
      * Borra de la base de datos el tipo de bebida con el identificador dado po el usuario
      * Cuando dicho tipo de bebida no existe, se indica que se borraron 0 registros de la base de datos
      */
-    public void eliminarTipoBebidaPorId( )
+    public void eliminarOfertaAlohamiento( )
     {
     	try 
     	{
-    		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo de bedida?", "Borrar tipo de bebida por Id", JOptionPane.QUESTION_MESSAGE);
+    		String idTipoStr = JOptionPane.showInputDialog (this, "Id del recinto", "Borrar recinto/oferta por Id", JOptionPane.QUESTION_MESSAGE);
     		if (idTipoStr != null)
     		{
-    			long idTipo = Long.valueOf (idTipoStr);
-    			long tbEliminados = parranderos.eliminarTipoBebidaPorId (idTipo);
+    			long id = Long.valueOf (idTipoStr);
+    			long tbEliminados = alohandes.eliminarRecintoPorID(id);
 
-    			String resultado = "En eliminar TipoBebida\n\n";
-    			resultado += tbEliminados + " Tipos de bebida eliminados\n";
+    			String resultado = "En eliminar recinto\n\n";
+    			resultado += tbEliminados + " recintos/ ofertas eliminados\n";
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
@@ -345,42 +386,9 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
-
-    /**
-     * Busca el tipo de bebida con el nombre indicado por el usuario y lo muestra en el panel de datos
-     */
-    public void buscarTipoBebidaPorNombre( )
-    {
-    	try 
-    	{
-    		String nombreTb = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Buscar tipo de bebida por nombre", JOptionPane.QUESTION_MESSAGE);
-    		if (nombreTb != null)
-    		{
-    			VOTipoBebida tipoBebida = parranderos.darTipoBebidaPorNombre (nombreTb);
-    			String resultado = "En buscar Tipo Bebida por nombre\n\n";
-    			if (tipoBebida != null)
-    			{
-        			resultado += "El tipo de bebida es: " + tipoBebida;
-    			}
-    			else
-    			{
-        			resultado += "Un tipo de bebida con nombre: " + nombreTb + " NO EXISTE\n";    				
-    			}
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
-    		}
-    		else
-    		{
-    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-    		}
-		} 
-    	catch (Exception e) 
-    	{
-//			e.printStackTrace();
-			String resultado = generarMensajeError(e);
-			panelDatos.actualizarInterfaz(resultado);
-		}
-    }
+    
+    
+    
 
 
 	/* ****************************************************************
@@ -436,37 +444,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		panelDatos.actualizarInterfaz(resultado);
 	}
 	
-	/**
-	 * Limpia todas las tuplas de todas las tablas de la base de datos de parranderos
-	 * Muestra en el panel de datos el número de tuplas eliminadas de cada tabla
-	 */
-	public void limpiarBD ()
-	{
-		try 
-		{
-    		// Ejecución de la demo y recolección de los resultados
-			long eliminados [] = parranderos.limpiarParranderos();
-			
-			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
-			String resultado = "\n\n************ Limpiando la base de datos ************ \n";
-			resultado += eliminados [0] + " Gustan eliminados\n";
-			resultado += eliminados [1] + " Sirven eliminados\n";
-			resultado += eliminados [2] + " Visitan eliminados\n";
-			resultado += eliminados [3] + " Bebidas eliminadas\n";
-			resultado += eliminados [4] + " Tipos de bebida eliminados\n";
-			resultado += eliminados [5] + " Bebedores eliminados\n";
-			resultado += eliminados [6] + " Bares eliminados\n";
-			resultado += "\nLimpieza terminada";
-   
-			panelDatos.actualizarInterfaz(resultado);
-		} 
-		catch (Exception e) 
-		{
-//			e.printStackTrace();
-			String resultado = generarMensajeError(e);
-			panelDatos.actualizarInterfaz(resultado);
-		}
-	}
+	
 	
 	/**
 	 * Muestra la presentación general del proyecto
@@ -539,24 +517,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     }
     
 
-	/* ****************************************************************
-	 * 			Métodos privados para la presentación de resultados y otras operaciones
-	 *****************************************************************/
-    /**
-     * Genera una cadena de caracteres con la lista de los tipos de bebida recibida: una línea por cada tipo de bebida
-     * @param lista - La lista con los tipos de bebida
-     * @return La cadena con una líea para cada tipo de bebida recibido
-     */
-    private String listarTiposBebida(List<VOTipoBebida> lista) 
-    {
-    	String resp = "Los tipos de bebida existentes son:\n";
-    	int i = 1;
-        for (VOTipoBebida tb : lista)
-        {
-        	resp += i++ + ". " + tb.toString() + "\n";
-        }
-        return resp;
-	}
+	
 
     /**
      * Genera una cadena de caracteres con la descripción de la excepcion e, haciendo énfasis en las excepcionsde JDO
