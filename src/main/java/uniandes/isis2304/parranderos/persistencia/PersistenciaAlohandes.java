@@ -1957,10 +1957,75 @@ public class PersistenciaAlohandes
 	}
 	
 	
-	//crear un metodo en SQL para cancelar update datos de una tupla en la tabla reservas
+	
 	public void cancelarReserva(long id){
-		//TODO //crear un metodo en SQL para cancelar update datos de una tupla en la tabla reservas
-		//calcular el cobro adicional
+	
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            
+        	Reserva r = this.darReservaPorId(id);
+    		long recintoId = r.getRecintoId(); 
+    		Timestamp fechaCancelacion = new Timestamp(System.currentTimeMillis());		
+    		Timestamp fechaInicio = r.getFechaInicio();	
+    		
+    		Recinto recintoObj = this.darRecintoPorId(recintoId);
+            HabitacionHotel habHotel = this.darHabitacionHotelPorId(recintoId);
+            HabitacionHostal habHostal = this.darHabitacionHostalPorId(recintoId);
+            HabitacionResidencia habResidencia = this.darHabitacionResidenciaPorId(recintoId);
+            HabitacionVisitante habVisitante = this.darHabitacionVisitantePorId(recintoId);
+            Apartamento apto = this.darApartamentoPorId(recintoId);
+            Vivienda vivienda = this.darViviendaPorId(recintoId);
+            
+            // servicios por dia: hoteles, hostales, viviendas tipo 1
+            //servicios por meses o semesttres residencia, apto, hab compartida tipo 2
+         		
+            int tipo = 1;        
+            long limiteDias = 3;
+            long difDias = fechaInicio.getTime() - fechaCancelacion.getTime();
+            
+            if(habHotel != null && habHostal != null && vivienda != null){        	
+            	tipo = 2;
+            	limiteDias = 7;
+            }        
+            
+           double cobroAdicional = 0;
+            
+            if(difDias > limiteDias ){
+            	cobroAdicional = 0.1 * r.getSubTotal();
+            }else if(difDias>0 && difDias < limiteDias){
+            	cobroAdicional = 0.3 * r.getSubTotal();
+            }
+            else{
+            	cobroAdicional = 0.5*r.getSubTotal();
+            }            
+            
+            sqlReserva.cancelarReservaPorId(pm, id, cobroAdicional, fechaCancelacion);
+            tx.commit();
+            
+            log.trace ("cancelacion de Residencia: " + id + ", cobro add" + cobroAdicional + " pesos");
+            
+            
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+        
+        
+        
 	}
 	
 	public List<Reserva> darReservas(){

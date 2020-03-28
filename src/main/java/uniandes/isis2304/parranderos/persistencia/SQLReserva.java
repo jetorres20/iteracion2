@@ -10,7 +10,14 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import uniandes.isis2304.alohandes.negocio.Apartamento;
+import uniandes.isis2304.alohandes.negocio.HabitacionHostal;
+import uniandes.isis2304.alohandes.negocio.HabitacionHotel;
+import uniandes.isis2304.alohandes.negocio.HabitacionVisitante;
+import uniandes.isis2304.alohandes.negocio.Recinto;
 import uniandes.isis2304.alohandes.negocio.Reserva;
+import uniandes.isis2304.alohandes.negocio.Residencia;
+import uniandes.isis2304.alohandes.negocio.Vivienda;
 
 /**
  * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto Reserva de Alohandes
@@ -78,9 +85,10 @@ class SQLReserva {
 	 * @param id - el id de la reserva
 	 * @return numero de tuplas eliminadas
 	 */
-	public long eliminarReservaPorId(PersistenceManager pm, long id){
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReservas () + " WHERE id = ?");
-		q.setParameters(id);
+	public long cancelarReservaPorId(PersistenceManager pm, long id, double cobroAdicional, Timestamp fechaCancelacion){
+		
+		Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaReservas () + " SET fechaCancelacion = ?, cobroAdicional = ? WHERE id = ?");
+		q.setParameters(fechaCancelacion, cobroAdicional, id);
 		return (long) q.executeUnique();
 	}
 	
