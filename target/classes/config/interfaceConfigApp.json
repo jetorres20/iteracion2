@@ -1,7 +1,7 @@
 {
 	"title": "Aplicación transaccional de Alohandes Uniandes",
-	"frameH": 600,
-	"frameW": 800,
+	"frameH": 1000,
+	"frameW": 1400,
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
@@ -14,24 +14,126 @@
 				},
 				{
 					"label": "Listar",
-					"event": "listarTipoBebida"
+					"event": "listarPersonas"
 				},
 				{
 					"label": "Borrar por Id",
-					"event": "eliminarTipoBebidaPorId"
+					"event": "eliminarPersonaPorId"
 				},
 				{
-					"label": "Buscar por Nombre",
-					"event": "buscarTipoBebidaPorNombre"
+					"label": "Buscar por id",
+					"event": "buscarPersonaPorId"
 				}
 			]
 		},
-		 "menuTitle": "TipoBebida",
+		{ "menuTitle": "Hotel",
 		  "options":
 			[
 				{
 					"label": "Adicionar",
-					"event": "adicionarTipoBebida"
+					"event": "adicionarHotel"
+				},
+				{
+					"label": "Listar",
+					"event": "listarHoteles"
+				}				
+			]
+		},
+		{ "menuTitle": "Habitaciones Hotel",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarHabitacionHotel"
+				},
+				{
+					"label": "Listar",
+					"event": "listarHabitacionesHotel"
+				},
+				{
+					"label": "Borrar por Id",
+					"event": "eliminarHabitacionHotelPorId"
+				},
+				{
+					"label": "Buscar por id",
+					"event": "buscarHabitacionHotelPorId"
+				}				
+			]
+		},
+		{ "menuTitle": "Hostal",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarHostal"
+				},
+				{
+					"label": "Listar",
+					"event": "listarHostales"
+				}
+			]
+		},
+		{ "menuTitle": "Habitaciones Hostal",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarHabitacionHostal"
+				},
+				{
+					"label": "Listar",
+					"event": "listarHabitacionesHostal"
+				},
+				{
+					"label": "Borrar por Id",
+					"event": "eliminarHabitacionHostalPorId"
+				},
+				{
+					"label": "Buscar por id",
+					"event": "buscarHabitacionHostalPorId"
+				}				
+			]
+		},		
+		{ "menuTitle": "Residencias",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarResidencia"
+				},
+				{
+					"label": "Listar",
+					"event": "listarResidencias"
+				}
+			]
+		},
+		{ "menuTitle": "Habitaciones Residencia",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarHabitacionResidencia"
+				},
+				{
+					"label": "Listar",
+					"event": "listarHabitacionesResidencia"
+				},
+				{
+					"label": "Borrar por Id",
+					"event": "eliminarHabitacionResidenciaPorId"
+				},
+				{
+					"label": "Buscar por id",
+					"event": "buscarHabitacionResidenciaPorId"
+				}				
+			]
+		},		
+		{ "menuTitle": "Viviendas",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarHotel"
 				},
 				{
 					"label": "Listar",
@@ -39,77 +141,73 @@
 				},
 				{
 					"label": "Borrar por Id",
-					"event": "eliminarTipoBebidaPorId"
+					"event": "eliminarViviendaPorId"
 				},
 				{
-					"label": "Buscar por Nombre",
-					"event": "buscarTipoBebidaPorNombre"
+					"label": "Buscar por id",
+					"event": "buscarViviendaPorId"
+				}
+			]
+		}
+		{ "menuTitle": "Habitaciones Invitado",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarHabitacionInvitado"
+				},
+				{
+					"label": "Listar",
+					"event": "listarHabitacionesInvitado"
+				},
+				{
+					"label": "Borrar por Id",
+					"event": "eliminarHabitacionInvitadoPorId"
+				},
+				{
+					"label": "Buscar por id",
+					"event": "buscarHabitacionInvitadoPorId"
 				}
 			]
 		},
-		{ "menuTitle": "Mantenimiento",
+		{ "menuTitle": "Apartamentos",
 		  "options":
 			[
 				{
-					"label": "Mostrar log Parranderos",
-					"event": "mostrarLogParranderos"
+					"label": "Adicionar",
+					"event": "adicionaraApartamento"
 				},
 				{
-					"label": "Mostrar log datanucleus",
-					"event": "mostrarLogDatanuecleus"
+					"label": "Listar",
+					"event": "listarApartamentos"
 				},
 				{
-					"label": "Limpiar log de parranderos",
-					"event": "limpiarLogParranderos"
+					"label": "Borrar por Id",
+					"event": "eliminarApartamentoPorId"
 				},
 				{
-					"label": "Limpiar log de datanucleus",
-					"event": "limpiarLogDatanucleus"
-				},
-				{
-					"label": "Limpiar Base de Datos",
-					"event": "limpiarBD"
+					"label": "Buscar por id",
+					"event": "buscarApartamentoPorId"
 				}
 			]
-		},		
-		{ "menuTitle": "Documentación",
+		},
+		{ "menuTitle": "Reservas",
 		  "options":
 			[
 				{
-					"label": "Presentación general",
-					"event": "mostrarPresentacionGeneral"
+					"label": "Adicionar",
+					"event": "adicionarReserva"
 				},
 				{
-					"label": "Modelo conceptual",
-					"event": "mostrarModeloConceptual"
+					"label": "Listar",
+					"event": "listarReservas"
 				},
 				{
-					"label": "Esquema de la BD",
-					"event": "mostrarEsquemaBD"
-				},
-				{
-					"label": "Script creación de la BD",
-					"event": "mostrarScriptBD"
-				},
-				{
-					"label": "Arquitectura de referencia",
-					"event": "mostrarArqRef"
-				},
-				{
-					"label": "Javadoc Parranderos",
-					"event": "mostrarJavadoc"
+					"label": "CancelarReserva",
+					"event": "cancelarReserva"
 				}
 			]
-		},		
-		{ "menuTitle": "Acerca de ...",
-		  "options":
-			[
-				{
-					"label": "Acerca de ...",
-					"event": "acercaDe"
-				}
-			]
-		}		
+		}				
 		
 	]
 }
