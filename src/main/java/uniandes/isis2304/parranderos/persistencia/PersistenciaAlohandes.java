@@ -1852,7 +1852,7 @@ public class PersistenciaAlohandes
 	 * 			Métodos para manejar las Reservas
 	 *****************************************************************/
 
-	public Reserva adicionarReserva(long recintoId, long personaId, Timestamp fechaInicio, Timestamp fechaFin, int personas, double subTotal)
+	public Reserva adicionarReserva(long recintoId, long personaId, Timestamp fechaInicio, Timestamp fechaFin, int personas)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -1882,6 +1882,8 @@ public class PersistenciaAlohandes
         Vivienda vivienda = this.darViviendaPorId(recintoId);
         
         int capacidadDisponible = recintoObj.getCapacidadTotal();
+        
+        double subTotal = 0;
         
         if(habHotel != null){
         	subTotal = numeroDiasTotales*habHotel.getPrecioNoche();
@@ -2469,7 +2471,7 @@ public class PersistenciaAlohandes
 	
 		
 
-	List<HotelOfreceServicio> darHotelesOfreceServicios ()
+	public List<HotelOfreceServicio> darHotelesOfreceServicios ()
 	{
 		return sqlHotelOfreceServicio.darHotelesOfreceServicio(pmf.getPersistenceManager());
 	}
@@ -2539,7 +2541,7 @@ public class PersistenciaAlohandes
         }
 	}
 	
-	List<ResidenciaOfreceServicio> darResidenciasOfrecenServicios ()
+	public List<ResidenciaOfreceServicio> darResidenciasOfrecenServicios ()
 	{
 		return sqlResidenciaOfreceServicio.darResidenciaOfreceServicio(pmf.getPersistenceManager());
 	}

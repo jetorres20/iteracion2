@@ -51,7 +51,7 @@ import uniandes.isis2304.alohandes.negocio.VOTipoBebida;
 
 /**
  * Clase principal de la interfaz
- * @author Germán Bravo
+ * 
  */
 @SuppressWarnings("serial")
 

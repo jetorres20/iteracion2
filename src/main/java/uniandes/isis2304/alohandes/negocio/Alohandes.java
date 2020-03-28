@@ -729,7 +729,7 @@ public class Alohandes
 	public Reserva adicionarReserva(long recintoId, long personaId, Timestamp fechaInicio, Timestamp fechaFin, int personas)
 	{
 		//TODO quitar subtotal aqui y en persistencia
-		return pp.adicionarReserva(recintoId, personaId, fechaInicio, fechaFin, personas, 0);
+		return pp.adicionarReserva(recintoId, personaId, fechaInicio, fechaFin, personas);
 		
 	}
 	
@@ -975,18 +975,18 @@ public class Alohandes
 		return pp.eliminarHotelOfreceServicio(idHotel, idServicio);
 	}
      
-	//TODO añadir public en persistencia
-//	public List<HotelOfreceServicio> darHotelesOfreceServicio(){
-//		return pp.darHotelesOfreceServicios();
-//	}
 
-//	public List<VOHotelOfreceServicio> darVOHotelesOfreceServicio(){
-//		List<VOHotelOfreceServicio> servs = new LinkedList<>();
-//		for(VOHotelOfreceServicio a:
-//		pp.darHotelesOfreceServicios())
-//			servs.add(a);
-//		return servs;
-//	}
+	public List<HotelOfreceServicio> darHotelesOfreceServicio(){
+		return pp.darHotelesOfreceServicios();
+	}
+
+	public List<VOHotelOfreceServicio> darVOHotelesOfreceServicio(){
+		List<VOHotelOfreceServicio> servs = new LinkedList<>();
+		for(VOHotelOfreceServicio a:
+		pp.darHotelesOfreceServicios())
+			servs.add(a);
+		return servs;
+	}
 	
 	
 	
@@ -1008,17 +1008,17 @@ public class Alohandes
         
 			
 	
-//	public List<ResidenciaOfreceServicio> darResidenciasOfreceServicios(){
-//		return pp.darResidenciasOfrecenServicios();
-//	}
+	public List<ResidenciaOfreceServicio> darResidenciasOfreceServicios(){
+		return pp.darResidenciasOfrecenServicios();
+	}
 
-//	public List<VOResidenciaOfreceServicio> darVOResidenciaOfreceServicio(){
-//		List<VOServicioPrivado> servs = new LinkedList<>();
-//		for(VOServicioPrivado a:
-//		pp.darResidenciasOfrecenServicios())
-//			servs.add(a);
-//		return servs;
-//	}
+	public List<VOResidenciaOfreceServicio> darVOResidenciaOfreceServicio(){
+		List<VOResidenciaOfreceServicio> servs = new LinkedList<>();
+		for(VOResidenciaOfreceServicio a:
+		pp.darResidenciasOfrecenServicios())
+			servs.add(a);
+		return servs;
+	}
 	
 	
 	
