@@ -10,7 +10,7 @@
 			[
 				{
 					"label": "Adicionar",
-					"event": "adicionarHotel"
+					"event": "adicionarReserva"
 				},
 				{
 					"label": "Listar",
@@ -18,7 +18,7 @@
 				},
 				{
 					"label": "CancelarReserva",
-					"event": "listarReservas"
+					"event": "cancelarReserva"
 				}
 			]
 		},

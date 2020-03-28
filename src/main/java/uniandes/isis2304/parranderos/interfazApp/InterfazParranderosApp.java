@@ -26,6 +26,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.jdo.JDODataStoreException;
@@ -47,7 +50,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.alohandes.negocio.Alohandes;
-import uniandes.isis2304.alohandes.negocio.VOTipoBebida;
+import uniandes.isis2304.alohandes.negocio.VOReserva;
 
 /**
  * Clase principal de la interfaz
@@ -237,28 +240,44 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     }
     
 	/* ****************************************************************
-	 * 			CRUD de TipoBebida
+	 * 			CRUD de Reserva
 	 *****************************************************************/
+
     /**
-     * Adiciona un tipo de bebida con la información dada por el usuario
-     * Se crea una nueva tupla de tipoBebida en la base de datos, si un tipo de bebida con ese nombre no existía
+     * Adiciona una nueva reserva con la información dada por el usuario
+     * Se crea una nueva tupla de Reserva en la base de datos
      */
-    public void adicionarTipoBebida( )
+    public void adicionarReserva( )
     {
     	try 
     	{
-    		String nombreTipo = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Adicionar tipo de bebida", JOptionPane.QUESTION_MESSAGE);
-    		if (nombreTipo != null)
+    		String recintId = JOptionPane.showInputDialog (this, "El identificador de la oferta?", "Adicionar reserva", JOptionPane.QUESTION_MESSAGE);
+    		String personaId = JOptionPane.showInputDialog (this, "Su identificador de cliente?", "Adicionar reserva", JOptionPane.QUESTION_MESSAGE);
+    		String fechaIni = JOptionPane.showInputDialog (this, "La fecha de inicio? En formato dia/mes/año ", "Adicionar reserva", JOptionPane.QUESTION_MESSAGE);
+    		String fechafin = JOptionPane.showInputDialog (this, "La fecha de finalizacion? En formato dia/mes/año ", "Adicionar reserva", JOptionPane.QUESTION_MESSAGE);
+    		
+    				
+    		
+    		if (recintId != null && personaId!= null && fechaIni != null && fechafin!= null)
     		{
-        		VOTipoBebida tb = parranderos.adicionarTipoBebida (nombreTipo);
+    			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        		Date date2=null;
+        		date2= dateFormat.parse(fechaIni);
+        		Timestamp fechaInicio = new Timestamp( date2.getTime());
+        		Date date3=null;
+        		date3= dateFormat.parse(fechafin);
+        		Timestamp fechaFin = new Timestamp( date3.getTime());
+        		String cant = JOptionPane.showInputDialog (this, "Cuantas personas?", "Adicionar reserva", JOptionPane.QUESTION_MESSAGE);
+        		int personas = Integer.parseInt(cant);
+        		long idRecinto = Integer.parseInt(recintId);
+        		long idPersona = Integer.parseInt(personaId);   
+        		
+        		VOReserva tb = alohandes.adicionarReserva(idRecinto, idPersona, fechaInicio, fechaFin, personas);
         		if (tb == null)
         		{
-        			throw new Exception ("No se pudo crear un tipo de bebida con nombre: " + nombreTipo);
+        			throw new Exception ("No se pudo crear un tipo de bebida con id: " + idRecinto);
         		}
-        		String resultado = "En adicionarTipoBebida\n\n";
-        		resultado += "Tipo de bebida adicionado exitosamente: " + tb;
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
+        		
     		}
     		else
     		{
