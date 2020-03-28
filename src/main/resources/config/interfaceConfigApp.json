@@ -5,12 +5,12 @@
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
-		{ "menuTitle": "Operario",
+		{ "menuTitle": "Persona",
 		  "options":
 			[
 				{
 					"label": "Adicionar",
-					"event": "adicionarTipoBebida"
+					"event": "adicionarPersona"
 				},
 				{
 					"label": "Listar",

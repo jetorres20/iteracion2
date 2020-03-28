@@ -1440,6 +1440,7 @@ public class PersistenciaAlohandes
         {
             tx.begin();
             long resp = sqlHostal.eliminarHostalPorId(pm, idOperario);
+            sqlOperario.eliminarOperarioPorId(pm, idOperario);
             tx.commit();
             return resp;
         }
@@ -1466,7 +1467,7 @@ public class PersistenciaAlohandes
             try
             {
                 tx.begin();
-                long resp = sqlHostal.eliminarHostalPorNit(pm, nit);
+                long resp = sqlHostal.eliminarHostalPorNit(pm, nit);                
                 tx.commit();
                 return resp;
             }
@@ -1548,6 +1549,7 @@ public class PersistenciaAlohandes
         {
             tx.begin();
             long resp = sqlHotel.eliminarHotelPorId(pm, idOperario);
+            sqlOperario.eliminarOperarioPorId(pm, idOperario);
             tx.commit();
             return resp;
         }
@@ -1748,6 +1750,7 @@ public class PersistenciaAlohandes
         {
             tx.begin();
             long resp = sqlPersona.eliminarPersonaPorId(pm, idOperario);
+            sqlOperario.eliminarOperarioPorId(pm, idOperario);
             tx.commit();
             return resp;
         }
@@ -2012,6 +2015,7 @@ public class PersistenciaAlohandes
         {
             tx.begin();
             long resp = sqlResidencia.eliminarResidenciaPorId(pm, idOperario);
+            sqlOperario.eliminarOperarioPorId(pm, idOperario);
             tx.commit();
             return resp;
         }
@@ -2087,6 +2091,7 @@ public class PersistenciaAlohandes
         {
             tx.begin();
             long resp = sqlVivienda.eliminarViviendaPorId(pm, idRecinto);
+            sqlRecinto.eliminarRecintoPorId(pm, idRecinto);
             tx.commit();
             return resp;
         }
