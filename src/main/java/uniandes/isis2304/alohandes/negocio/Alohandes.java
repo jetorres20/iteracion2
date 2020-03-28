@@ -639,6 +639,448 @@ public class Alohandes
 	
 	
 	/* ****************************************************************
+	 * 			Métodos para manejar los Operario
+	 *****************************************************************/
+	
+	public List<Operario> darOperarios ()
+	{
+		return pp.darOperarios();
+	}
+	
+	public List<VOOperario> darVOOperarios(){
+		List<VOOperario> operarios = new LinkedList<>();
+		for(VOOperario op :
+		pp.darOperarios())
+			operarios.add(op);
+		return operarios;
+	}
+	
+	
+	public Operario darOperarioPorId (long id)
+	{
+		return pp.darOperarioPorId(id);
+	}
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los Persona
+	 *****************************************************************/
+	public Persona adicionarPersona(int cedula, String nombre, String apellido, int telefono, String correo, int vinculo)
+	{
+		return pp.adicionarPersona(cedula, nombre, apellido, telefono, correo, vinculo);
+		
+	}
+	
+	
+	public long eliminarPersonaPorId(long idOperario) 
+	{
+		return pp.eliminarPersonaPorId(idOperario);
+        
+	}
+        
+        
+	public Hotel darPersonaPorId(long id){
+		return pp.darHotelPorId(id);
+	}
+		
+	
+	public List<Persona> darPersonas(){
+		return pp.darPersonas();
+	}
+
+	public List<VOPersona> darVOPersona(){
+		List<VOPersona> personas = new LinkedList<>();
+		for(VOPersona p :
+		pp.darPersonas())
+			personas.add(p);
+		return personas;
+	}
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los Recinto
+	 *****************************************************************/
+	public long eliminarRecintoPorID(long id) 
+	{
+		return pp.eliminarRecinto(id);
+        
+	}
+        
+        
+	public Recinto darRecintoPorId(long id){
+		return pp.darRecintoPorId(id);
+	}
+		
+	
+	public List<Recinto> darRecintos(){
+		return pp.darRecintos();
+	}
+
+	public List<VORecinto> darVORecintos(){
+		List<VORecinto> recintos = new LinkedList<>();
+		for(VORecinto r :
+		pp.darRecintos())
+			recintos.add(r);
+		return recintos;
+	}
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los Reserva
+	 *****************************************************************/
+	public Reserva adicionarReserva(long recintoId, long personaId, Timestamp fechaInicio, Timestamp fechaFin, int personas)
+	{
+		//TODO quitar subtotal aqui y en persistencia
+		return pp.adicionarReserva(recintoId, personaId, fechaInicio, fechaFin, personas, 0);
+		
+	}
+	
+	public void cancelarReserva(long id) 
+	{
+		pp.cancelarReserva(id);
+		
+	}
+        
+        
+	public Reserva darReservaPorId(long id){
+		return pp.darReservaPorId(id);
+	}
+		
+	
+	public List<Reserva> darReservas(){
+		return pp.darReservas();
+	}
+
+	public List<VOReserva> darVOReservas(){
+		List<VOReserva> reservas = new LinkedList<>();
+		for(VOReserva p :
+		pp.darReservas())
+			reservas.add(p);
+		return reservas;
+	}
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar las Residencias
+	 *****************************************************************/
+	
+	public Residencia adicionarResidencia(int nit,  String nombre, String direccion, int telefono )
+	{
+		return pp.adicionarResidencia(nit, nombre, direccion, telefono);
+		
+	}
+	
+	
+	public long eliminarResidenciaPorId(long idOperario) 
+	{
+		return pp.eliminarResidencia(idOperario);
+        
+	}
+        
+        
+	public Residencia darResidenciaPOrId(long id){
+		return pp.darResidenciaPorId(id);
+	}
+		
+	
+	public List<Residencia> darRessidencia(){
+		return pp.darResidencias();
+	}
+
+	public List<VOResidencia> darVOResidencia(){
+		List<VOResidencia> residencias = new LinkedList<>();
+		for(VOResidencia p :
+		pp.darResidencias())
+			residencias.add(p);
+		return residencias;
+	}
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los viviendas
+	 *****************************************************************/
+	public Vivienda adicionarVivienda(int capacidadTotal, long idOperario, int numeroHabitaciones, double precioNoche, double precioSeguro, String direccion, int diasUsada)
+	{
+		return pp.adicionarVivienda(capacidadTotal, idOperario, numeroHabitaciones, precioNoche, precioSeguro, direccion, 0);
+		
+	}
+	
+	
+	public long eliminarViviendaPorId(long idRecinto) 
+	{
+		return pp.eliminarViviendaPorId(idRecinto);
+        
+	}
+        
+        
+	public Vivienda darViviendaPorId(long id){
+		return pp.darViviendaPorId(id);
+	}
+		
+	
+	public List<Vivienda> darViviendas(){
+		return pp.darViviendas();
+	}
+
+	public List<VOVivienda> darVOViviendas(){
+		List<VOVivienda> viviendas = new LinkedList<>();
+		for(VOVivienda v :
+		pp.darViviendas())
+			viviendas.add(v);
+		return viviendas;
+	}
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los Menajes
+	 *****************************************************************/
+	public Menaje adicionarMenaje(String nombre)
+	{
+		return pp.adicionarMenaje(nombre);
+		
+	}
+	
+	
+	public long elimnarMenajePorID(long id) 
+	{
+		return pp.eliminarMenajePorId(id);
+	}
+        
+        
+	public Menaje darMenajePorId(long id){
+		return pp.darMenajePorId(id);
+	}
+		
+	
+	public List<Menaje> darMenajes(){
+		return pp.darMenajes();
+	}
+
+	public List<VOMenaje> darVOMenajes(){
+		List<VOMenaje> menajes = new LinkedList<>();
+		for(VOMenaje m :
+		pp.darMenajes())
+			menajes.add(m);
+		return menajes;
+	}
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los ServicioHotel
+	 *****************************************************************/
+	public ServicioHotel adicionarServicioHotel(String nombre)
+	{
+		return pp.adicionarServicioHotel(nombre);
+		
+	}
+	
+	
+	public long eliminarServicioHotelPOrId(long id) 
+	{
+		return pp.eliminarServicioHotelPorId(id);
+	}
+        
+        
+	public ServicioHotel darServicioHotelPorId(long id){
+		return pp.darServicioHotelPorId(id);
+	}
+		
+	
+	public List<ServicioHotel> darServiciosHotel(){
+		return pp.darServiciosHotel();
+	}
+
+	public List<VOServicioHotel> darVOServicioHotel(){
+		List<VOServicioHotel> servs = new LinkedList<>();
+		for(VOServicioHotel a :
+		pp.darServiciosHotel())
+			servs.add(a);
+		return servs;
+	}
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los ServiciosResidencia
+	 *****************************************************************/
+	public ServicioResidencia adicionarServicioResidencia(String nombre, double costoExtraNoche , double costoExtraMes, double costoExtraSemestre)
+	{
+		return pp.adicionarServicioResidencia(nombre, costoExtraNoche, costoExtraMes, costoExtraSemestre);
+		
+	}
+		
+	public long elimnarServicioResidenciaPorID(long id) 
+	{
+		return pp.eliminarServicioResidenciaPorId(id);
+	}
+        
+        
+	public ServicioResidencia darServicioResidenciaPorId(long id){
+		return pp.darServicioResidenciaPorId(id);
+	}
+		
+	
+	public List<ServicioResidencia> darServiciosResidencia(){
+		return pp.darServiciosResidencia();
+	}
+
+	public List<VOServicioResidencia> darVOServicioResidencia(){
+		List<VOServicioResidencia> servs = new LinkedList<>();
+		for(VOServicioResidencia a:
+		pp.darServiciosResidencia())
+			servs.add(a);
+		return servs;
+	}
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los ServiciosPrivado
+	 *****************************************************************/
+	public ServicioPrivado adicionarServicioPrivado(String nombre)
+	{
+		return pp.adicionarServicioPrivado(nombre);
+		
+	}
+		
+	public long eliminarServicioPrivado(long id) 
+	{
+		return pp.eliminarServicioPrivadoPorId(id);
+	}
+        
+        
+	public ServicioPrivado darServicioPrivadoPorId(long id){
+		return pp.darServicioPrivadoPorId(id);
+	}
+		
+	
+	public List<ServicioPrivado> darServiciosPrivados(){
+		return pp.darServiciosPrivados();
+	}
+
+	public List<VOServicioPrivado> darVOServicioPrivado(){
+		List<VOServicioPrivado> servs = new LinkedList<>();
+		for(VOServicioPrivado a:
+		pp.darServiciosPrivados())
+			servs.add(a);
+		return servs;
+	}
+	
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los HotelOfreceServicio
+	 *****************************************************************/
+	public HotelOfreceServicio adicionarHotelOfreceServicio(long idHotel, long idServicio)
+	{
+		return pp.adicionarHotelOfreceServicio(idHotel, idServicio);
+		
+	}
+		
+	public long eliminarHotelOfreceServicio(long idHotel, long idServicio) 
+	{
+		return pp.eliminarHotelOfreceServicio(idHotel, idServicio);
+	}
+     
+	//TODO añadir public en persistencia
+//	public List<HotelOfreceServicio> darHotelesOfreceServicio(){
+//		return pp.darHotelesOfreceServicios();
+//	}
+
+//	public List<VOHotelOfreceServicio> darVOHotelesOfreceServicio(){
+//		List<VOHotelOfreceServicio> servs = new LinkedList<>();
+//		for(VOHotelOfreceServicio a:
+//		pp.darHotelesOfreceServicios())
+//			servs.add(a);
+//		return servs;
+//	}
+	
+	
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los ResidenciaOfreceServicio
+	 *****************************************************************/
+	public ResidenciaOfreceServicio adicionarResidenciaOfreceServicio(long idResidencia, long idServicio)
+	{
+		return pp.adicionarResidenciaOfreceServicio(idResidencia, idServicio);
+		
+	}
+		
+	public long eliminarResidenciaOfreceServicio(long idResidencia, long idServicio) 
+	{
+		return pp.eliminarResidenciaOfreceServicio(idResidencia, idServicio);
+	}
+        
+        
+			
+	
+//	public List<ResidenciaOfreceServicio> darResidenciasOfreceServicios(){
+//		return pp.darResidenciasOfrecenServicios();
+//	}
+
+//	public List<VOResidenciaOfreceServicio> darVOResidenciaOfreceServicio(){
+//		List<VOServicioPrivado> servs = new LinkedList<>();
+//		for(VOServicioPrivado a:
+//		pp.darResidenciasOfrecenServicios())
+//			servs.add(a);
+//		return servs;
+//	}
+	
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los ViviendaTieneMenajes
+	 *****************************************************************/
+	public ViviendaTieneMenajes adicionarViviendaTieneMenajes(long idVivienda, long idMenaje, int cantidad, double valorUnidad)
+	{
+		return pp.adicionarViviendaTieneMenajes(idVivienda, idMenaje, cantidad, valorUnidad);
+		
+	}
+		
+	public long eliminarViviendaTieneMenajes(long idVivienda, long idMenaje) 
+	{
+		return pp.eliminarViviendaTieneMenajes(idVivienda, idMenaje);
+	}
+        
+    
+		
+	
+	public List<ViviendaTieneMenajes> darViviendasTienenMenajes(){
+		return pp.darViviendaTieneMenajes();
+	}
+
+	public List<VOViviendaTieneMenajes> darVOViviendasTienesMenajes(){
+		List<VOViviendaTieneMenajes> servs = new LinkedList<>();
+		for(VOViviendaTieneMenajes a:
+		pp.darViviendaTieneMenajes())
+			servs.add(a);
+		return servs;
+	}
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los ViviendaTieneMenajes
+	 *****************************************************************/
+	public HabitacionResidenciaTieneMenajes adicionarHabitacionResidenciaTieneMenajes(long idHabitacion, 
+			long idMenaje, int cantidad, double valorUnidad)
+	{
+		return pp.adicionarHabitacionResidenciaTieneMenajes(idHabitacion, idMenaje, cantidad, valorUnidad);
+		
+	}
+		
+	public long eliminarHabitacionResidenciaTieneMenajes(long idHabitacion, long idMenaje) 
+	{
+		return pp.eliminarHabitacionResidenciaTieneMenajes(idHabitacion, idMenaje);
+	}
+        		
+	
+	public List<HabitacionResidenciaTieneMenajes> darHabitacionResidenciaTieneMenajes(){
+		return pp.darHabitacionResidenciaTieneMenajes();
+	}
+
+	public List<VOHabitacionResidenciaTieneMenajes> darVOHabitacionResidenciaTieneMenajes(){
+		List<VOHabitacionResidenciaTieneMenajes> servs = new LinkedList<>();
+		for(VOHabitacionResidenciaTieneMenajes a:
+		pp.darHabitacionResidenciaTieneMenajes())
+			servs.add(a);
+		return servs;
+	}
+	
+	
+	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/
 
