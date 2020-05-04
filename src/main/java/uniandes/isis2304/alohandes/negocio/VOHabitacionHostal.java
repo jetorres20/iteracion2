@@ -20,7 +20,7 @@ public interface VOHabitacionHostal {
 	/**
 	 * @return the idHabitacion
 	 */
-	public long getIdHabitacion();
+	public long getIdRecinto();
 
 	/**
 	 * @return the idHostal
@@ -30,12 +30,12 @@ public interface VOHabitacionHostal {
 	/**
 	 * @return the compartida
 	 */
-	public boolean isCompartida();
+	public int getCompartida();
 
 	/**
 	 * @return the banioCompartido
 	 */
-	public boolean isBanioCompartido();
+	public int getBanioCompartido();
 
 	/**
 	 * @return the numero
@@ -47,8 +47,5 @@ public interface VOHabitacionHostal {
 	 */
 	public double getPrecioNoche();
 
-	/**
-	 * @return the capacidadDisponible
-	 */
-	public int getCapacidadDisponible();
+	
 }

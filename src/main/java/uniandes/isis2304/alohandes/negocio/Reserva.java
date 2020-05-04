@@ -1,6 +1,6 @@
 package uniandes.isis2304.alohandes.negocio;
 
-import java.sql.Timestamp;
+import java.sql.Timestamp;import org.hamcrest.core.IsNull;
 
 public class Reserva implements VOReserva{
 
@@ -57,12 +57,12 @@ public class Reserva implements VOReserva{
 	/**
 	 * cobro adicional si se cancela la reserva
 	 */
-	private double cobroAdicional;
+	private Double cobroAdicional;
 	
 	/**
 	 * true si la reserva esta activa, false si paso o fue cancelada
 	 */
-	private boolean activa;
+	private int activa;
 
 	/* ****************************************************************
 	 * 			Métodos 
@@ -80,8 +80,8 @@ public class Reserva implements VOReserva{
 		this.personas = 0;
 		this.subTotal = 0;
 		this.fechaCancelacion = new Timestamp(0);;
-		this.cobroAdicional = 0;
-		this.activa = false;
+		this.cobroAdicional = .0;
+		this.activa = 0;
 	}
 	
 	/**
@@ -99,8 +99,8 @@ public class Reserva implements VOReserva{
 	 * @param activa
 	 */
 	public Reserva(long id, long recintoId, long personaId, Timestamp fechaReserva, Timestamp fechaInicio,
-			Timestamp fechaFin, int personas, double subTotal, Timestamp fechaCancelacion, double cobroAdicional,
-			boolean activa) {
+			Timestamp fechaFin, int personas, double subTotal, Timestamp fechaCancelacion, Double cobroAdicional,
+			int activa) {
 		this.id = id;
 		this.recintoId = recintoId;
 		this.personaId = personaId;
@@ -195,7 +195,7 @@ public class Reserva implements VOReserva{
 	/**
 	 * @return the activa
 	 */
-	public boolean isActiva() {
+	public int getActiva() {
 		return activa;
 	}
 
@@ -233,6 +233,7 @@ public class Reserva implements VOReserva{
 	public void setFechaInicio(Timestamp fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
+	
 
 	/**
 	 * @param fechaFin the fechaFin to set
@@ -240,6 +241,8 @@ public class Reserva implements VOReserva{
 	public void setFechaFin(Timestamp fechaFin) {
 		this.fechaFin = fechaFin;
 	}
+	
+
 
 	/**
 	 * @param personas the personas to set
@@ -259,20 +262,24 @@ public class Reserva implements VOReserva{
 	 * @param fechaCancelacion the fechaCancelacion to set
 	 */
 	public void setFechaCancelacion(Timestamp fechaCancelacion) {
+		if(fechaCancelacion==null)
+		System.out.println("me lee fecha");
 		this.fechaCancelacion = fechaCancelacion;
 	}
-
+	
 	/**
 	 * @param cobroAdicional the cobroAdicional to set
 	 */
-	public void setCobroAdicional(double cobroAdicional) {
+	public void setCobroAdicional( Double cobroAdicional) {
+		System.out.println("me lee cobro");
 		this.cobroAdicional = cobroAdicional;
 	}
+
 
 	/**
 	 * @param activa the activa to set
 	 */
-	public void setActiva(boolean activa) {
+	public void setActiva(int activa) {
 		this.activa = activa;
 	}	
 }

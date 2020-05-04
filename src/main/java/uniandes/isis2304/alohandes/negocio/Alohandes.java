@@ -397,7 +397,7 @@ public class Alohandes
 	 */
 	public HabitacionResidencia adicionarHabitacionResidencia(long idResidencia, int compartido, int baniocompartido, int numero, int precioNoche, int precioMes, int precioSemestre, int capacidadDisponible, int capacidadTotal)
 	{
-		return pp.adicionarHabitacionResidencia(idResidencia, compartido, baniocompartido, numero, precioNoche, precioMes, precioSemestre, capacidadDisponible, capacidadTotal)
+		return pp.adicionarHabitacionResidencia(idResidencia, compartido, baniocompartido, numero, precioNoche, precioMes, precioSemestre, capacidadTotal)
 	;
 	}
 	
@@ -751,9 +751,15 @@ public class Alohandes
 
 	public List<VOReserva> darVOReservas(){
 		List<VOReserva> reservas = new LinkedList<>();
-		for(VOReserva p :
-		pp.darReservas())
+		if(pp.darReservas().size()>0){
+		System.out.println("Voy a hacer la lista de VOReservas");
+		for(VOReserva p : pp.darReservas()){
+			if(p==null)
+				System.out.println("no hay nada en la lista");
 			reservas.add(p);
+			}
+		}
+		System.out.println("Ya hice la lista de VOReservas");
 		return reservas;
 	}
 	

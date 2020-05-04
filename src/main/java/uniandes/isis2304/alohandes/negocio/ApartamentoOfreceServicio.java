@@ -28,7 +28,7 @@ public class ApartamentoOfreceServicio implements VOApartamentoOfreceServicio {
 	/**
 	 * true si el servicio esta incluido, false si se suma a el total
 	 */
-	private boolean incluido;
+	private int incluido;
 
 	/* ****************************************************************
 	 * 			Métodos 
@@ -40,7 +40,7 @@ public class ApartamentoOfreceServicio implements VOApartamentoOfreceServicio {
 		this.idServicioPrivado = 0;
 		this.idApartamento = 0;
 		this.precio = 0;
-		this.incluido = false;
+		this.incluido = 0;
 	}
 	
 	/**
@@ -50,7 +50,7 @@ public class ApartamentoOfreceServicio implements VOApartamentoOfreceServicio {
 	 * @param precio
 	 * @param incluido
 	 */
-	public ApartamentoOfreceServicio( long idApartamento,long idServicioPrivado, double precio, boolean incluido) {
+	public ApartamentoOfreceServicio( long idApartamento,long idServicioPrivado, double precio, int incluido) {
 		this.idServicioPrivado = idServicioPrivado;
 		this.idApartamento = idApartamento;
 		this.precio = precio;
@@ -66,14 +66,14 @@ public class ApartamentoOfreceServicio implements VOApartamentoOfreceServicio {
 	/**
 	 * @return the idServicioPrivado
 	 */
-	public long getIdServicioPrivado() {
+	public long getIdServicio() {
 		return idServicioPrivado;
 	}
 
 	/**
 	 * @return the idApartamento
 	 */
-	public long getIdApartamento() {
+	public long getIdApto() {
 		return idApartamento;
 	}
 
@@ -87,21 +87,21 @@ public class ApartamentoOfreceServicio implements VOApartamentoOfreceServicio {
 	/**
 	 * @return the incluido
 	 */
-	public boolean isIncluido() {
+	public int getIncluido() {
 		return incluido;
 	}
 
 	/**
 	 * @param idServicioPrivado the idServicioPrivado to set
 	 */
-	public void setIdServicioPrivado(long idServicioPrivado) {
+	public void setIdServicio(long idServicioPrivado) {
 		this.idServicioPrivado = idServicioPrivado;
 	}
 
 	/**
 	 * @param idApartamento the idApartamento to set
 	 */
-	public void setIdApartamento(long idApartamento) {
+	public void setIdApto(long idApartamento) {
 		this.idApartamento = idApartamento;
 	}
 
@@ -115,7 +115,7 @@ public class ApartamentoOfreceServicio implements VOApartamentoOfreceServicio {
 	/**
 	 * @param incluido the incluido to set
 	 */
-	public void setIncluido(boolean incluido) {
+	public void setIncluido(int incluido) {
 		this.incluido = incluido;
 	}	
 }

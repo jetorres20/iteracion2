@@ -47,5 +47,5 @@ public interface VOVivienda {
 	/**
 	 * @return the diasUtilizadaAñoActual
 	 */
-	public int getDiasUtilizadaAñoActual();
+	public int getDiasUsada();
 }

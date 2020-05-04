@@ -60,5 +60,5 @@ public interface VOReserva {
 	/**
 	 * @return the activa
 	 */
-	public boolean isActiva();
+	public int getActiva();
 }

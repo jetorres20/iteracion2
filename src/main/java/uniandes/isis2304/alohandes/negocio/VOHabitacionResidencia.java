@@ -27,13 +27,13 @@ public interface VOHabitacionResidencia {
 	/**
 	 * @return the compartido
 	 */
-	public boolean isCompartido();
+	public int getCompartido();
 
 	
 	/**
 	 * @return the banioCompartido
 	 */
-	public boolean isBanioCompartido();
+	public int getBanioCompartido();
 
 	
 	/**
@@ -62,11 +62,7 @@ public interface VOHabitacionResidencia {
 
 	
 
-	/**
-	 * @return the capacidadDisponible
-	 */
-	public int getCapacidadDisponible();
-
+	
 	
 	@Override
 	/**

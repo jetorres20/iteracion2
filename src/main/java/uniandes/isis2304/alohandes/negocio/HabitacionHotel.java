@@ -80,7 +80,7 @@ public class HabitacionHotel implements VOHabitacionHotel{
 	/**
 	 * @return the idHabitacion
 	 */
-	public long getIdHabitacion() {
+	public long getIdRecinto() {
 		return idHabitacion;
 	}
 
@@ -115,7 +115,7 @@ public class HabitacionHotel implements VOHabitacionHotel{
 	/**
 	 * @param idHabitacion the idHabitacion to set
 	 */
-	public void setIdHabitacion(long idHabitacion) {
+	public void setIdRecinto(long idHabitacion) {
 		this.idHabitacion = idHabitacion;
 	}
 

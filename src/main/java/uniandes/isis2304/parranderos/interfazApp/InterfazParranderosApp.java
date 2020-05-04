@@ -296,7 +296,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     	try 
     	{
 			List <VOReserva> lista = alohandes.darVOReservas();
-
+			System.out.println("hice la lista en la interfaz");
 			String resultado = "En listar Reservas";
 			resultado +=  "\n" + mostrarReservas (lista);
 			panelDatos.actualizarInterfaz(resultado);

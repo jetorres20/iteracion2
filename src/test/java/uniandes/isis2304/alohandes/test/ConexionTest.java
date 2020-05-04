@@ -95,6 +95,7 @@ public class ConexionTest
 		{
 			log.info ("Probando el acceso a la base de datos con datos válidos (BD, credenciales, esquema");
 			alohandes = new Alohandes (openConfig (CONFIG_TABLAS_A));
+			System.out.println("Conexión realizada correstamente eeeee");
 			log.info ("Conexión realizada correstamente");
 			log.info ("Cerrando la conexión");
 			

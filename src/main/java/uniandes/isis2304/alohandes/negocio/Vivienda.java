@@ -133,7 +133,7 @@ public class Vivienda implements VOVivienda {
 	/**
 	 * @return the diasUtilizadaAñoActual
 	 */
-	public int getDiasUtilizadaAñoActual() {
+	public int getDiasUsada() {
 		return diasUtilizadaAñoActual;
 	}
 
@@ -182,7 +182,7 @@ public class Vivienda implements VOVivienda {
 	/**
 	 * @param diasUtilizadaAñoActual the diasUtilizadaAñoActual to set
 	 */
-	public void setDiasUtilizadaAñoActual(int diasUtilizadaAñoActual) {
+	public void setDiasUsada(int diasUtilizadaAñoActual) {
 		this.diasUtilizadaAñoActual = diasUtilizadaAñoActual;
 	}
 }

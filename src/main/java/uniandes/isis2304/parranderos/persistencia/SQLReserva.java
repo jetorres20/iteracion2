@@ -87,8 +87,9 @@ class SQLReserva {
 	 */
 	public long cancelarReservaPorId(PersistenceManager pm, long id, double cobroAdicional, Timestamp fechaCancelacion){
 		
-		Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaReservas () + " SET fechaCancelacion = ?, cobroAdicional = ? WHERE id = ?");
-		q.setParameters(fechaCancelacion, cobroAdicional, id);
+		Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaReservas () + " SET fechaCancelacion = ?, cobroAdicional = ? , activa = ? WHERE id = ?");
+		q.setParameters(fechaCancelacion, cobroAdicional,0, id);
+		System.out.println("voy a cancelar un reserva");
 		return (long) q.executeUnique();
 	}
 	
@@ -144,7 +145,11 @@ class SQLReserva {
 	public List<Reserva> darReservas(PersistenceManager pm){
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReservas ());
 		q.setResultClass(Reserva.class);
-		return (List<Reserva>) q.executeList();
+		
+		List<Reserva> lista = (List<Reserva>) q.executeList();
+		System.out.println("Hay " +lista.size()+" reservas");
+		lista.size();
+		return lista;
 	}	
 	
 	

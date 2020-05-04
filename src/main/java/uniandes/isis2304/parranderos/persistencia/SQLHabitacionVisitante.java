@@ -54,7 +54,7 @@ import uniandes.isis2304.alohandes.negocio.HabitacionVisitante;
 	 */
 	public long adicionarHabitacionVisitante (PersistenceManager pm, long idRecinto,long idOperario, String direccion, int compartido, int baniocompartido, int precioMes, int capacidadDisponible) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHabitacionesVisitante() + "(idRecinto, idOperario, direccion, compartido, baniocompartido, precioMes, capacidadDisponible) values (?, ?, ?, ?, ?,?,?)");
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHabitacionesVisitante() + "(idHabitacion, idOperario, direccion, compartido, baniocompartido, precioMes, capacidadDisponible) values (?, ?, ?, ?, ?,?,?)");
         q.setParameters(idRecinto, idOperario, direccion, compartido, baniocompartido, precioMes, capacidadDisponible);
         return (long) q.executeUnique();
 	}
@@ -67,7 +67,7 @@ import uniandes.isis2304.alohandes.negocio.HabitacionVisitante;
 	 */
 	public long eliminarHabitacionPorId (PersistenceManager pm, long idHabitacion)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionesVisitante () + " WHERE idRecinto = ?");
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionesVisitante () + " WHERE idHabitacion = ?");
         q.setParameters(idHabitacion);
         return (long) q.executeUnique();
 	}
@@ -81,7 +81,7 @@ import uniandes.isis2304.alohandes.negocio.HabitacionVisitante;
 	 */
 	public HabitacionVisitante darHabitacionVisitantePorId (PersistenceManager pm, long idHabitacion) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacionesVisitante() + " WHERE idRecinto = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacionesVisitante() + " WHERE idHabitacion = ?");
 		q.setResultClass(HabitacionVisitante.class);
 		q.setParameters(idHabitacion);
 		
@@ -113,7 +113,7 @@ import uniandes.isis2304.alohandes.negocio.HabitacionVisitante;
 	 */
 	public long cambiarCapacidadDisponibleHabitacion (PersistenceManager pm, long idHabitacion, int capacidad) 
 	{
-		 Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaHabitacionesVisitante() + " SET capacidadDisponible = ? WHERE idRecinto = ?");
+		 Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaHabitacionesVisitante() + " SET capacidadDisponible = ? WHERE idHabitacion = ?");
 	     q.setParameters(capacidad, idHabitacion);
 	     return (long) q.executeUnique();            
 	}	

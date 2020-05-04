@@ -49,7 +49,7 @@ public class HabitacionHotelIncluyeServicio implements VOHabitacionHotelIncluyeS
 	/**
 	 * @return the idHabitacion
 	 */
-	public long getIdHabitacion() {
+	public long getIdRecinto() {
 		return idHabitacion;
 	}
 
@@ -63,7 +63,7 @@ public class HabitacionHotelIncluyeServicio implements VOHabitacionHotelIncluyeS
 	/**
 	 * @param idHabitacion the idHabitacion to set
 	 */
-	public void setIdHabitacion(long idHabitacion) {
+	public void setIdRecinto(long idHabitacion) {
 		this.idHabitacion = idHabitacion;
 	}
 

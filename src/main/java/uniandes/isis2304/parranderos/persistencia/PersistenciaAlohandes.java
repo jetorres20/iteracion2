@@ -216,8 +216,11 @@ public class PersistenciaAlohandes
 		tablas = leerNombresTablas (tableConfig);
 		
 		String unidadPersistencia = tableConfig.get ("unidadPersistencia").getAsString ();
+		System.out.println("Accediendo unidad de persistencia: " + unidadPersistencia);
 		log.trace ("Accediendo unidad de persistencia: " + unidadPersistencia);
 		pmf = JDOHelper.getPersistenceManagerFactory (unidadPersistencia);
+		System.out.println(pmf.getConnectionFactoryName());
+		
 	}
 
 	/**
@@ -242,6 +245,8 @@ public class PersistenciaAlohandes
 		if (instance == null)
 		{
 			instance = new PersistenciaAlohandes (tableConfig);
+			
+			System.out.println("instance no es null");
 		}
 		return instance;
 	}
@@ -448,6 +453,7 @@ public class PersistenciaAlohandes
 	 */
 	public String darTablaReservas ()
 	{
+		System.out.println("Tabla: " + tablas.get(17));
 		return tablas.get (17);
 	}
 	/**
@@ -568,7 +574,7 @@ public class PersistenciaAlohandes
             log.trace ("Inserción de apartamento : " + idRecinto + ": " + tuplasInsertadasApartamento + " tuplas insertadas");
             boolean bAmoblado = amoblado==1;
          
-            return new Apartamento(idRecinto, idOperario, numHabitaciones, precioMes, direccion, bAmoblado);
+            return new Apartamento(idRecinto, idOperario, numHabitaciones, precioMes, direccion, amoblado);
         }
         catch (Exception e)
         {
@@ -665,10 +671,7 @@ public class PersistenciaAlohandes
 
             log.trace ("Inserción de ApartamentoOfreceServicio: [" + idApto + ", " + idServicio + "]. " + tuplasInsertadas + " tuplas insertadas");
 
-            if(incluido==1)
-            return new ApartamentoOfreceServicio(idApto,idServicio, precio, true);
-            else
-            return new ApartamentoOfreceServicio(idApto,idServicio, precio, false);	
+            return new ApartamentoOfreceServicio(idApto,idServicio, precio, incluido);
         }
         catch (Exception e)
         {
@@ -756,7 +759,7 @@ public class PersistenciaAlohandes
             boolean bBanio = baniocompartido==1;
             log.trace ("Inserción de apartamento : " + idRecinto + ": " + tuplasInsertadasHabitacionhostal + " tuplas insertadas");
             
-            return new HabitacionHostal(idRecinto, idHostal, bBanio, bCompartido, numero, precioNoche, capacidadDisponible);
+            return new HabitacionHostal(idRecinto, idHostal, baniocompartido, compartida, numero, precioNoche);
             	
         }
         catch (Exception e)
@@ -1076,7 +1079,7 @@ public class PersistenciaAlohandes
 	 * @param nombre - El nombre del tipo de bebida
 	 * @return El objeto TipoBebida adicionado. null si ocurre alguna Excepción
 	 */
-	public HabitacionResidencia adicionarHabitacionResidencia(long idResidencia, int compartido, int baniocompartido, int numero, int precioNoche, int precioMes, int precioSemestre, int capacidadDisponible, int capacidadTotal)
+	public HabitacionResidencia adicionarHabitacionResidencia(long idResidencia, int compartido, int baniocompartido, int numero, int precioNoche, int precioMes, int precioSemestre, int capacidadTotal)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -1085,14 +1088,12 @@ public class PersistenciaAlohandes
             tx.begin();
             long idRecinto = nextval ();
             long tuplasInsertadasRecinto =sqlRecinto.adicionarRecinto(pm,idRecinto,capacidadTotal,null);
-            long tuplasInsertadasHabitacionhostal = sqlHabitacionResidencia.adicionarHabitacionResidencia(pm, idRecinto, idResidencia, compartido, baniocompartido, numero, precioNoche, precioMes, precioSemestre, capacidadDisponible);
+            long tuplasInsertadasHabitacionhostal = sqlHabitacionResidencia.adicionarHabitacionResidencia(pm, idRecinto, idResidencia, compartido, baniocompartido, numero, precioNoche, precioMes, precioSemestre);
             tx.commit();
             
-            boolean bCompartido= compartido==1;
-            boolean bBanio = baniocompartido==1;
             log.trace ("Inserción de apartamento : " + idRecinto + ": " + tuplasInsertadasHabitacionhostal + " tuplas insertadas");
             
-            return new HabitacionResidencia(idRecinto, idResidencia, bCompartido, bBanio, numero, precioNoche, precioMes, precioSemestre, capacidadDisponible);
+            return new HabitacionResidencia(idRecinto, idResidencia, baniocompartido, compartido, numero, precioNoche, precioMes, precioSemestre);
             	
         }
         catch (Exception e)
@@ -1894,15 +1895,11 @@ public class PersistenciaAlohandes
         }
         if(habHostal != null){
         	subTotal = numeroDiasTotales*habHostal.getPrecioNoche();
-        	if(habHostal.isCompartida()){       	
-        		capacidadDisponible = habHostal.getCapacidadDisponible();
-        	}
+        	
         }
         if(habResidencia != null){
         	subTotal = numeroDias*habResidencia.getPrecioNoche() + numeroMeses*habResidencia.getPrecioMes() + numeroSemestres*habResidencia.getPrecioSemestre();
-        	if(habResidencia.isCompartido()){
-        		capacidadDisponible = habResidencia.getCapacidadDisponible();
-        	}
+        	
         }
         if(habVisitante != null){
         	subTotal = numeroMeses*habVisitante.getPrecioMes();
@@ -1930,7 +1927,7 @@ public class PersistenciaAlohandes
                 tx.commit();
                 log.trace ("Inserción de Reserva: " + id + "," + personaId + ","  + recintoId + ": " + tuplasInsertadas + " tuplas insertadas");
                 
-                return new Reserva(id, recintoId, personaId, new Timestamp(System.currentTimeMillis()), fechaInicio, fechaFin, personas, subTotal, new Timestamp(0), 0, true);
+                return new Reserva(id, recintoId, personaId, new Timestamp(System.currentTimeMillis()), fechaInicio, fechaFin, personas, subTotal, new Timestamp(0), null, 1);
             }else{
             	return null;
             }
@@ -2005,7 +2002,7 @@ public class PersistenciaAlohandes
             sqlReserva.cancelarReservaPorId(pm, id, cobroAdicional, fechaCancelacion);
             tx.commit();
             
-            log.trace ("cancelacion de Residencia: " + id + ", cobro add" + cobroAdicional + " pesos");
+            log.trace ("cancelacion de reserva: " + id + ", cobro add" + cobroAdicional + " pesos");
             
             
         }

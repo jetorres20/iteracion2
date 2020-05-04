@@ -17,12 +17,12 @@ public interface VOApartamentoOfreceServicio {
 	/**
 	 * @return the idServicioPrivado
 	 */
-	public long getIdServicioPrivado();
+	public long getIdServicio();
 
 	/**
 	 * @return the idApartamento
 	 */
-	public long getIdApartamento();
+	public long getIdApto();
 
 	/**
 	 * @return the precio
@@ -32,5 +32,5 @@ public interface VOApartamentoOfreceServicio {
 	/**
 	 * @return the incluido
 	 */
-	public boolean isIncluido();
+	public int getIncluido();
 }

@@ -50,10 +50,10 @@ import uniandes.isis2304.alohandes.negocio.HabitacionResidencia;
 	 * @param capacidadDisponible - Indica cuantos cupos tiene disponibles la habitacion
 	 * @return El número de tuplas insertadas
 	 */
-	public long adicionarHabitacionResidencia (PersistenceManager pm, long idRecinto,long idResidencia, int compartido, int baniocompartido, int numero, int precioNoche,int precioMes, int precioSemestre, int capacidadDisponible) 
+	public long adicionarHabitacionResidencia (PersistenceManager pm, long idRecinto,long idResidencia, int compartido, int baniocompartido, int numero, int precioNoche,int precioMes, int precioSemestre) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHabitacionesResidencia() + "(idRecinto, idResidencia, compartido, baniocompartido,numero, precioNoche,precioMes,precioSemestre, capacidadDisponible) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        q.setParameters(idRecinto, idResidencia, compartido, baniocompartido,numero, precioNoche,precioMes,precioSemestre, capacidadDisponible);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHabitacionesResidencia() + "(idRecinto, idResidencia, compartido, baniocompartido,numero, precioNoche,precioMes,precioSemestre, capacidadDisponible) values (?, ?, ?, ?, ?, ?, ?, ?)");
+        q.setParameters(idRecinto, idResidencia, compartido, baniocompartido,numero, precioNoche,precioMes,precioSemestre);
         return (long) q.executeUnique();
 	}
 	

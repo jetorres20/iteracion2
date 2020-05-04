@@ -14,7 +14,7 @@ public interface VOHabitacionHotel {
 	/**
 	 * @return the idHabitacion
 	 */
-	public long getIdHabitacion();
+	public long getIdRecinto();
 
 	/**
 	 * @return the idHotel

@@ -33,7 +33,7 @@ public class Apartamento implements VOApartamento {
 	/**
 	 * dice si esta amoblado o no el apto
 	 */
-	private boolean amoblado;
+	private int amoblado;
 	
 
 
@@ -49,7 +49,7 @@ public class Apartamento implements VOApartamento {
 		this.numeroHabitaciones = 0;
 		this.precioMes = 0;
 		this.direccion = "";
-		this.amoblado = false;
+		this.amoblado = 0;
 	}
 	
 	/** Constructor con valores
@@ -62,7 +62,7 @@ public class Apartamento implements VOApartamento {
 	 * @param capacidadDisponible
 	 */
 	public Apartamento(long idApartamento, long idOperario, int numeroHabitaciones, double precioMes, String direccion,
-			boolean amoblado) {
+			int amoblado) {
 		this.idApartamento = idApartamento;
 		this.idOperario = idOperario;
 		this.numeroHabitaciones = numeroHabitaciones;
@@ -116,7 +116,7 @@ public class Apartamento implements VOApartamento {
 	/**
 	 * @return the amoblado
 	 */
-	public boolean isAmoblado() {
+	public int getAmoblado() {
 		return amoblado;
 	}
 
@@ -158,7 +158,7 @@ public class Apartamento implements VOApartamento {
 	/**
 	 * @param amoblado the amoblado to set
 	 */
-	public void setAmoblado(boolean amoblado) {
+	public void setAmoblado(int amoblado) {
 		this.amoblado = amoblado;
 	}
 

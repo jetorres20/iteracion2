@@ -42,7 +42,7 @@ public interface VOApartamento {
 	/**
 	 * @return the amoblado
 	 */
-	public boolean isAmoblado();
+	public int getAmoblado();
 
 
 }

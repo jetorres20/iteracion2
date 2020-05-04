@@ -20,12 +20,12 @@ public class HabitacionHostal implements VOHabitacionHostal{
 	/**
 	 * true si se comparte, false si es privada
 	 */
-	private boolean compartida;
+	private int compartida;
 	
 	/**
 	 * true si el banio se comparte, false si es privado
 	 */
-	private boolean banioCompartido;
+	private int banioCompartido;
 	
 	/**
 	 * numero de la habitacion dentro del hostal
@@ -53,11 +53,10 @@ public class HabitacionHostal implements VOHabitacionHostal{
 	public HabitacionHostal() {
 		this.idHabitacion = 0;
 		this.idHostal = 0;
-		this.compartida = false;
-		this.banioCompartido = false;
+		this.compartida = 0;
+		this.banioCompartido = 0;
 		this.numero = -1;
 		this.precioNoche = -1;
-		this.capacidadDisponible = 0;
 	}
 	
 	/**
@@ -70,15 +69,14 @@ public class HabitacionHostal implements VOHabitacionHostal{
 	 * @param precioNoche
 	 * @param capacidadDisponible
 	 */
-	public HabitacionHostal(long idHabitacion, long idHostal, boolean compartida, boolean banioCompartido, int numero,
-			double precioNoche, int capacidadDisponible) {
+	public HabitacionHostal(long idHabitacion, long idHostal, int compartida, int banioCompartido, int numero,
+			double precioNoche) {
 		this.idHabitacion = idHabitacion;
 		this.idHostal = idHostal;
 		this.compartida = compartida;
 		this.banioCompartido = banioCompartido;
 		this.numero = numero;
 		this.precioNoche = precioNoche;
-		this.capacidadDisponible = capacidadDisponible;
 	}
 
 	@Override
@@ -94,7 +92,7 @@ public class HabitacionHostal implements VOHabitacionHostal{
 	/**
 	 * @return the idHabitacion
 	 */
-	public long getIdHabitacion() {
+	public long getIdRecinto() {
 		return idHabitacion;
 	}
 
@@ -108,14 +106,14 @@ public class HabitacionHostal implements VOHabitacionHostal{
 	/**
 	 * @return the compartida
 	 */
-	public boolean isCompartida() {
+	public int getCompartida() {
 		return compartida;
 	}
 
 	/**
 	 * @return the banioCompartido
 	 */
-	public boolean isBanioCompartido() {
+	public int getBanioCompartido() {
 		return banioCompartido;
 	}
 
@@ -133,17 +131,12 @@ public class HabitacionHostal implements VOHabitacionHostal{
 		return precioNoche;
 	}
 
-	/**
-	 * @return the capacidadDisponible
-	 */
-	public int getCapacidadDisponible() {
-		return capacidadDisponible;
-	}
+	
 
 	/**
 	 * @param idHabitacion the idHabitacion to set
 	 */
-	public void setIdHabitacion(long idHabitacion) {
+	public void setIdRecinto(long idHabitacion) {
 		this.idHabitacion = idHabitacion;
 	}
 
@@ -157,14 +150,14 @@ public class HabitacionHostal implements VOHabitacionHostal{
 	/**
 	 * @param compartida the compartida to set
 	 */
-	public void setCompartida(boolean compartida) {
+	public void setCompartida(int compartida) {
 		this.compartida = compartida;
 	}
 
 	/**
 	 * @param banioCompartido the banioCompartido to set
 	 */
-	public void setBanioCompartido(boolean banioCompartido) {
+	public void setBanioCompartido(int banioCompartido) {
 		this.banioCompartido = banioCompartido;
 	}
 
@@ -182,10 +175,5 @@ public class HabitacionHostal implements VOHabitacionHostal{
 		this.precioNoche = precioNoche;
 	}
 
-	/**
-	 * @param capacidadDisponible the capacidadDisponible to set
-	 */
-	public void setCapacidadDisponible(int capacidadDisponible) {
-		this.capacidadDisponible = capacidadDisponible;
-	}	
+	
 }
