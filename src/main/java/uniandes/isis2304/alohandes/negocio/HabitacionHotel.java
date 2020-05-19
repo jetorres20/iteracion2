@@ -76,7 +76,8 @@ public class HabitacionHotel implements VOHabitacionHotel{
 		return "HabitacionHotel [idHabitacion=" + idHabitacion + ", idHotel=" + idHotel + ", numero=" + numero
 				+ ", tipo=" + tipo + ", precioNoche=" + precioNoche + "]";
 	}
-
+	
+	
 	/**
 	 * @return the idHabitacion
 	 */
