@@ -116,4 +116,18 @@ class SQLPersona {
 		q.setResultClass(Persona.class);
 		return (List<Persona>) q.executeList();		
 	}	
+	
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de todos Las personas de la 
+	 * base de datos que son buenos clientes
+	 * @param pm - El manejador de persistencia
+	 * @return todas las personas de la base de datos que son buenos clientes
+	 */
+	public List<Persona> darClientesBuenos(PersistenceManager pm){
+		Query q = pm.newQuery(SQL, "SELECT * FROM" + pp.darTablaPersonas() +"WHERE reservamensual= ? OR reservascostosas=? OR reservassuites=?");
+		q.setResultClass(Persona.class);
+		q.setParameters(1,1,1);
+		return (List<Persona>) q.executeList();		
+	}
 }
