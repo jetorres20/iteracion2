@@ -63,6 +63,11 @@ public class Reserva implements VOReserva{
 	 * true si la reserva esta activa, false si paso o fue cancelada
 	 */
 	private int activa;
+	
+	/**
+	 * semana de la reserva, entre 1 y 52
+	 */
+	private int semana;
 
 	/* ****************************************************************
 	 * 			Métodos 
@@ -82,6 +87,7 @@ public class Reserva implements VOReserva{
 		this.fechaCancelacion = new Timestamp(0);;
 		this.cobroAdicional = .0;
 		this.activa = 0;
+		this.semana=0;
 	}
 	
 	/**
@@ -97,10 +103,13 @@ public class Reserva implements VOReserva{
 	 * @param fechaCancelacion
 	 * @param cobroAdicional
 	 * @param activa
+	 * @param reservamensual
+	 * @param reservascostosas
+	 * @param reservassuites
 	 */
 	public Reserva(long id, long recintoId, long personaId, Timestamp fechaReserva, Timestamp fechaInicio,
 			Timestamp fechaFin, int personas, double subTotal, Timestamp fechaCancelacion, Double cobroAdicional,
-			int activa) {
+			int activa, int semana) {
 		this.id = id;
 		this.recintoId = recintoId;
 		this.personaId = personaId;
@@ -112,6 +121,7 @@ public class Reserva implements VOReserva{
 		this.fechaCancelacion = fechaCancelacion;
 		this.cobroAdicional = cobroAdicional;
 		this.activa = activa;
+		this.semana=semana;
 	}
 
 	@Override
@@ -119,7 +129,7 @@ public class Reserva implements VOReserva{
 		return "Reserva [id=" + id + ", recintoId=" + recintoId + ", personaId=" + personaId + ", fechaReserva="
 				+ fechaReserva + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", personas=" + personas
 				+ ", subTotal=" + subTotal + ", fechaCancelacion=" + fechaCancelacion + ", cobroAdicional="
-				+ cobroAdicional + ", activa=" + activa + "]";
+				+ cobroAdicional + ", activa=" + activa +", semana=" + semana+ "]";
 	}
 
 	/**
@@ -197,6 +207,13 @@ public class Reserva implements VOReserva{
 	 */
 	public int getActiva() {
 		return activa;
+	}
+	
+	/**
+	 * @return the semana
+	 */
+	public int getSemana() {
+		return semana;
 	}
 
 	/**
@@ -282,4 +299,13 @@ public class Reserva implements VOReserva{
 	public void setActiva(int activa) {
 		this.activa = activa;
 	}	
+	
+	/**
+	 * @param activa the semana to set
+	 */
+	public void setSemana(int semana) {
+		this.semana = semana;
+	}	
+	
+
 }

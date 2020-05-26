@@ -211,6 +211,23 @@ class SQLReserva {
 		return q.executeList();
 	}
 	
-	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LAS OFERTAS MAS FAMOSAS de la 
+	 * base de datos de Alohandes. Incluye, con 0, los operarios que no han vendido nada.
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos del bebedor,
+	 * y del número de visitas realizadas:
+	 * 		(id, nombre, ciudad, presupuesto) del bebedor y numVisitas
+	 */
+	public List<Object> darMejoresOfertasPorSemana (PersistenceManager pm)
+	{		
+	    String sql = "SELECT resultado.semanas, resultado.id  FROM ( SELECT RESERVAS.SEMANARESERVA semanas, RESERVAS.RECINTOID id, count(RESERVAS.SEMANARESERVA) cont FROM ";
+	    sql += pp.darTablaReservas() + " group by RESERVAS.semanareserva, RESERVAS.RECINTOID having COUNT(RESERVAS.SEMANARESERVA)=( SELECT MIN(conteo) FROM (SELECT count(*) conteo FROM ";
+	    sql += pp.darTablaReservas() + " GROUP BY RESERVAS.RECINTOID))) resultado, (SELECT RESERVAS.SEMANARESERVA semanas, count(RESERVAS.SEMANARESERVA) cont FROM ";
+	    sql += pp.darTablaReservas() + " GROUP by RESERVAS.semanareserva having COUNT(RESERVAS.SEMANARESERVA)=( SELECT MIN(conteo) FROM (SELECT count(*) conteo FROM ";
+	    sql += pp.darTablaReservas() + " GROUP BY RESERVAS.RECINTOID))) resultado2 WHERE resultado.cont = resultado2.cont;" ;		
+	    Query q = pm.newQuery(SQL, sql);
+		return q.executeList();
+	}
 	
 }

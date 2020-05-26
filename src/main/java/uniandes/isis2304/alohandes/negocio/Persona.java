@@ -55,6 +55,22 @@ public class Persona implements VOPersona{
 	 */
 	private int vinculo;
 	
+
+	/**
+	 * true si es buen cliente, false si no lo es
+	 */
+	private boolean reservamensual;
+	
+	/**
+	 * true si es buen cliente, false si no lo es
+	 */
+	private boolean reservascostosas;
+	
+	/**
+	 * true si es buen cliente, false si no lo es
+	 */
+	private boolean reservassuites;
+	
 	/* ****************************************************************
 	 * 			Métodos 
 	 *****************************************************************/
@@ -69,6 +85,9 @@ public class Persona implements VOPersona{
 		this.telefono = 0;
 		this.correo = "";
 		this.vinculo = -1;
+		this.reservamensual = false;
+		this.reservascostosas = false;
+		this.reservassuites = false;
 	}
 	
 	/**
@@ -81,7 +100,7 @@ public class Persona implements VOPersona{
 	 * @param correo de la persona
 	 * @param vinculo con uniandes
 	 */
-	public Persona(long idOperario, int cedula, String nombre, String apellido, int telefono, String correo, int vinculo){
+	public Persona(long idOperario, int cedula, String nombre, String apellido, int telefono, String correo, int vinculo, boolean reservamensual, boolean reservascostosas, boolean reservassuites){
 		this.idOperario = idOperario;
 		this.cedula = cedula;
 		this.nombre = nombre;
@@ -89,6 +108,9 @@ public class Persona implements VOPersona{
 		this.telefono = telefono;
 		this.correo = correo;
 		this.vinculo = vinculo;
+		this.reservamensual = reservamensual;
+		this.reservascostosas = reservascostosas;
+		this.reservassuites = reservassuites;
 	}
 
 	/**
@@ -188,6 +210,49 @@ public class Persona implements VOPersona{
 	public void setVinculo(int vinculo) {
 		this.vinculo = vinculo;
 	}
+	
+	/**
+	 * @return the reservamensual
+	 */
+	public boolean getReservaMensual() {
+		return reservamensual;
+	}
+	
+	/**
+	 * @return the reservascostosa
+	 */
+	public boolean getReservasCostosas() {
+		return reservascostosas;
+	}
+	
+	/**
+	 * @return the reservassuites
+	 */
+	public boolean getReservasSuites() {
+		return reservassuites;
+	}
+	
+	/**
+	 * @param reservamensual the reservamensual to set
+	 */
+	public void setReservaMensual(boolean reservamensual) {
+		this.reservamensual = reservamensual;
+	}
+	
+	/**
+	 * @param reservascostosas the reservascostosas to set
+	 */
+	public void setReservasCostosas(boolean reservascostosas) {
+		this.reservascostosas = reservascostosas;
+	}	
+	
+	/**
+	 * @param reservassuites the reservassuites to set
+	 */
+	public void setReservasSuites(boolean reservassuites) {
+		this.reservassuites = reservassuites;
+	}
+	
 
 	@Override
 	/**
@@ -195,6 +260,7 @@ public class Persona implements VOPersona{
 	 */
 	public String toString() {
 		return "Persona [idOperario=" + idOperario + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido="
-				+ apellido + ", telefono=" + telefono + ", correo=" + correo + ", vinculo=" + vinculo + "]";
+				+ apellido + ", telefono=" + telefono + ", correo=" + correo + ", vinculo=" + vinculo +  ", reservamensual=" + reservamensual
+				+ ", reservascostosas=" + reservascostosas + ", reservassuites=" + reservassuites +"]";
 	}	
 }
