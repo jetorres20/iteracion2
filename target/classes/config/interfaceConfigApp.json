@@ -30,6 +30,19 @@
 					"event": "eliminarOfertaAlohamiento"
 				}				
 			]
+		}	,
+		{ "menuTitle": "Consultas Usuarios por Reservas",
+		  "options":
+			[
+				{
+					"label": "Consultar usuarios con reservas por fechas",
+					"event": "consultarUsuariosConReserva"
+				},
+				{
+					"label": "Consultar usuarios sin reservas por fechas",
+					"event": "consultarUsuariosSinReserva"
+				}				
+			]
 		}		
 	]
 }

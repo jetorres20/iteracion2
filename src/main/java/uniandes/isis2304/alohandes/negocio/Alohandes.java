@@ -1085,6 +1085,25 @@ public class Alohandes
 		return servs;
 	}
 	
+public List<VOPersona> darClientesSinReservasEnRecintoEnRangoDeFechas(long recintoId, Timestamp fechaInicio, Timestamp fechafin, boolean admin, long idOperario, int ordenamiento) throws Exception{
+		
+		List<VOPersona> personas = new LinkedList<>();
+		for(VOPersona a: pp.darClientesSinReservasEnRecintoEnRangoDeFechas( recintoId,  fechaInicio,  fechafin,  admin,  idOperario,  ordenamiento))
+			personas.add(a);
+		
+		return personas;
+		
+	}
+	
+public List<VOPersona> darClientesConReservasEnRecintoEnRangoDeFechas(long recintoId, Timestamp fechaInicio, Timestamp fechafin, boolean admin, long idOperario, int ordenamiento) throws Exception{
+		
+		List<VOPersona> personas = new LinkedList<>();
+		for(VOPersona a: pp.darClientesConReservasEnRecintoEnRangoDeFechas( recintoId,  fechaInicio,  fechafin,  admin,  idOperario,  ordenamiento))
+			personas.add(a);
+		
+		return personas;
+		
+	}
 	
 	/* ****************************************************************
 	 * 			Métodos para administración

@@ -11,70 +11,72 @@ public class Reserva implements VOReserva{
 	 * id de la reserva
 	 */
 	private long id;
-	
+
 	/**
 	 * id del recinto asociado a la reserva
 	 */
 	private long recintoId;
-	
+
 	/**
 	 * id de la persona que hace la reserva
 	 * 
 	 */
 	private long personaId;
-	
+
 	/**
 	 * fecha de la reserva
 	 */
 	private Timestamp fechaReserva;
-	
+
 	/**
 	 * fecha inicio
 	 */
 	private Timestamp fechaInicio;
-	
+
 	/**
 	 * fecha salida 
 	 */
 	private Timestamp fechaFin;
-	
+
 	/**
 	 * numero e personas que usaran la reserva
 	 */
 	private int personas;
-	
+
 	/**
 	 * subtotal a pagar al confirmar la reserva
 	 * puede que cancele y se apliquen cargos adicionales
 	 */
 	private double subTotal;
-	
+
 	/**
 	 * fecha de cancelacion si aplica
 	 */
 	private Timestamp fechaCancelacion;
-	
+
 	/**
 	 * cobro adicional si se cancela la reserva
 	 */
 	private Double cobroAdicional;
-	
+
 	/**
 	 * true si la reserva esta activa, false si paso o fue cancelada
 	 */
 	private int activa;
-	
+
 	/**
 	 * semana de la reserva, entre 1 y 52
 	 */
 	private int semana;
 
+	private Long idColectiva;
+
 	/* ****************************************************************
 	 * 			Métodos 
 	 *****************************************************************/
 	/**
-     * Constructor por defecto
-     */
+	 * Constructor por defecto
+	 */
 	public Reserva() {
 		this.id = 0;
 		this.recintoId = 0;
@@ -88,8 +90,9 @@ public class Reserva implements VOReserva{
 		this.cobroAdicional = .0;
 		this.activa = 0;
 		this.semana=0;
+		this.idColectiva=(long) 0;
 	}
-	
+
 	/**
 	 * Constructor con valores
 	 * @param id
@@ -109,7 +112,7 @@ public class Reserva implements VOReserva{
 	 */
 	public Reserva(long id, long recintoId, long personaId, Timestamp fechaReserva, Timestamp fechaInicio,
 			Timestamp fechaFin, int personas, double subTotal, Timestamp fechaCancelacion, Double cobroAdicional,
-			int activa, int semana) {
+			int activa, int semana, Long idColectiva) {
 		this.id = id;
 		this.recintoId = recintoId;
 		this.personaId = personaId;
@@ -122,6 +125,7 @@ public class Reserva implements VOReserva{
 		this.cobroAdicional = cobroAdicional;
 		this.activa = activa;
 		this.semana=semana;
+		this.idColectiva= idColectiva;
 	}
 
 	@Override
@@ -129,7 +133,7 @@ public class Reserva implements VOReserva{
 		return "Reserva [id=" + id + ", recintoId=" + recintoId + ", personaId=" + personaId + ", fechaReserva="
 				+ fechaReserva + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", personas=" + personas
 				+ ", subTotal=" + subTotal + ", fechaCancelacion=" + fechaCancelacion + ", cobroAdicional="
-				+ cobroAdicional + ", activa=" + activa +", semana=" + semana+ "]";
+				+ cobroAdicional + ", activa=" + activa +", semana=" + semana+ ", idColectiva=" + idColectiva+"]";
 	}
 
 	/**
@@ -208,7 +212,7 @@ public class Reserva implements VOReserva{
 	public int getActiva() {
 		return activa;
 	}
-	
+
 	/**
 	 * @return the semana
 	 */
@@ -250,7 +254,7 @@ public class Reserva implements VOReserva{
 	public void setFechaInicio(Timestamp fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	
+
 
 	/**
 	 * @param fechaFin the fechaFin to set
@@ -258,7 +262,7 @@ public class Reserva implements VOReserva{
 	public void setFechaFin(Timestamp fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	
+
 
 
 	/**
@@ -280,10 +284,10 @@ public class Reserva implements VOReserva{
 	 */
 	public void setFechaCancelacion(Timestamp fechaCancelacion) {
 		if(fechaCancelacion==null)
-		System.out.println("me lee fecha");
+			System.out.println("me lee fecha");
 		this.fechaCancelacion = fechaCancelacion;
 	}
-	
+
 	/**
 	 * @param cobroAdicional the cobroAdicional to set
 	 */
@@ -299,13 +303,22 @@ public class Reserva implements VOReserva{
 	public void setActiva(int activa) {
 		this.activa = activa;
 	}	
-	
+
 	/**
 	 * @param activa the semana to set
 	 */
 	public void setSemana(int semana) {
 		this.semana = semana;
 	}	
-	
+
+	public Long getIdColectiva(){
+		return idColectiva;
+	}
+
+	public void setIdColectiva(Long idColectiva){
+
+		this.idColectiva = idColectiva;
+	}
+
 
 }

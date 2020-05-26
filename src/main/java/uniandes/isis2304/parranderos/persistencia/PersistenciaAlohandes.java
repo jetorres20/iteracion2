@@ -18,6 +18,7 @@ package uniandes.isis2304.parranderos.persistencia;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import org.apache.log4j.Logger;
@@ -34,6 +36,7 @@ import com.google.gson.JsonObject;
 
 import uniandes.isis2304.alohandes.negocio.Apartamento;
 import uniandes.isis2304.alohandes.negocio.ApartamentoOfreceServicio;
+import uniandes.isis2304.alohandes.negocio.CapacidadHabitaciones;
 import uniandes.isis2304.alohandes.negocio.HabitacionHostal;
 import uniandes.isis2304.alohandes.negocio.HabitacionHotel;
 import uniandes.isis2304.alohandes.negocio.HabitacionHotelIncluyeServicio;
@@ -48,6 +51,7 @@ import uniandes.isis2304.alohandes.negocio.Menaje;
 import uniandes.isis2304.alohandes.negocio.Operario;
 import uniandes.isis2304.alohandes.negocio.Persona;
 import uniandes.isis2304.alohandes.negocio.Recinto;
+import uniandes.isis2304.alohandes.negocio.RecintosPorOperario;
 import uniandes.isis2304.alohandes.negocio.Reserva;
 import uniandes.isis2304.alohandes.negocio.Residencia;
 import uniandes.isis2304.alohandes.negocio.ResidenciaOfreceServicio;
@@ -164,6 +168,10 @@ public class PersistenciaAlohandes
 	
 	private SQLViviendaTieneMenajes sqlViviendaTieneMenajes;
 	
+	private SQLRecintosPorOperario sqlRecintosPorOperario;
+	
+	private SQLCapacidadHabitaciones sqlCapacidadHabitaciones;
+	
 	/* ****************************************************************
 	 * 			Métodos del MANEJADOR DE PERSISTENCIA
 	 *****************************************************************/
@@ -204,6 +212,8 @@ public class PersistenciaAlohandes
 		tablas.add ("VIVIENDA_TIENE_MENAJES");
 		tablas.add ("VIVIENDAS");
 		tablas.add ("OPERARIOS");
+		tablas.add("RECINTOSPOROPERARIO");
+		tablas.add("CAPACIDADHABITACIONES");
 }
 
 	/**
@@ -308,6 +318,8 @@ public class PersistenciaAlohandes
 		sqlResidenciaOfreceServicio= new SQLResidenciaOfreceServicio(this);
 		sqlVivienda= new SQLVivienda(this);
 		sqlViviendaTieneMenajes = new SQLViviendaTieneMenajes(this);
+		sqlRecintosPorOperario = new SQLRecintosPorOperario(this);
+		sqlCapacidadHabitaciones = new SQLCapacidadHabitaciones(this);
 		
 	}
 
@@ -518,6 +530,14 @@ public class PersistenciaAlohandes
 	public String darTablaOperarios ()
 	{
 		return tablas.get (25);
+	}
+	
+	public String darTablaRecintosPorOperario(){
+		return tablas.get(26);
+	}
+	
+	public String darTablaCapacidadHabitaciones(){
+		return tablas.get (27);
 	}
 
 	
@@ -1725,7 +1745,7 @@ public class PersistenciaAlohandes
             
             log.trace ("Inserción de persona: " + idOperario + "," + cedula + ": " + tuplasInsertadas + " tuplas insertadas");
             
-            return new Persona(idOperario, cedula, nombre, apellido, telefono, correo, vinculo);
+            return new Persona(idOperario, cedula, nombre, apellido, telefono, correo, vinculo,false,false,false);
         }
         catch (Exception e)
         {
@@ -1921,13 +1941,14 @@ public class PersistenciaAlohandes
             if(capacidadDisponible >= personas ){
             	tx.begin();
                 long id = nextval();
-              
-                long tuplasInsertadas = sqlReserva.adicionarReserva(pm, id, recintoId, personaId, new Timestamp(System.currentTimeMillis()), fechaInicio, fechaFin, personas, subTotal, new Timestamp(0), 0, 1);
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(fechaInicio.getTime());
+                long tuplasInsertadas = sqlReserva.adicionarReserva(pm, id, recintoId, personaId, new Timestamp(System.currentTimeMillis()), fechaInicio, fechaFin, personas, subTotal, new Timestamp(0), 0.0, 1,cal.get(Calendar.WEEK_OF_YEAR),null);
                 // actualizar capacidad disponible 
                 tx.commit();
                 log.trace ("Inserción de Reserva: " + id + "," + personaId + ","  + recintoId + ": " + tuplasInsertadas + " tuplas insertadas");
                 
-                return new Reserva(id, recintoId, personaId, new Timestamp(System.currentTimeMillis()), fechaInicio, fechaFin, personas, subTotal, new Timestamp(0), null, 1);
+                return new Reserva(id, recintoId, personaId, new Timestamp(System.currentTimeMillis()), fechaInicio, fechaFin, personas, subTotal, new Timestamp(0), null, 1,cal.get(Calendar.WEEK_OF_YEAR),null);
             }else{
             	return null;
             }
@@ -2755,6 +2776,255 @@ public class PersistenciaAlohandes
 	{
 		return sqlHabitacionResidenciaTieneMenajes.darViviendasTieneMenajes(pmf.getPersistenceManager());
 	}	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los RFC10 y RFC11
+	 *****************************************************************/
+	
+	public List<Persona> darClientesConReservasEnRecintoEnRangoDeFechas(long recintoId, Timestamp fechaInicio, Timestamp fechafin, boolean admin, long idOperario, int ordenamiento) throws Exception{
+		
+		if(!admin){
+			
+			RecintosPorOperario propio = darOperarioDeRecinto(recintoId);
+			
+			if(propio != null && propio.getIdOperario()!=idOperario){
+				
+				throw new Exception("Esta oferta de alojamiento no es suya. No puede ver la información por términos de privacidad.");
+				
+			}
+			
+		}
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		String sentencia = "SELECT *." + darTablaPersonas() + " FROM " + darTablaPersonas() + " INNER JOIN " + darTablaReservas() 
+		+ " ON " + darTablaPersonas()+".IdOperario"+ "="+ darTablaReservas() + ".PersonaId WHERE " +  darTablaReservas() + ".recintoId = ? AND "
+		+ darTablaReservas() + ".fechaInicio >= ? AND " + darTablaReservas() + ".fechaFin <= ? ";
+		if(ordenamiento==1)
+			sentencia += "ORDERBY nombre";
+		else if (ordenamiento==2)
+			sentencia += "ORDERBY nombre DESC";
+		
+		Query q = pm.newQuery(SQL, sentencia); 
+		
+		q.setResultClass(Persona.class);
+		q.setParameters(recintoId,fechaInicio,fechafin);
+		return (List<Persona>) q.executeList();
+		
+		
+	}
+	
+	
+
+	public List<Persona> darClientesSinReservasEnRecintoEnRangoDeFechas(long recintoId, Timestamp fechaInicio, Timestamp fechafin, boolean admin, long idOperario, int ordenamiento) throws Exception{
+		
+		if(!admin){
+			
+			RecintosPorOperario propio = darOperarioDeRecinto(recintoId);
+			
+			if(propio != null && propio.getIdOperario()!=idOperario){
+				
+				throw new Exception("Esta oferta de alojamiento no es suya. No puede ver la información por términos de privacidad.");
+				
+			}
+			
+		}
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		String sentencia = "SELECT *." + darTablaPersonas() + " FROM " + darTablaPersonas() + "MINUS ("
+				+ "SELECT *." + darTablaPersonas() + " FROM " + darTablaPersonas() + " INNER JOIN " + darTablaReservas() 
+		+ " ON " + darTablaPersonas()+".IdOperario"+ "="+ darTablaReservas() + ".PersonaId WHERE " +  darTablaReservas() + ".recintoId = ? AND "
+		+ darTablaReservas() + ".fechaInicio >= ? AND " + darTablaReservas() + ".fechaFin <= ? )";
+		if(ordenamiento==1)
+			sentencia += " ORDERBY nombre ";
+		else if (ordenamiento==2)
+			sentencia += " ORDERBY nombre DESC ";
+		
+		
+		
+		Query q = pm.newQuery(SQL, sentencia); 
+		
+		q.setResultClass(Persona.class);
+		q.setParameters(recintoId,fechaInicio,fechafin);
+		return (List<Persona>) q.executeList();
+		
+		
+	}
+
+
+
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar la relación RECINTOSPOROPERARIO
+	 *****************************************************************/
+	
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla GUSTAN
+	 * Adiciona entradas al log de la aplicación
+	 * @param idBebedor - El identificador del bebedor - Debe haber un bebedor con ese identificador
+	 * @param idBebida - El identificador de la bebida - Debe haber una bebida con ese identificador
+	 * @return Un objeto GUSTAN con la información dada. Null si ocurre alguna Excepción
+	 */
+	public RecintosPorOperario adicionaRecintoAOperario (long idRecinto,long idOperario)  
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlRecintosPorOperario.adicionarRecintoaOperario(pm, idRecinto, idOperario);
+            tx.commit();
+
+            log.trace ("Inserción de RecintosPorOperarioo: [" + idRecinto + ", " + idOperario + "]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return new RecintosPorOperario(idRecinto, idOperario);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla GUSTAN, dados los identificadores de bebedor y bebida
+	 * @param idBebedor - El identificador del bebedor
+	 * @param idBebida - El identificador de la bebida
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarRecintoAOperario(long idRecinto) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlRecintosPorOperario.eliminarRecintoaOperario(pm, idRecinto);           
+            tx.commit();
+
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla GUSTAN
+	 * @return La lista de objetos GUSTAN, construidos con base en las tuplas de la tabla GUSTAN
+	 */
+	public List<RecintosPorOperario> darRecintosPorOperario ()
+	{
+		return sqlRecintosPorOperario.darRecintosPorOperario(pmf.getPersistenceManager());
+	}
+	
+	/**
+	 * Método que consulta todas las tuplas en la tabla GUSTAN
+	 * @return La lista de objetos GUSTAN, construidos con base en las tuplas de la tabla GUSTAN
+	 */
+	public List<RecintosPorOperario> darRecintosPorIdOperario (long idOperario)
+	{
+		return sqlRecintosPorOperario.darRecintosPorIdOperario(pmf.getPersistenceManager(), idOperario);
+	}
+	
+	public RecintosPorOperario darOperarioDeRecinto(long idRecinto){
+		return sqlRecintosPorOperario.darOperarioDeRecinto(pmf.getPersistenceManager(), idRecinto);
+	}
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar la relación RECINTOSPOROPERARIO
+	 *****************************************************************/
+	
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla GUSTAN
+	 * Adiciona entradas al log de la aplicación
+	 * @param idBebedor - El identificador del bebedor - Debe haber un bebedor con ese identificador
+	 * @param idBebida - El identificador de la bebida - Debe haber una bebida con ese identificador
+	 * @return Un objeto GUSTAN con la información dada. Null si ocurre alguna Excepción
+	 */
+	public CapacidadHabitaciones adicionaCapacidadHabitacion (long idHabitacion,Timestamp fecha , int capacidadDisponible)  
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlCapacidadHabitaciones.adicionarCapacidadHabitacion(pmf.getPersistenceManager(), idHabitacion, fecha, capacidadDisponible);
+            tx.commit();
+
+            log.trace ("Inserción de CapacidadHabitaciones: [" + idHabitacion + ", " + fecha + ", " + capacidadDisponible+"]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return new CapacidadHabitaciones(idHabitacion, fecha, capacidadDisponible);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla GUSTAN, dados los identificadores de bebedor y bebida
+	 * @param idBebedor - El identificador del bebedor
+	 * @param idBebida - El identificador de la bebida
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarCapacidadHabitacion(long idHabitacion, Timestamp fecha) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlCapacidadHabitaciones.eliminarCapacidadHabitacion(pm, idHabitacion, fecha);           
+            tx.commit();
+
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
 	
 	/* ****************************************************************
