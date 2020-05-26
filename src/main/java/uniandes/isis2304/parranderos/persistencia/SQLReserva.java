@@ -212,20 +212,69 @@ class SQLReserva {
 	}
 	
 	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de LAS OFERTAS MAS FAMOSAS de la 
-	 * base de datos de Alohandes. Incluye, con 0, los operarios que no han vendido nada.
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LAS OFERTAS con mayor ocupacion de la 
+	 * base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
-	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos del bebedor,
-	 * y del número de visitas realizadas:
-	 * 		(id, nombre, ciudad, presupuesto) del bebedor y numVisitas
+	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos de la oferta
 	 */
-	public List<Object> darMejoresOfertasPorSemana (PersistenceManager pm)
+	public List<Object> darMejoresOfertasPorSemanaPorOcupacion (PersistenceManager pm)
 	{		
-	    String sql = "SELECT resultado.semanas, resultado.id  FROM ( SELECT RESERVAS.SEMANARESERVA semanas, RESERVAS.RECINTOID id, count(RESERVAS.SEMANARESERVA) cont FROM ";
-	    sql += pp.darTablaReservas() + " group by RESERVAS.semanareserva, RESERVAS.RECINTOID having COUNT(RESERVAS.SEMANARESERVA)=( SELECT MIN(conteo) FROM (SELECT count(*) conteo FROM ";
-	    sql += pp.darTablaReservas() + " GROUP BY RESERVAS.RECINTOID))) resultado, (SELECT RESERVAS.SEMANARESERVA semanas, count(RESERVAS.SEMANARESERVA) cont FROM ";
-	    sql += pp.darTablaReservas() + " GROUP by RESERVAS.semanareserva having COUNT(RESERVAS.SEMANARESERVA)=( SELECT MIN(conteo) FROM (SELECT count(*) conteo FROM ";
-	    sql += pp.darTablaReservas() + " GROUP BY RESERVAS.RECINTOID))) resultado2 WHERE resultado.cont = resultado2.cont;" ;		
+	    String sql = "SELECT resultado.semanas, resultado.id  FROM ( SELECT " +pp.darTablaReservas() +".SEMANARESERVA semanas, " + pp.darTablaReservas() +".RECINTOID id, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
+	    sql += pp.darTablaReservas() + " group by " + pp.darTablaReservas() +".semanareserva, " + pp.darTablaReservas() +".RECINTOID having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MAX(conteo) FROM (SELECT count(*) conteo FROM ";
+	    sql += pp.darTablaReservas() + " GROUP BY " + pp.darTablaReservas() +".RECINTOID))) resultado, (SELECT " + pp.darTablaReservas() +".SEMANARESERVA semanas, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
+	    sql += pp.darTablaReservas() + " GROUP by " + pp.darTablaReservas() +".semanareserva having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MAX(conteo) FROM (SELECT count(*) conteo FROM ";
+	    sql += pp.darTablaReservas() + " GROUP BY " + pp.darTablaReservas() +".RECINTOID))) resultado2 WHERE resultado.cont = resultado2.cont;" ;		
+	    Query q = pm.newQuery(SQL, sql);
+		return q.executeList();
+	}
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LAS OFERTAS con mayor ocupacion de la 
+	 * base de datos de Alohandes
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos de la oferta
+	 */
+	public List<Object> darPeoresOfertasPorSemanaPorOcupacion (PersistenceManager pm)
+	{		
+		String sql = "SELECT resultado.semanas, resultado.id  FROM ( SELECT " +pp.darTablaReservas() +".SEMANARESERVA semanas, " + pp.darTablaReservas() +".RECINTOID id, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
+	    sql += pp.darTablaReservas() + " group by " + pp.darTablaReservas() +".semanareserva, " + pp.darTablaReservas() +".RECINTOID having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MIN(conteo) FROM (SELECT count(*) conteo FROM ";
+	    sql += pp.darTablaReservas() + " GROUP BY " + pp.darTablaReservas() +".RECINTOID))) resultado, (SELECT " + pp.darTablaReservas() +".SEMANARESERVA semanas, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
+	    sql += pp.darTablaReservas() + " GROUP by " + pp.darTablaReservas() +".semanareserva having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MIN(conteo) FROM (SELECT count(*) conteo FROM ";
+	    sql += pp.darTablaReservas() + " GROUP BY " + pp.darTablaReservas() +".RECINTOID))) resultado2 WHERE resultado.cont = resultado2.cont;" ;		
+	    Query q = pm.newQuery(SQL, sql);
+		return q.executeList();
+	}
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de los operadores con mayor solicitacion de la 
+	 * base de datos de Alohandes
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos del operador
+	 */
+	public List<Object> darOperadoresPorSemanaMasSolicitados (PersistenceManager pm)
+	{		
+		String sql = "SELECT resultado.semanas, resultado.id  FROM ( SELECT " +pp.darTablaReservas() +".SEMANARESERVA semanas, " + pp.darTablaRecintos() +".RECINTOID id, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
+	    sql += pp.darTablaReservas() + " inner join " + pp.darTablaRecintos() +" ON " + pp.darTablaRecintos() +".IDRECINTO = "+pp.darTablaReservas()+".RECINTOID  group by " + pp.darTablaReservas() +".semanareserva, " + pp.darTablaRecintos() +".IDRECINTO having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MAX(conteo) FROM (SELECT count(*) conteo FROM ";
+	    sql += pp.darTablaReservas() + " GROUP BY " + pp.darTablaRecintos() +".IDRECINTO))) resultado, (SELECT " + pp.darTablaReservas() +".SEMANARESERVA semanas, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
+	    sql += pp.darTablaReservas() + " inner join " + pp.darTablaRecintos() +" ON " + pp.darTablaRecintos() +".IDRECINTO = "+pp.darTablaReservas()+".RECINTOID GROUP by " + pp.darTablaReservas() +".semanareserva having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MAX(conteo) FROM (SELECT count(*) conteo FROM ";
+	    sql += pp.darTablaReservas() + " inner join " + pp.darTablaRecintos() +" ON " + pp.darTablaRecintos() +".IDRECINTO = "+pp.darTablaReservas()+".RECINTOID GROUP BY " + pp.darTablaRecintos() +".IDRECINTO))) resultado2 WHERE resultado.cont = resultado2.cont;" ;		
+	    Query q = pm.newQuery(SQL, sql);
+		return q.executeList();
+	}
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de los operadores con menor solicitacion de la 
+	 * base de datos de Alohandes
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos del operador
+	 */
+	public List<Object> darOperadoresPorSemanaMenosSolicitados (PersistenceManager pm)
+	{		
+		String sql = "SELECT resultado.semanas, resultado.id  FROM ( SELECT " +pp.darTablaReservas() +".SEMANARESERVA semanas, " + pp.darTablaRecintos() +".RECINTOID id, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
+	    sql += pp.darTablaReservas() + " inner join " + pp.darTablaRecintos() +" ON " + pp.darTablaRecintos() +".IDRECINTO = "+pp.darTablaReservas()+".RECINTOID  group by " + pp.darTablaReservas() +".semanareserva, " + pp.darTablaRecintos() +".IDRECINTO having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MIN(conteo) FROM (SELECT count(*) conteo FROM ";
+	    sql += pp.darTablaReservas() + " GROUP BY " + pp.darTablaRecintos() +".IDRECINTO))) resultado, (SELECT " + pp.darTablaReservas() +".SEMANARESERVA semanas, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
+	    sql += pp.darTablaReservas() + " inner join " + pp.darTablaRecintos() +" ON " + pp.darTablaRecintos() +".IDRECINTO = "+pp.darTablaReservas()+".RECINTOID GROUP by " + pp.darTablaReservas() +".semanareserva having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MIN(conteo) FROM (SELECT count(*) conteo FROM ";
+	    sql += pp.darTablaReservas() + " inner join " + pp.darTablaRecintos() +" ON " + pp.darTablaRecintos() +".IDRECINTO = "+pp.darTablaReservas()+".RECINTOID GROUP BY " + pp.darTablaRecintos() +".IDRECINTO))) resultado2 WHERE resultado.cont = resultado2.cont;" ;		
 	    Query q = pm.newQuery(SQL, sql);
 		return q.executeList();
 	}
