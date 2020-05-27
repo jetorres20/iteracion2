@@ -2796,13 +2796,13 @@ public class PersistenciaAlohandes
 		}
 		
 		PersistenceManager pm = pmf.getPersistenceManager();
-		String sentencia = "SELECT *." + darTablaPersonas() + " FROM " + darTablaPersonas() + " INNER JOIN " + darTablaReservas() 
+		String sentencia = "SELECT " + darTablaPersonas() + ".* FROM " + darTablaPersonas() + " INNER JOIN " + darTablaReservas() 
 		+ " ON " + darTablaPersonas()+".IdOperario"+ "="+ darTablaReservas() + ".PersonaId WHERE " +  darTablaReservas() + ".recintoId = ? AND "
 		+ darTablaReservas() + ".fechaInicio >= ? AND " + darTablaReservas() + ".fechaFin <= ? ";
 		if(ordenamiento==1)
-			sentencia += "ORDERBY nombre";
+			sentencia += "ORDER BY nombre";
 		else if (ordenamiento==2)
-			sentencia += "ORDERBY nombre DESC";
+			sentencia += "ORDER BY nombre DESC";
 		
 		Query q = pm.newQuery(SQL, sentencia); 
 		
@@ -2830,14 +2830,14 @@ public class PersistenciaAlohandes
 		}
 		
 		PersistenceManager pm = pmf.getPersistenceManager();
-		String sentencia = "SELECT *." + darTablaPersonas() + " FROM " + darTablaPersonas() + "MINUS ("
+		String sentencia = "SELECT " + darTablaPersonas() +".*" + " FROM " + darTablaPersonas() + "MINUS ("
 				+ "SELECT *." + darTablaPersonas() + " FROM " + darTablaPersonas() + " INNER JOIN " + darTablaReservas() 
 		+ " ON " + darTablaPersonas()+".IdOperario"+ "="+ darTablaReservas() + ".PersonaId WHERE " +  darTablaReservas() + ".recintoId = ? AND "
 		+ darTablaReservas() + ".fechaInicio >= ? AND " + darTablaReservas() + ".fechaFin <= ? )";
 		if(ordenamiento==1)
-			sentencia += " ORDERBY nombre ";
+			sentencia += " ORDER BY nombre ";
 		else if (ordenamiento==2)
-			sentencia += " ORDERBY nombre DESC ";
+			sentencia += " ORDER BY nombre DESC ";
 		
 		
 		
@@ -2845,6 +2845,7 @@ public class PersistenciaAlohandes
 		
 		q.setResultClass(Persona.class);
 		q.setParameters(recintoId,fechaInicio,fechafin);
+		System.out.println("Ya hice la consulta");
 		return (List<Persona>) q.executeList();
 		
 		
