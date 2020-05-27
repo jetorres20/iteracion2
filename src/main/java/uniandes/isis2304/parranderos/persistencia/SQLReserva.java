@@ -14,6 +14,7 @@ import uniandes.isis2304.alohandes.negocio.Apartamento;
 import uniandes.isis2304.alohandes.negocio.HabitacionHostal;
 import uniandes.isis2304.alohandes.negocio.HabitacionHotel;
 import uniandes.isis2304.alohandes.negocio.HabitacionVisitante;
+import uniandes.isis2304.alohandes.negocio.Operario;
 import uniandes.isis2304.alohandes.negocio.Recinto;
 import uniandes.isis2304.alohandes.negocio.Reserva;
 import uniandes.isis2304.alohandes.negocio.Residencia;
@@ -217,7 +218,7 @@ class SQLReserva {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos de la oferta
 	 */
-	public List<Object> darMejoresOfertasPorSemanaPorOcupacion (PersistenceManager pm)
+	public List<Recinto> darMejoresOfertasPorSemanaPorOcupacion (PersistenceManager pm)
 	{		
 	    String sql = "SELECT resultado.semanas, resultado.id  FROM ( SELECT " +pp.darTablaReservas() +".SEMANARESERVA semanas, " + pp.darTablaReservas() +".RECINTOID id, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
 	    sql += pp.darTablaReservas() + " group by " + pp.darTablaReservas() +".semanareserva, " + pp.darTablaReservas() +".RECINTOID having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MAX(conteo) FROM (SELECT count(*) conteo FROM ";
@@ -234,7 +235,7 @@ class SQLReserva {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos de la oferta
 	 */
-	public List<Object> darPeoresOfertasPorSemanaPorOcupacion (PersistenceManager pm)
+	public List<Recinto> darPeoresOfertasPorSemanaPorOcupacion (PersistenceManager pm)
 	{		
 		String sql = "SELECT resultado.semanas, resultado.id  FROM ( SELECT " +pp.darTablaReservas() +".SEMANARESERVA semanas, " + pp.darTablaReservas() +".RECINTOID id, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
 	    sql += pp.darTablaReservas() + " group by " + pp.darTablaReservas() +".semanareserva, " + pp.darTablaReservas() +".RECINTOID having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MIN(conteo) FROM (SELECT count(*) conteo FROM ";
@@ -251,7 +252,7 @@ class SQLReserva {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos del operador
 	 */
-	public List<Object> darOperadoresPorSemanaMasSolicitados (PersistenceManager pm)
+	public List<Operario> darOperadoresPorSemanaMasSolicitados (PersistenceManager pm)
 	{		
 		String sql = "SELECT resultado.semanas, resultado.id  FROM ( SELECT " +pp.darTablaReservas() +".SEMANARESERVA semanas, " + pp.darTablaRecintos() +".RECINTOID id, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
 	    sql += pp.darTablaReservas() + " inner join " + pp.darTablaRecintos() +" ON " + pp.darTablaRecintos() +".IDRECINTO = "+pp.darTablaReservas()+".RECINTOID  group by " + pp.darTablaReservas() +".semanareserva, " + pp.darTablaRecintos() +".IDRECINTO having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MAX(conteo) FROM (SELECT count(*) conteo FROM ";
@@ -268,7 +269,7 @@ class SQLReserva {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de arreglos de objetos, de tamaño 5. Los elementos del arreglo corresponden a los datos del operador
 	 */
-	public List<Object> darOperadoresPorSemanaMenosSolicitados (PersistenceManager pm)
+	public List<Operario> darOperadoresPorSemanaMenosSolicitados (PersistenceManager pm)
 	{		
 		String sql = "SELECT resultado.semanas, resultado.id  FROM ( SELECT " +pp.darTablaReservas() +".SEMANARESERVA semanas, " + pp.darTablaRecintos() +".RECINTOID id, count(" + pp.darTablaReservas() +".SEMANARESERVA) cont FROM ";
 	    sql += pp.darTablaReservas() + " inner join " + pp.darTablaRecintos() +" ON " + pp.darTablaRecintos() +".IDRECINTO = "+pp.darTablaReservas()+".RECINTOID  group by " + pp.darTablaReservas() +".semanareserva, " + pp.darTablaRecintos() +".IDRECINTO having COUNT(" + pp.darTablaReservas() +".SEMANARESERVA)=( SELECT MIN(conteo) FROM (SELECT count(*) conteo FROM ";

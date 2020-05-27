@@ -2851,7 +2851,41 @@ public class PersistenciaAlohandes
 	}
 
 
+	/* ****************************************************************
+	 * 			Métodos para manejar los RFC12 y RFC13
+	 *****************************************************************/
+	
+	/**
+	 * Método que consulta los operarios y el dinero que han recibido este año y el año corrido
+	 * @return La lista del id del operario junto con sus dos ganacias
+	 */
+	public List<Object []> darPorSemana ()
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Recinto> mejoresOfertas = sqlReserva.darMejoresOfertasPorSemanaPorOcupacion(pmf.getPersistenceManager());
+		List<Recinto> peoresOfertas = sqlReserva.darPeoresOfertasPorSemanaPorOcupacion(pmf.getPersistenceManager());
+		List<Operario> mejoresOperadores = sqlReserva.darOperadoresPorSemanaMasSolicitados(pmf.getPersistenceManager());
+		List<Operario> peoresOperadores = sqlReserva.darOperadoresPorSemanaMenosSolicitados(pmf.getPersistenceManager());
+        for (int i =0; i<52; i++ )
+        {
 
+			Object [] resp = new Object [4];
+			resp [0] = mejoresOfertas.get(i);
+			resp [1] = peoresOfertas.get(i);	
+			resp [2] = mejoresOperadores.get(i);
+			resp [3] = peoresOperadores.get(i);
+			
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+
+	public List<Persona> darBuenosClientes ()
+	{
+		return sqlPersona.darClientesBuenos(pmf.getPersistenceManager());
+	}
 	
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación RECINTOSPOROPERARIO
